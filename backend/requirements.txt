@@ -1,0 +1,6 @@
+black==24.8.0
+fastapi==0.115.12
+mypy==1.15.0
+ruff==0.11.9
+uvicorn==0.34.2
+pre-commit==3.8.0

@@ -1,0 +1,32 @@
+[tool.black]
+line-length = 120
+target-version = ['py313']  # тут пример под питон 3.11
+extend-exclude = '''
+    (venv,
+    alembic,
+    docker,
+    .git,
+    __pycache__)
+'''
+
+[tool.ruff]
+line-length = 88
+target-version = "py313"
+exclude = [".venv", "tests", "__pycache__"]
+select = [
+    "E",  # Ошибки PEP 8
+    "F",  # Ошибки Pyflakes (неиспользуемые переменные, импорты)
+    "W",  # Предупреждения PEP 8
+    "I",  # Проверка импортов
+    "N",  # Проверка именования (PEP 8)
+    "D",  # Проверка docstrings
+]
+fix = true
+ignore = ["D100", "D104"]
+
+[tool.mypy]
+python_version = "3.13"
+strict = true
+ignore_missing_imports = true
+disallow_untyped_defs = true
+exclude = ["tests/", ".venv/", "__pycache__/"]
