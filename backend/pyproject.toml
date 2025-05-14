@@ -1,3 +1,34 @@
+[project]
+name = "recipe-arts"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "LazyFoxx",email = "chernomor987654321@gmail.com"}
+]
+license = {text = "MIT"}
+readme = "README.md"
+requires-python = ">=3.13, <3.14"
+dependencies = [
+    "fastapi (>=0.115.12,<0.116.0)",
+    "uvicorn (>=0.34.2,<0.35.0)",
+    "sqlalchemy (>=2.0.41,<3.0.0)",
+    "pydantic (>=2.11.4,<3.0.0)"
+]
+
+[tool.poetry]
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.11.9"
+black = "^25.1.0"
+mypy = "^1.15.0"
+pytest = "^8.3.5"
+pre-commit = "^4.2.0"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+
 [tool.black]
 line-length = 120
 target-version = ['py313']  # тут пример под питон 3.11
