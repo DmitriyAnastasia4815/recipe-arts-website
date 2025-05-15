@@ -2,7 +2,7 @@ from dataclasses import dataclass
 
 
 @dataclass
-class Product:
+class Ingredient:
     """Represents a food ingredient entity in the domain layer.
 
     Attributes:

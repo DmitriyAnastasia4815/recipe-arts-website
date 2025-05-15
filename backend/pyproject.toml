@@ -30,7 +30,7 @@ build-backend = "poetry.core.masonry.api"
 
 
 [tool.black]
-line-length = 120
+line-length = 88
 target-version = ['py313']  # тут пример под питон 3.11
 extend-exclude = '''
     (venv,
