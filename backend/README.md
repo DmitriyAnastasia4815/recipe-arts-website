@@ -48,8 +48,10 @@
 
 *   **Запуск FastAPI приложения:**
 
-1. Перейдите в терминале в директорию на уровень main cd recipe-arts/backend/src
-
+1. Перейдите в терминале в директорию на уровень main
+    ```bash
+    cd recipe-arts/backend/src
+    ```
     запустите приложение командой
     ```bash
     poetry run uvicorn src.main:app --reload
