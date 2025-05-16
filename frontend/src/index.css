@@ -12,3 +12,37 @@ code {
     monospace;
 }
 
+* {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  color: black;
+
+}
+
+.container {
+    max-width: 1260px;
+    padding: 0 15px;
+    margin: 0 auto;
+    height: 100%;
+}
+
+.add-button {
+    width: 100%;
+    padding: 11px;
+    background-color: #BAE5BD;
+    color: black;
+    border: none;
+    border-radius: 9999px;
+    font-size: 18px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in;
+}
+
+.add-button:hover {
+    background-color: #6FC875;
+}
+
+::-webkit-scrollbar {
+  width: 0;
+}

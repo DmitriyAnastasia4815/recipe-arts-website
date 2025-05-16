@@ -1,6 +1,8 @@
+import AddIngredient from "../components/shared/recipe/change-components/AddIngredient";
+
 function Favourites(){
     return (
-        <main>Favourites</main>
+        <main>favourites</main>
     )
 }
 
