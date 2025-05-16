@@ -16,6 +16,12 @@ dependencies = [
 ]
 
 [tool.poetry]
+name = "recipe-arts" # Из вашего [project]
+version = "0.1.0"    # Из вашего [project]
+description = ""     # Из вашего [project]
+authors = ["LazyFoxx <chernomor987654321@gmail.com>"] # Из вашего [project]
+license = "MIT"      # Из вашего [project] (обычно указывается только имя лицензии)
+readme = "README.md" # Из вашего [project]
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.11.9"
