@@ -28,7 +28,7 @@ ruff = "^0.11.9"
 black = "^25.1.0"
 mypy = "^1.15.0"
 pytest = "^8.3.5"
-pre-commit = "^4.2.0"
+pre-commit = { version = "^4.2.0", python = ">=3.9" }
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
