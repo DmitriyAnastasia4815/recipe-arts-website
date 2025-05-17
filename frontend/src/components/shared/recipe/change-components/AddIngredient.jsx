@@ -4,46 +4,33 @@ import closeIcon from "../../../../image/icon/close-icon.svg";
 import AddNewIngredient from "./AddNewIngredient";
 
 function AddIngredient({ onClose }) {
-  const InitialIngredients = [
-    { id: 1, name: "Арбуз" },
-    { id: 2, name: "Базилик" },
-    { id: 2, name: "Базилик" },
-    { id: 2, name: "Базилик" },
-    { id: 2, name: "Базилик" },
-    { id: 2, name: "Базилик" },
-    { id: 2, name: "Базилик" },
-    { id: 2, name: "Базилик" },
-    { id: 2, name: "Базилик" },
-    { id: 2, name: "Базилик" },
-    { id: 2, name: "Базилик" },
-  ];
 
   const [isAddNew, setIsAddNew] = useState(false);
-  const [ingredients, setIngredients] = useState(InitialIngredients);
+  const [ingredients, setIngredients] = useState([]);
   const [isLoading, setIsLoading] = useState(false); //поменять потом на true
   const [error, setError] = useState(null);
 
-  // useEffect(() => {
-  //   const fetchIngredients = async () => {
-  //     try {
-  //       setIsLoading(true);
-  //       // Замените URL на адрес вашего API
-  //       const response = await fetch("http://your-api.com/ingredients");
-  //       if (!response.ok) {
-  //         throw new Error("Не удалось загрузить список ингредиентов");
-  //       }
-  //       const data = await response.json();
-  //       setIngredients(data);
-  //       setError(null);
-  //     } catch (err) {
-  //       setError(err.message);
-  //     } finally {
-  //       setIsLoading(false);
-  //     }
-  //   };
+  useEffect(() => {
+    const fetchIngredients = async () => {
+      try {
+        setIsLoading(true);
+        // Замените URL на адрес вашего API
+        const response = await fetch("http://127.0.0.1:8000/ingredients/");
+        if (!response.ok) {
+          throw new Error("Не удалось загрузить список ингредиентов");
+        }
+        const data = await response.json();
+        setIngredients(data);
+        setError(null);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-  //   fetchIngredients();
-  // }, []);
+    fetchIngredients();
+  }, []);
 
   const handleOpenAddNew = () => {
     setIsAddNew(true);
@@ -85,7 +72,7 @@ function AddIngredient({ onClose }) {
                   <li className="ingredient-item">Нет ингредиентов</li>
                 ) : (
                   ingredients.map((ingredient) => (
-                    <li className="ingredient-item" key={ingredient.id}>
+                    <li className="ingredient-item" key={'ingredient.id'}>
                       <label className="checkbox-container">
                         <input
                           type="checkbox"
