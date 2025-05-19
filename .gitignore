@@ -1,3 +1,4 @@
 backend/venv/
 backend/src/__pycache__/
 backend/src/infrastructure/api/routes/__pycache__
+backend/.env

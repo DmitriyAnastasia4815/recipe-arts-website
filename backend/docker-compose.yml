@@ -1,0 +1,22 @@
+# docker-compose.yml
+version: '3.8' # Версия синтаксиса Docker Compose
+
+services:
+  db: # Имя вашего сервиса базы данных
+    image: postgres:16-alpine # Используем официальный образ PostgreSQL, версия 16, легковесный alpine
+    container_name: postgres_db # Удобное имя для контейнера
+    environment: # Переменные окружения для настройки PostgreSQL
+      POSTGRES_USER: postgres # Имя пользователя базы данных
+      POSTGRES_PASSWORD: postgres # Пароль пользователя базы данных (ВНИМАНИЕ: для продакшена используйте секреты!)
+      POSTGRES_DB: postgres # Имя базы данных, которая будет создана автоматически
+    ports:
+      - "5432:5432" # Проброс порта: HOST:CONTAINER. 5432 - стандартный порт PostgreSQL.
+    volumes:
+      # Сохранение данных базы данных на хост-машине для персистентности
+      # Это гарантирует, что данные не потеряются при остановке/удалении контейнера
+      - db_data:/var/lib/postgresql/data
+    # restart: unless-stopped # Опционально: автоматический перезапуск контейнера
+
+volumes:
+  # Определение именованного тома для данных базы данных
+  db_data:
