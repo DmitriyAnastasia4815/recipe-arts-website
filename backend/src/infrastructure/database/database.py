@@ -41,3 +41,57 @@ class Base(AsyncAttrs, DeclarativeBase):
     @declared_attr.directive
     def __tablename__(cls) -> str:  # noqa: N805
         return cls.__name__.lower() + "s"
+
+
+def connection(method):
+    """Управляет жизненным циклом сессии базы данных для асинхронной функции.
+
+    Обеспечивает управление жизненным циклом асинхронной сессии SQLAlchemy:
+    создает сессию перед вызовом декорируемой функции, передает ее
+    как именованный аргумент 'session', коммитит сессию при успешном
+    выполнении, откатывает при возникновении исключения и закрывает сессию.
+
+    Декорируемая функция должна быть асинхронной и принимать именованный
+    аргумент 'session' типа AsyncSession.
+
+    Args:
+        method (Callable[..., Awaitable[Any]]):
+            Асинхронная функция, которую нужно декорировать.
+            Должна принимать аргумент 'session: AsyncSession'.
+
+    Returns:
+        Callable[..., Awaitable[Any]]: Обернутая асинхронная функция,
+            которая управляет сессией.
+
+    Raises:
+        Exception: Любое исключение, возникшее в декорируемой функции,
+                   будет перехвачено, сессия будет откатана, и исключение
+                   будет повторно возбуждено.
+
+    Example:
+        >>> from sqlalchemy.ext.asyncio import AsyncSession
+        >>> from database import async_session_maker # Ваш async_session_maker
+
+        >>> @connection
+        >>> async def get_user_by_id(user_id: int, session: AsyncSession):
+        >>>     # Используйте 'session' здесь для запросов к БД
+        >>>     user = await session.get(User, user_id)
+        >>>     return user
+
+        >>> # Вызов декорированной функции (сессия создается и управляется декоратором)
+        >>> user = await get_user_by_id(1)
+
+    """
+
+    async def wrapper(*args, **kwargs):
+        async with async_session_maker() as session:
+            try:
+                # Явно не открываем транзакции, так как они уже есть в контексте
+                return await method(*args, session=session, **kwargs)
+            except Exception as e:
+                await session.rollback()  # Откатываем сессию при ошибке
+                raise e  # Поднимаем исключение дальше
+            finally:
+                await session.close()  # Закрываем сессию
+
+    return wrapper
