@@ -1,11 +1,12 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from src.infrastructure.api.routes.ingredients import router as ingredients_router
+from src.infrastructure.api.v1.routes.ingredients import router as ingredients_router
+from src.infrastructure.api.v1.routes.users import router as users_router
 
 app = FastAPI()
 app.include_router(ingredients_router)
-print(1)
+app.include_router(users_router)
 
 origins = [
     "http://localhost:3000",

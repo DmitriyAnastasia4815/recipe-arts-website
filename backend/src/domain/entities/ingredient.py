@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from typing import Optional
 
 
 @dataclass
@@ -17,10 +18,10 @@ class Ingredient:
 
     """
 
-    id: int | None  # id может быть None до сохранения в бд
     name: str
     proteins: float  # Б (на 100г)
     fats: float  # Ж (на 100г)
     carbs: float  # У (на 100г)
     calories: float  # К (на 100г)
     user_id: int
+    id: Optional[int] = None  # None, пока не сохранено в БД

@@ -17,6 +17,6 @@ class Ingredient(Base):
     proteins: Mapped[float]
     fats: Mapped[float]
     carbs: Mapped[float]
-    user_id: Mapped[int | None] = mapped_column(ForeignKey("users.id"))
+    user_id: Mapped[int] = mapped_column(ForeignKey("users.id"), nullable=True)
 
     # recipe_ingredients = relationship("RecipeIngredient", back_populates="ingredient")
