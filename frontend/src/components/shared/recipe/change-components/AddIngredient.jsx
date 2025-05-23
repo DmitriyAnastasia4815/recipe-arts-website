@@ -2,19 +2,22 @@ import { useState, useEffect } from "react";
 import "./AddIngredient.css";
 import closeIcon from "../../../../image/icon/close-icon.svg";
 import AddNewIngredient from "./AddNewIngredient";
+import AmountOfIngredient from "./AmountOfIngredient";
 
 function AddIngredient({ onClose }) {
 
   const [isAddNew, setIsAddNew] = useState(false);
   const [ingredients, setIngredients] = useState([]);
-  const [isLoading, setIsLoading] = useState(false); //поменять потом на true
+  const [isLoading, setIsLoading] = useState(true); 
   const [error, setError] = useState(null);
+  
+  const [selectedIngredients, setSelectedIngredients] = useState({});
+  
 
   useEffect(() => {
     const fetchIngredients = async () => {
       try {
         setIsLoading(true);
-        // Замените URL на адрес вашего API
         const response = await fetch("http://127.0.0.1:8000/ingredients/");
         if (!response.ok) {
           throw new Error("Не удалось загрузить список ингредиентов");
@@ -30,7 +33,32 @@ function AddIngredient({ onClose }) {
     };
 
     fetchIngredients();
+
   }, []);
+
+  const handleCheckBoxChange = (selectedIngredient) => {
+    setSelectedIngredients((prevSelected) => {
+      const isSelected = prevSelected[selectedIngredient.name]?.selected || false;
+      if (isSelected) {
+        // Если ингредиент уже выбран, убираем его
+        const { [selectedIngredient.name]: _, ...rest } = prevSelected;
+        return rest;
+      } else {
+        // Если ингредиент не выбран, добавляем его с начальным количеством 0
+        return {
+          ...prevSelected,
+          [selectedIngredient.name]: { selected: true, amount: 0 },
+        };
+      }
+    });
+  };
+
+  const handleAmountChange = (name, amount) => {
+    setSelectedIngredients((prevSelected) => ({
+      ...prevSelected,
+      [name]: {...prevSelected[name], amount},
+    }))
+  }
 
   const handleOpenAddNew = () => {
     setIsAddNew(true);
@@ -48,7 +76,7 @@ function AddIngredient({ onClose }) {
         <div className="modal">
           <div className="modal-scroll">
             <div className="modal-header">
-              <h1>Добавление ингредиента</h1>
+              <h1 >Добавление ингредиента</h1>
               <button className="close-button" onClick={onClose}>
                 <img src={closeIcon} alt="Закрыть" />
               </button>
@@ -69,20 +97,29 @@ function AddIngredient({ onClose }) {
             ) : (
               <ul className="ingredients-list">
                 {ingredients.length === 0 ? (
-                  <li className="ingredient-item">Нет ингредиентов</li>
+                  <li key="empty" className="ingredient-item">Нет ингредиентов</li>
                 ) : (
                   ingredients.map((ingredient) => (
-                    <li className="ingredient-item" key={'ingredient.id'}>
+                    <li key={ingredient.name} className="ingredient-item">
                       <label className="checkbox-container">
                         <input
                           type="checkbox"
                           className="ingredient-checkbox"
+                          checked={selectedIngredients[ingredient.name] || false}
+                          onChange={() => handleCheckBoxChange(ingredient)}
                         />
                         <span className="custom-checkbox"></span>
                         <span className="ingredient-name">
                           {ingredient.name}
                         </span>
                       </label>
+                      {selectedIngredients[ingredient.name]?.selected && (
+                        <AmountOfIngredient
+                          ingreient = {ingredient}
+                          amount = {selectedIngredients[ingredient.name].amount}
+                          onAmountChange = {handleAmountChange}
+                          />
+                      )}
                     </li>
                   ))
                 )}
