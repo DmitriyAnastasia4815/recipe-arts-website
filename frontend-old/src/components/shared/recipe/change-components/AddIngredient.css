@@ -1,0 +1,132 @@
+.modal {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    background-color: white;
+    border-radius: 22px;
+    border: 1px solid #b9b9b9;
+    padding: 32px;
+    max-width: 782px;
+    height: 477px;
+}
+
+.modal-scroll{
+    overflow-y: auto;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+}
+
+.modal-header h1 {
+    font-size: 24px;
+    font-weight: 500;
+    flex-grow: 1;
+    text-align: center;
+}
+
+.close-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+}
+
+.search-container {
+    margin-bottom: 32px;
+}
+
+.search-input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #b9b9b9;
+    border-radius: 9999px;
+    font-size: 16px;
+    text-align: center;
+}
+
+.ingredients-list {
+    margin-bottom: 32px;
+}
+
+.ingredient-item {
+    margin-bottom: 24px;
+}
+
+.ingredient-item:last-child {
+    margin-bottom: 0;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.ingredient-checkbox {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.custom-checkbox {
+    height: 24px;
+    width: 24px;
+    background-color: #d2fbd5;
+    border: 1px solid #bae5bd;
+    border-radius: 4px;
+    margin-right: 16px;
+    position: relative;
+}
+
+.ingredient-checkbox:checked ~ .custom-checkbox:after {
+    content: "";
+    position: absolute;
+    display: block;
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid #6fc875;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.ingredient-name {
+    font-size: 18px;
+}
+
+.button-add{
+    position: absolute;
+    bottom: 22px;
+    left: 32px; 
+    right: 32px; 
+    width: calc(100% - 64px); 
+    z-index: 10; 
+
+}
+
+@media (max-width: 480px) {
+    .modal {
+        padding: 24px;
+    }
+    
+    .modal-header h1 {
+        font-size: 20px;
+    }
+    
+    .ingredient-name {
+        font-size: 16px;
+    }
+
+    .button-add {
+        left: 24px;
+        right: 24px;
+        width: calc(100% - 48px);
+    }
+}
