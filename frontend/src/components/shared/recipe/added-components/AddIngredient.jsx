@@ -19,6 +19,7 @@ function AddIngredient({ onClose }) {
       try {
         setIsLoading(true);
         const response = await fetch("http://127.0.0.1:8000/ingredients/");
+        console.log(response)
         if (!response.ok) {
           throw new Error("Не удалось загрузить список ингредиентов");
         }
