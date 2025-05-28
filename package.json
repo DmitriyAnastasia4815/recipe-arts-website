@@ -1,0 +1,7 @@
+{
+  "devDependencies": {
+    "eslint-import-resolver-typescript": "^4.4.1",
+    "eslint-import-resolver-vite": "^2.1.0",
+    "eslint-plugin-import": "^2.31.0"
+  }
+}
