@@ -1,0 +1,55 @@
+.header {
+    background-color: #fff;
+    padding: 10px 0;
+
+    &__container { // Компилируется в .header__container
+        max-width: 1260px;
+        padding: 0 15px;
+        margin: 0 auto;
+        height: 100%;
+    }
+
+    &__nav { // Компилируется в .header__nav
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    &__logo { // Компилируется в .header__logo
+         display: flex;
+         align-items: center;
+         margin-right: 24px;
+    }
+
+    &__nav-list { // Компилируется в .header__nav-list
+        display: flex;
+        align-items: center;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    &__nav-item { // Компилируется в .header__nav-item
+        margin-right: 32px;
+
+        &:last-child { // Компилируется в .header__nav-item:last-child
+            margin-right: 0;
+        }
+    }
+
+    &__nav-link { // Компилируется в .header__nav-link
+        text-decoration: none;
+        color: inherit;
+
+        img { // Компилируется в .header__nav-link img
+            vertical-align: middle;
+        }
+    }
+
+    &__hr { // Компилируется в .header__hr
+        height: 1px;
+        background-color: #333;
+        margin: 10px 0;
+        width: 100vw;
+    }
+}

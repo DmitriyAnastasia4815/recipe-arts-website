@@ -1,8 +1,10 @@
-import './ProfilePage.css'
+// import './ProfilePage.css'
 
 
-import emptyRecipeImg from "../../image/empty-profile-images/empty-recipe-img.svg"
-import emptyProfileImg from '../../image/empty-profile-images/empty-user-icon.svg'
+// import emptyRecipeImg from "../../image/empty-profile-images/empty-recipe-img.svg"
+// import emptyProfileImg from '../../image/empty-profile-images/empty-user-icon.svg'
+import emptyRecipeImg from "src/image/empty-profile-images/empty-recipe-img.svg"
+import emptyProfileImg from "src/image/empty-profile-images/empty-user-icon.svg"
 
 function ProfilePage(){
     return (

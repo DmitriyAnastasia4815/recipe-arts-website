@@ -1,6 +1,6 @@
 import { useState } from "react";
-import AddIngredient from "../components/shared/recipe/change-components/AddIngredient";
-import AmountOfIngredient from "../components/shared/recipe/change-components/AmountOfIngredient";
+// import AddIngredient from "../components/shared/recipe/change-components/AddIngredient";
+// import AmountOfIngredient from "../components/shared/recipe/added-components/amount-of-ingredient/AmountOfIngredient";
 
 function RecipePage() {
   const [isOpenAddIngredient, setIsOpenAddIngredient] = useState(false);
@@ -15,7 +15,7 @@ function RecipePage() {
   return (
     <div>
       <button onClick={handleOpenAddIngredient}>Открыть попап</button>
-      {isOpenAddIngredient && <AddIngredient onClose={handleCloseAddIngredient} />}
+      {/* {isOpenAddIngredient && <AddIngredient onClose={handleCloseAddIngredient} />} */}
     </div>
 
     

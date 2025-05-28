@@ -1,5 +1,6 @@
-import logo from "../../image/logo-footer.svg";
-import './Footer.css'
+// import logo from "../../image/logo-footer.svg";
+// import './Footer.css'
+import logo from "src/image/logo.svg"
 
 const Footer = () => {
   return (
