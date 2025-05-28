@@ -1,5 +1,3 @@
-
-
 function Favourites(){
     return (
         <main>favourites</main>

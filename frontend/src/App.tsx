@@ -3,7 +3,7 @@ import Favourites from "src/pages/Favourites"
 import ProfilePage from "src/pages/ProfilePage/ProfilePage"
 
 
-import MainLayout from "src/layouts/MainLayout"
+import MainLayout from "src/router/MainLayout"
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "src/styles/app.scss"
 

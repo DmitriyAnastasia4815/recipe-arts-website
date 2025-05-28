@@ -1,8 +1,8 @@
 // src/components/Header.tsx
 import { Link, NavLink } from 'react-router-dom'; // Импортируем Link и NavLink
-import 'src/components/Header.scss';
-import image from 'src/image/icon-user.svg';
-import logo from 'src/image/logo.svg';
+import '../Header/Header.scss';
+import image from 'src/assets/image/icon-user.svg';
+import logo from 'src/assets/image/logo.svg';
 
 const Header = () => {
   return (
