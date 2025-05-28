@@ -1,7 +1,7 @@
 import './ProfilePage.scss'
 
-import emptyRecipeImg from "src/assets/image/empty-profile-images/empty-recipe-img.svg"
-import emptyProfileImg from "src/assets/image/empty-profile-images/empty-user-icon.svg"
+import emptyRecipeImg from "@/assets/image/empty-profile-images/empty-recipe-img.svg"
+import emptyProfileImg from "@/assets/image/empty-profile-images/empty-user-icon.svg"
 
 function ProfilePage(){
     return (

@@ -1,4 +1,3 @@
-// eslint.config.js
 import globals from "globals";
 import pluginJs from "@eslint/js";
 import pluginReact from "eslint-plugin-react";
@@ -6,6 +5,7 @@ import pluginReactHooks from "eslint-plugin-react-hooks";
 import tseslint from "typescript-eslint";
 import pluginPrettier from "eslint-plugin-prettier";
 import configPrettier from "eslint-config-prettier";
+// import pluginImport from 'eslint-plugin-import'; // Возможно, уже включен через extends
 
 export default [
   { // Базовая конфигурация для всех файлов
@@ -20,6 +20,15 @@ export default [
       react: {
         version: 'detect', // Автоматически определяет версию React
       },
+      // === ДОБАВЬТЕ ЭТУ СЕКЦИЮ ===
+      'import/resolver': {
+        // Используем резолвер typescript
+        typescript: {
+          // Указываем путь к вашему tsconfig.json
+          project: './tsconfig.json'
+        }
+      }
+      // =========================
     },
     languageOptions: {
       parser: tseslint.parser, // Указываем парсер TypeScript
@@ -29,7 +38,7 @@ export default [
         },
         ecmaVersion: 'latest',
         sourceType: 'module',
-        project: './tsconfig.json', // Может потребоваться для некоторых правил TS
+        project: './tsconfig.json', // Важно для резолвера TS
       },
       globals: {
         ...globals.browser, // Добавляем глобальные переменные браузера
@@ -40,6 +49,7 @@ export default [
       react: pluginReact,
       'react-hooks': pluginReactHooks,
       prettier: pluginPrettier, // Подключаем плагин Prettier
+      // import: pluginImport,
     },
     rules: {
       // Рекомендованные правила React и React Hooks

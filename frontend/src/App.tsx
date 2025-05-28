@@ -1,11 +1,11 @@
-import Home from "src/pages/Home"
-import Favourites from "src/pages/Favourites"
-import ProfilePage from "src/pages/ProfilePage/ProfilePage"
+import Home from "@/pages/Home"
+import Favourites from "@/pages/Favourites"
+import ProfilePage from "@/pages/ProfilePage/ProfilePage"
 
 
-import MainLayout from "src/router/MainLayout"
+import MainLayout from "@/router/MainLayout"
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import "src/styles/app.scss"
+import "@/styles/app.scss"
 
 function App() {
   return (     

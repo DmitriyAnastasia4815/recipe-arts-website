@@ -21,8 +21,19 @@
     // вам нужно настроить baseUrl и paths.
     "baseUrl": ".",           /* Базовая директория для абсолютных путей. */
     "paths": {
-      "src/": ["src/*"],
-      "src/pages": ["src/pages/*"]
+      "@/": ["./src/*"],
+      "@pages": ["./src/pages/*"],
+      "@image": ["./src/assets/image/*"],
+      "@components-common": ["./src/components/common"],
+      "@components-layout": ["./src/components/layout"],
+      "@components-ui": ["./src/components/ui"],
+      "@features": ["./src/features"],
+      "@hooks": ["./src/hooks"],
+      "@router": ["./src/router"],
+      "@store": ["./src/store"],
+      "@styles": ["./src/styles"],
+      "@types": ["./src/types"]
+
     }
   },
   "include": ["src"],             /* Директории и файлы для включения в компиляцию. */
