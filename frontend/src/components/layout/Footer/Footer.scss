@@ -1,0 +1,30 @@
+.footer {
+    &__content {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        gap: 32px;
+    }
+
+    &__hr {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        &-item {
+            height: 1px; 
+            background-color: #333; 
+            margin: 10px 0; 
+
+             width: 100vw;
+        }
+    }
+
+    &-logo {
+        margin: 0 32px;
+    }
+
+
+}
+
+

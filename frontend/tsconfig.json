@@ -1,0 +1,41 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",           /* Указывает целевую версию ECMAScript. Vite обрабатывает это. */
+    "useDefineForClassFields": true, /* Рекомендуется для совместимости. */
+    "lib": ["DOM", "DOM.Iterable", "ESNext"], /* Библиотеки, доступные в глобальной области видимости. */
+    "allowJs": false,             /* Разрешить компиляцию JavaScript файлов. Установите в false после миграции. */
+    "skipLibCheck": true,         /* Пропускать проверку типов в файлах библиотек. Ускоряет сборку. */
+    "esModuleInterop": true,      /* Обеспечивает совместимость импортов CommonJS и ES модулей. */
+    "allowSyntheticDefaultImports": true, /* Разрешает default импорты из модулей без default экспорта. */
+    "strict": true,               /* Включить все строгие проверки типов. Очень рекомендуется! */
+    "forceConsistentCasingInFileNames": true, /* Гарантирует, что регистр имен файлов совпадает. */
+    "module": "ESNext",           /* Указывает систему модулей. Vite использует ES модули. */
+    "moduleResolution": "Node",   /* Как TypeScript находит модули. */
+    "resolveJsonModule": true,    /* Разрешает импорт JSON файлов. */
+    "isolatedModules": true,      /* Требует, чтобы каждый файл был модулем. Vite/esbuild этого требуют. */
+    "noEmit": true,               /* Не генерировать выходные файлы (JS). Vite занимается транспиляцией. */
+    "jsx": "react-jsx",           /* Как обрабатывать JSX. Используйте "react-jsx" для React 17+. */
+
+    /* Пути */
+    // Если вы использовали абсолютные импорты от корня src, как в вашем примере ошибки ("src/..."),
+    // вам нужно настроить baseUrl и paths.
+    "baseUrl": ".",           /* Базовая директория для абсолютных путей. */
+    "paths": {
+      "@/": ["./src/*"],
+      "@pages": ["./src/pages/*"],
+      "@image": ["./src/assets/image/*"],
+      "@icon": ["./src/assets/icon/*"],
+      "@components-common": ["./src/components/common"],
+      "@components-layout": ["./src/components/layout"],
+      "@components-ui": ["./src/components/ui"],
+      "@features": ["./src/features"],
+      "@hooks": ["./src/hooks"],
+      "@router": ["./src/router"],
+      "@store": ["./src/store"],
+      "@styles": ["./src/styles"],
+      "@types": ["./src/types"]
+    }
+  },
+  "include": ["src"],             /* Директории и файлы для включения в компиляцию. */
+  "exclude": ["node_modules", "dist"] /* Директории и файлы для исключения. */
+}
