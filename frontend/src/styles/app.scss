@@ -1,6 +1,23 @@
+@import '@styles/mixins';
+@import '@styles/variable';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  @include paragrapgh;
+  font-family: 'Montserrat', sans-serif;
+  color: $color-black;
+  background-color: #ffffff;
+  min-height: 100vh;
+}
+
 .container {
-    max-width: 1260px;
-    padding: 0 15px;
-    margin: 0 auto;
-    height: 100%;
+  max-width: 1260px;
+  padding: 0 15px;
+  margin: 0 auto;
+  height: 100%;
 }

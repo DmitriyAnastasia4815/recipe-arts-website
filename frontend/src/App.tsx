@@ -1,6 +1,6 @@
-import Home from '@pages/Home/Home';
-import Favourites from '@pages/Favourites/Favourites';
-import ProfilePage from '@pages/ProfilePage/ProfilePage';
+import Home from '@/pages/Home/Home';
+import Favourites from '@/pages/Favourites';
+import ProfilePageEmpty from '@/pages/ProfilePage';
 
 import MainLayout from '@router/MainLayout';
 
@@ -20,7 +20,7 @@ function App() {
           <Route path="favourites" element={<Favourites />} />
 
           {/* Маршрут для страницы Профиля */}
-          <Route path="profilepage" element={<ProfilePage />} />
+          <Route path="profilepage" element={<ProfilePageEmpty />} />
 
           {/* <Route path="*" element={<NotFoundPage />} /> */}
         </Route>

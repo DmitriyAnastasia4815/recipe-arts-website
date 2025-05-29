@@ -1,0 +1,35 @@
+@mixin h1 {
+    font-size: 64px;
+    font-weight: 500;
+    line-height: 110%;
+}
+
+@mixin h3 {
+    font-size: 40px;
+    font-weight: 500;
+    line-height: 110%;
+}
+
+@mixin h4 {
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 110%;
+}
+
+@mixin h5 {
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 120%;
+}
+
+@mixin h6 {
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 120%;
+}
+
+@mixin paragrapgh {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 150%;
+}

@@ -1,10 +1,9 @@
-import './ProfilePage.css'
+import './ProfilePageEmpty.scss'
 
+import emptyRecipeImg from "@image/empty-profile-images/empty-recipe-img.svg"
+import emptyProfileImg from '@image/empty-profile-images/empty-user-icon.svg'
 
-import emptyRecipeImg from "../../image/empty-profile-images/empty-recipe-img.svg"
-import emptyProfileImg from '../../image/empty-profile-images/empty-user-icon.svg'
-
-function ProfilePage(){
+function ProfilePageEmpty(){
     return (
       <main className="main-content">
         <div className="container">
@@ -51,4 +50,4 @@ function ProfilePage(){
     )
 }
 
-export default ProfilePage
+export default ProfilePageEmpty
