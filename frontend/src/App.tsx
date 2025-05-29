@@ -1,37 +1,32 @@
-import Home from "@/pages/Home"
-import Favourites from "@/pages/Favourites"
-import ProfilePage from "@/pages/ProfilePage/ProfilePage"
+import Home from '@pages/Home/Home';
+import Favourites from '@pages/Favourites/Favourites';
+import ProfilePage from '@pages/ProfilePage/ProfilePage';
 
+import MainLayout from '@router/MainLayout';
 
-import MainLayout from "@/router/MainLayout"
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import "@/styles/app.scss"
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import '@/styles/app.scss';
 
 function App() {
-  return (     
+  return (
     <BrowserRouter>
-        <Routes> {/* Контейнер для всех маршрутов */}
+      <Routes>
+        {' '}
+        {/* Контейнер для всех маршрутов */}
+        <Route path="/" element={<MainLayout />}>
+          <Route index element={<Home />} />
 
+          {/* Маршрут для страницы Избранное */}
+          <Route path="favourites" element={<Favourites />} />
 
-          <Route path="/" element={<MainLayout />}>
+          {/* Маршрут для страницы Профиля */}
+          <Route path="profilepage" element={<ProfilePage />} />
 
-            <Route index element={<Home />} />
-
-            {/* Маршрут для страницы Избранное */}
-            <Route path="favourites" element={<Favourites />} /> 
-
-            {/* Маршрут для страницы Профиля */}
-            <Route path="profilepage" element={<ProfilePage />} /> 
-
-            {/* <Route path="*" element={<NotFoundPage />} /> */}
-
-          </Route>
-
-        </Routes>
+          {/* <Route path="*" element={<NotFoundPage />} /> */}
+        </Route>
+      </Routes>
     </BrowserRouter>
-
   );
 }
 
 export default App;
-

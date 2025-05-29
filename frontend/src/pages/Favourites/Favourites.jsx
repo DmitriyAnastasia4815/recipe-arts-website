@@ -1,4 +1,4 @@
-import AddIngredient from "../components/shared/recipe/change-components/AddIngredient";
+import AddIngredient from "../../components/shared/recipe/change-components/AddIngredient";
 
 function Favourites(){
     return (
