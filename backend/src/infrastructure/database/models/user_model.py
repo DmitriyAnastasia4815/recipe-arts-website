@@ -1,4 +1,4 @@
-from sqlalchemy.orm import Mapped
+from sqlalchemy.orm import Mapped, mapped_column
 
 from src.infrastructure.database.database import Base, uniq_str_an
 
@@ -13,8 +13,4 @@ class User(Base):
     username: Mapped[uniq_str_an]
     email: Mapped[uniq_str_an]
     password_hash: Mapped[uniq_str_an]
-    bio: Mapped[str | None]
-    profile_picture: Mapped[str | None]
-    full_name: Mapped[str | None]
-    is_admin: Mapped[bool]
-    age: Mapped[int | None]
+    is_admin: Mapped[bool] = mapped_column(default=False)
