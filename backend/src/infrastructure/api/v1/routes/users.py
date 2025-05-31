@@ -54,7 +54,7 @@ def get_user_service(
 
 
 router = APIRouter(
-    prefix="/users",
+    prefix="/v1/users",
     tags=["users"],
 )
 

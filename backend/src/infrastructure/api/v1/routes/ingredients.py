@@ -29,10 +29,6 @@ from src.infrastructure.database.repositories.ingredient_repository_impl import 
 )
 
 
-# Функция-зависимость для предоставления сервиса ингредиентов
-# Здесь происходит "связывание" (wiring): FastAPI предоставляет сессию БД,
-# мы используем ее для создания конкретной реализации репозитория,
-# и эту реализацию передаем в сервис.
 def get_ingredient_service(
     db_session: AsyncSession = Depends(get_async_db),  # Получаем асинхронную сессию
 ) -> IngredientService:
@@ -56,7 +52,7 @@ def get_ingredient_service(
 
 
 router = APIRouter(
-    prefix="/ingredients",
+    prefix="/v1/ingredients",
     tags=["ingredients"],
 )
 
