@@ -1,6 +1,7 @@
 import Home from '@/pages/Home/Home';
 import Favourites from '@/pages/Favourites';
-import ProfilePageEmpty from '@/pages/ProfilePage';
+// import ProfilePageEmpty from '@/pages/ProfilePageEmpty'; //не закбудь раскомментирвоать это не нужно удалять
+import Auth from './pages/Auth/Auth';
 
 import MainLayout from '@router/MainLayout';
 
@@ -19,8 +20,10 @@ function App() {
           {/* Маршрут для страницы Избранное */}
           <Route path="favourites" element={<Favourites />} />
 
-          {/* Маршрут для страницы Профиля */}
-          <Route path="profilepage" element={<ProfilePageEmpty />} />
+          {/* Маршрут для страницы Профиля это не нужно удалять это нужно раскомментировать*/}
+          {/* <Route path="profilepage" element={<ProfilePageEmpty />} /> */}
+
+          <Route path="profilepage" element={<Auth/>} />
 
           {/* <Route path="*" element={<NotFoundPage />} /> */}
         </Route>
