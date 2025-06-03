@@ -5,6 +5,9 @@ import emptyRecipeImg from '@image/empty-profile-images/empty-recipe-img.svg';
 import emptyProfileImg from '@image/empty-profile-images/empty-user-icon.svg';
 import iconEditSmall from '@image/icon/icon-editing-small.svg';
 
+import AddedButton from '@/components/common/AddedButton/AddedButton';
+import InputField from '@/components/common/InputField/InputField';
+
 function ProfilePageEmpty() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const userName = 'Кочерова Анастасия';
@@ -26,11 +29,7 @@ function ProfilePageEmpty() {
         <div className={styles['main-section']}>
           <h1 className={styles['main-section__page-title']}>Книга рецептов</h1>
           <div className={styles['main-section__search-container']}>
-                <input
-                  type="text"
-                  placeholder="поиск по названию"
-                  className={styles['search-container__search-input']}
-                />
+                {<InputField title={"поиск по названию"}/>}
                 <button className={styles['search-container__search-button']}>
                   поиск по категориям
                 </button>
@@ -60,11 +59,7 @@ function ProfilePageEmpty() {
                   <img src={iconEditSmall} alt="edit-icon" />
                 </button>
               </div>
-              <button
-                className={`${styles['profile-section__added-button']} ${styles['added-button']}`}
-              >
-                Добавить рецепт
-              </button>
+              {<AddedButton title='Добавить ингредиент'/>}
             </div>
           </div>
         </div>
