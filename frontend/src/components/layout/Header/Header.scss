@@ -1,55 +1,111 @@
 .header {
-    background-color: #fff;
-    padding: 10px 0;
+  background-color: #fff;
+  padding: 10px 0;
+  position: relative;
 
-    &__container { // Компилируется в .header__container
-        max-width: 1260px;
-        padding: 0 15px;
-        margin: 0 auto;
-        height: 100%;
+  &__container {
+    max-width: 1260px;
+    padding: 0 15px;
+    margin: 0 auto;
+    height: 100%;
+  }
+
+  &__nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__logo {
+    display: flex;
+    align-items: center;
+    margin-right: 24px;
+
+  }
+
+  &__nav-list {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between ;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  &--open {
+    display: block; 
+  }
+
+  &__nav-item {
+    margin-right: 32px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  &__nav-link {
+    // Компилируется в .header__nav-link
+    text-decoration: none;
+    color: inherit;
+
+    img {
+      // Компилируется в .header__nav-link img
+      vertical-align: middle;
+    }
+    // @media (max-width: 450px) {
+    //   display: none;
+    // }
+  }
+
+  &__hr {
+    // Компилируется в .header__hr
+    height: 1px;
+    background-color: #333;
+    margin: 10px 0;
+    width: 100vw;
+  }
+
+  &__burger {
+    display: none; // Скрыть бургер-меню по умолчанию
+    position: absolute;
+    top: 20px;
+    right: 15px;
+    background: none;
+    border: none;
+    cursor: pointer;
+
+    img{
+        width: 50px;;
     }
 
-    &__nav { // Компилируется в .header__nav
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
+  }
 
-    &__logo { // Компилируется в .header__logo
-         display: flex;
-         align-items: center;
-         margin-right: 24px;
-    }
+  // @media (max-width: 450px) {
+  //   .header__nav-list {
+  //     position: absolute;
+  //     top: 50px;
+  //     right: 15px;
+  //     background-color: #fff;
+  //     padding: 20px;
+  //     border-radius: 5px;
+  //     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  //   }
 
-    &__nav-list { // Компилируется в .header__nav-list
-        display: flex;
-        align-items: center;
-        list-style: none;
-        margin: 0;
-        padding: 0;
-    }
+  //   .header__burger {
+  //     display: block; // Показать бургер-меню на мобильных устройствах
+      
+  //   }
 
-    &__nav-item { // Компилируется в .header__nav-item
-        margin-right: 32px;
+  //   .header__nav-list--open {
+  //     display: block; // Показываем меню, когда оно открыто
+  //   }
 
-        &:last-child { // Компилируется в .header__nav-item:last-child
-            margin-right: 0;
-        }
-    }
+  //   .header__nav-item {
+  //     margin-right: 0;
+  //     margin-bottom: 15px; // Отступы между элементами меню
+  //   }
 
-    &__nav-link { // Компилируется в .header__nav-link
-        text-decoration: none;
-        color: inherit;
 
-        img { // Компилируется в .header__nav-link img
-            vertical-align: middle;
-        }
-    }
-
-    &__hr { // Компилируется в .header__hr
-        height: 1px;
-        background-color: #333;
-        margin: 10px 0;
-        width: 100vw;
-    }
+  // }
 }

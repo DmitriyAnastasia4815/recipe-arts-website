@@ -1,0 +1,228 @@
+@import '@styles/all'; // Подключение глобальных стилей
+
+// Обертка контента для двух секций (Flexbox для горизонтального расположения)
+.content-wrapper {
+  display: flex;
+  flex-direction: row;
+  @media (max-width: 860px) {
+    flex-direction: column-reverse;
+  }
+}
+
+// Основная секция контента
+.main-section {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 50%;
+  margin-bottom: 32px;
+  flex-grow: 1;
+  @media (max-width: 860px) {
+    width: 100%;
+  }
+
+  &__page-title {
+    font-size: 24px;
+    font-weight: normal;
+    margin-bottom: 16px;
+    @media (max-width: 450px) {
+      font-size: 20px;
+    }
+  }
+
+  &__search-container {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    margin-bottom: 90px;
+    @media (max-width: 450px) {
+      margin-bottom: 32px;
+    }
+    @media (max-width: 450px) {
+      flex-direction: column-reverse;
+    }
+  }
+
+  &__empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    margin-bottom: 90px;
+
+    img {
+      @media (max-width: 450px) {
+        width: 200px;
+      }
+    }
+  }
+
+  &__search-title {
+    display: none;
+    margin-bottom: 12px;
+    @media (max-width: 450px) {
+      display: block;;
+    }
+  }
+}
+
+.search-container__search-input {
+  width: 100%;
+  padding: 11px 16px;
+  border: 1px solid $color-light-grey;
+  border-radius: 40px;
+  font-size: 14px;
+  outline: none;
+  text-align: center;
+
+  &:focus {
+    border-color: $color-light-grey;
+  }
+}
+
+.search-container__search-button {
+  width: 100%;
+  padding: 11px 16px;
+  border: 1px solid $color-accent;
+  border-radius: 40px;
+  font-size: 14px;
+  outline: none;
+  text-align: center;
+  background-color: $color-accent-light;
+  transition:
+    background-color 0.5s ease,
+    color 0.5s linear,
+    opacity 0.2s ease-in-out;
+  &:hover {
+    background-color: $color-accent;
+  }
+}
+
+.empty-message {
+  display: block;
+  text-align: center;
+  font-size: 14px;
+  max-width: 400px;
+}
+
+.between__hr {
+  width: 1px;
+  height: 519px;
+  background-color: $color-light-grey;
+  margin: 0px 34px 0px 40px;
+  flex-shrink: 0;
+  align-self: center;
+  @media (max-width: 860px) {
+    display: none;
+  }
+}
+
+// Боковая панель
+.sidebar {
+  max-width: 50%;
+  flex-grow: 1;
+  @media (max-width: 860px) {
+    max-width: 100%;
+  }
+}
+
+// Секция профиля в боковой панели
+.profile-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  @media (max-width: 860px) {
+    flex-direction: row;
+    margin-bottom: 32px;
+    gap: 32px;
+    align-items: start;
+  }
+  @media (max-width: 450px) {
+    gap: 12px;
+  }
+
+  &__added-settings {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    @media (max-width: 860px) {
+      margin-top: 32px;
+      align-items: flex-start;
+    }
+  }
+  &__profile-avatar {
+    background-color: #b9b9b9;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    img {
+      @media (max-width: 860px) {
+        width: 180px;
+      }
+      @media (max-width: 450px) {
+        width: 130px;
+      }
+    }
+  }
+
+  &__profile-name {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 16px;
+    max-width: 100%;
+    @media (max-width: 450px) {
+      width: 200px;
+    }
+  }
+
+  &__added-button {
+    height: 40px;
+    border-radius: 40px;
+    background-color: $color-accent-light;
+    padding: 11px 50px 11px 50px;
+    max-width: 252px;
+    align-items: center;
+    transition:
+      background-color 0.5s ease,
+      color 0.5s linear,
+      opacity 0.2s ease-in-out;
+    &:hover {
+      background-color: $color-accent;
+    }
+    @media (max-width: 480px) {
+      padding: 11px 20px;
+    }
+    @media (max-width: 450px) {
+    }
+  }
+}
+
+// Кнопка редактирования профиля
+.edit-button {
+  width: 20px;
+  height: auto;
+  background: none;
+  border: none; // Исправлено с 'а' на 'none'
+  color: #585858;
+  cursor: pointer;
+  padding: 0; // Убрать стандартный padding кнопки
+
+  // Иконка редактирования
+  svg {
+    display: block;
+    width: 16px;
+    height: 16px;
+    stroke: currentColor;
+  }
+
+  img {
+    width: 20px;
+    height: auto;
+  }
+}
