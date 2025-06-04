@@ -28,7 +28,7 @@
       "@/*": ["./src/*"],
       "@pages/*": ["./src/pages/*"],
       "@image/*": ["./src/assets/image/*"],
-      "@icon/*": ["./src/assets/icon/*"],
+      "@icon/*": ["./src/assets/image/icon/*"],
       "@components-common/*": ["./src/components/common/*"],
       "@components-layout/*": ["./src/components/layout/*"],
       "@components-ui/*": ["./src/components/ui/*"],

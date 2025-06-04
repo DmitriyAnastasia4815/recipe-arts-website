@@ -1,0 +1,91 @@
+@import '@styles/all.scss';
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;
+  max-width: 640px;
+  padding: 32px 60px;
+  border-radius: 40px;
+  &__password-alive{
+    background: none;
+    margin-bottom: 16px;
+  }
+
+}
+
+.login {
+  &__login-welcome {
+    @include h5;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+  &__login-icon {
+    margin: 0 auto;
+  }
+
+  &__login-form{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  &__button{
+    width: 100%;
+    font-size: 16px;
+    height: 40px;
+    border-radius: 40px;
+    background-color: $color-accent-light;
+    padding: 11px 30px;
+    align-items: center;
+    transition:
+      background-color 0.5s ease,
+      color 0.5s linear,
+      opacity 0.2s ease-in-out;
+    &:hover {
+      background-color: $color-accent;
+    }
+    @media (max-width: 480px) {
+      padding: 11px 20px;
+    }
+    @media (max-width: 450px) {
+    }
+
+  }
+}
+
+.login__input-field {
+  max-width: 500px; /* Заставляем input растягиваться на всю доступную ширину */
+  font-size: 16px;
+  height: 35px;
+  border-radius: 40px;
+  border: 1px solid $color-light-grey;
+  padding: 11px 30px;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  transition:
+    background-color 0.5s ease,
+    color 0.5s linear,
+    opacity 0.2s ease-in-out;
+
+  &::placeholder {
+    text-align: center;
+  }
+
+
+  /* Мобильная адаптация */
+  @media (max-width: 480px) {
+    padding: 11px 20px;
+  }
+  @media (max-width: 480px) {
+    padding: 11px 20px;
+  }
+}

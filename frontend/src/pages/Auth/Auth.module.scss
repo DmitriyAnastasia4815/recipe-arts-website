@@ -1,0 +1,47 @@
+@import '@styles/all.scss';
+
+.Auth {
+  width: 100%;
+  min-height: 700px;
+  background: url('src/assets/background/bg-login.svg') 100% center ;
+  padding-top: 60px;
+}
+
+.auth-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 640px;
+  margin: 0 auto;
+  gap: 32px;
+
+  &__register-line {
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+  }
+  &__register-title {
+    max-width: 100%;
+    flex-wrap: nowrap;
+    margin-right: 60px;
+  }
+
+  &__register-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 330px;;
+    height: 35px;
+    padding: 11px 16px;
+    border: 1px solid $color-black;
+    border-radius: 40px;
+    font-size: 16px;
+    outline: none;
+    text-align: center;
+    background-color: transparent;
+    transition: all .3s ease-in-out;
+    &:hover{
+        transform: scale(1.05);
+    }
+  }
+}

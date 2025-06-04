@@ -2,6 +2,7 @@ import Home from '@/pages/Home/Home';
 import Favourites from '@/pages/Favourites';
 // import ProfilePageEmpty from '@/pages/ProfilePageEmpty'; //не закбудь раскомментирвоать это не нужно удалять
 import Auth from './pages/Auth/Auth';
+import Register from './pages/Register';
 
 import MainLayout from '@router/MainLayout';
 
@@ -24,6 +25,7 @@ function App() {
           {/* <Route path="profilepage" element={<ProfilePageEmpty />} /> */}
 
           <Route path="profilepage" element={<Auth/>} />
+          <Route path="register" element={<Register/>} />
 
           {/* <Route path="*" element={<NotFoundPage />} /> */}
         </Route>
