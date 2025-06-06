@@ -10,8 +10,8 @@ function Auth() {
     navigate('/register');
   };
   return (
-    <div className={styles['Auth']}>
-      <div className="container">
+    <div className="container">
+      <div className={styles['Auth']}>
         <div className={styles['auth-container']}>
           <LoginForm />
           <div className={styles['auth-container__register-line']}>

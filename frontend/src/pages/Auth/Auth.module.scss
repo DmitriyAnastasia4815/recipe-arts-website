@@ -3,7 +3,7 @@
 .Auth {
   width: 100%;
   min-height: 700px;
-  background: url('src/assets/background/bg-login.svg') 100% center ;
+  background: $background-login 100% center no-repeat;
   padding-top: 60px;
 }
 

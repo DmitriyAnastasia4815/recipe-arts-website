@@ -25,6 +25,7 @@ function App() {
           {/* <Route path="profilepage" element={<ProfilePageEmpty />} /> */}
 
           <Route path="profilepage" element={<Auth/>} />
+          <Route path="login" element={<Auth/>} />
           <Route path="register" element={<Register/>} />
 
           {/* <Route path="*" element={<NotFoundPage />} /> */}

@@ -1,35 +1,73 @@
 @mixin h1 {
-    font-size: 64px;
-    font-weight: 500;
-    line-height: 110%;
+  font-size: 64px;
+  font-weight: 500;
+  line-height: 110%;
 }
 
+
 @mixin h3 {
-    font-size: 40px;
-    font-weight: 500;
-    line-height: 110%;
+  font-size: 40px;
+  font-weight: 500;
+  line-height: 110%;
 }
 
 @mixin h4 {
-    font-size: 32px;
-    font-weight: 500;
-    line-height: 110%;
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 110%;
 }
 
 @mixin h5 {
-    font-size: 24px;
-    font-weight: 400;
-    line-height: 120%;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 120%;
 }
 
 @mixin h6 {
-    font-size: 20px;
-    font-weight: 400;
-    line-height: 120%;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 120%;
 }
 
 @mixin paragrapgh {
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 150%;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 150%;
+}
+
+
+@mixin green-button {
+  font-size: 16px;
+  height: 40px;
+  border-radius: 40px;
+  background-color: $color-accent-light;
+  padding: 11px 30px;
+  align-items: center;
+  transition:
+    background-color 0.5s ease,
+    color 0.5s linear,
+    opacity 0.2s ease-in-out;
+  &:hover {
+    background-color: $color-accent;
+  }
+  @media (max-width: 480px) {
+    padding: 11px 20px;
+  }
+  @media (max-width: 450px) {
+  }
+}
+
+@mixin inputField {
+  width: 100%;
+  height: 35px;
+  padding: 11px 16px;
+  border: 1px solid $color-light-grey;
+  border-radius: 40px;
+  font-size: 16px;
+  outline: none;
+  text-align: center;
+
+  &:focus {
+    border-color: $color-light-grey;
+  }
 }

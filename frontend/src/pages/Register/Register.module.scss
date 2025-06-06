@@ -1,0 +1,41 @@
+@import '@styles/all.scss';
+
+.register {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  min-height: 750px;
+  margin-bottom: 32px;
+  gap: 32px;
+  position: relative;
+  &__main-title {
+    @include h3;
+    color: $color-white;
+    font-weight: 700;
+  }
+  &__subtitle {
+    @include paragrapgh;
+    color: $color-white;
+  }
+  &__left-side {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    position: relative;
+    margin-top: 130px;
+    height: 100%;
+  }
+  &__right-side {
+    margin-top: 60px;
+  }
+}
+
+.decor__left-side {
+  position: fixed;
+  top: 0;
+  left: 0;
+  min-width: 50vw;
+  height: 900px;
+  background: $background-register 100% no-repeat;
+  z-index: -1;
+}

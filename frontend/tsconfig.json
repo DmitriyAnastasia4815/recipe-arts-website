@@ -29,6 +29,7 @@
       "@pages/*": ["./src/pages/*"],
       "@image/*": ["./src/assets/image/*"],
       "@icon/*": ["./src/assets/image/icon/*"],
+      "@background/*": ["./src/assets/background/*"],
       "@components-common/*": ["./src/components/common/*"],
       "@components-layout/*": ["./src/components/layout/*"],
       "@components-ui/*": ["./src/components/ui/*"],
