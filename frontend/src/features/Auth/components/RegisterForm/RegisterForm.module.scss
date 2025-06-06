@@ -13,11 +13,20 @@
   &__button {
     @include green-button;
     width: 100%;
+    :disabled{
+      cursor: not-allowed;
+    }
   }
   &__convention-rules {
     display: flex;
     flex-direction: row;
     align-self: flex-start;
+    &--error{
+      p{
+        color: red;
+        transition: color 0.3s ease-in-out;
+      }
+    }
   }
 
   &__politics {
@@ -27,6 +36,8 @@
     }
   }
 }
+
+
 
 .custom-checkbox-label{
   display: flex;

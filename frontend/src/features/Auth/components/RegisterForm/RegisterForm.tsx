@@ -1,9 +1,24 @@
 import styles from './RegisterForm.module.scss';
 import { Link } from 'react-router-dom';
-import RegisterModal from '../RegisterModal';
+import { useEffect, useState } from 'react';
+
+function RegisterForm({ openModal }) {
+  const [isChecked, setIsChecked] = useState(false);
+  const [isButtonClicked, setIsButtonClicked] = useState(false); 
+
+  const handleCheckboxChange = () => {
+    setIsChecked(!isChecked);
+  };
+
+  const handleButtonClick = () => {
+    setIsButtonClicked(true);
+    if (isChecked) {
+      openModal(); 
+    }
+  };
 
 
-function RegisterForm({openModal}) {
+
   return (
     <div className={styles['register-container']}>
       <Link
@@ -40,18 +55,27 @@ function RegisterForm({openModal}) {
         </div>
       </div>
 
-      <div className={styles['register-container__convention-rules']}>
+      <div
+        className={`${styles['register-container__convention-rules']} ${
+           isButtonClicked && !isChecked ? styles['register-container__convention-rules--error'] : ''
+        }`}
+      >
         <label className={styles['custom-checkbox-label']}>
           <input
             className={styles['custom-checkbox-label__input']}
             type="checkbox"
+            checked={isChecked}
+            onChange={handleCheckboxChange}
           />
           <span className={styles['custom-checkbox-label__visual']}></span>
-          <p>Получать уведомления от нашего сайта</p>
+          <p>Я соглашаюсь с политикой сайта</p>
         </label>
       </div>
 
-      <button onClick={openModal} className={styles['register-container__button']}>
+      <button
+        className={styles['register-container__button']}
+        onClick={handleButtonClick}
+      >
         продолжить
       </button>
 
