@@ -1,6 +1,5 @@
 import styles from './Auth.module.scss';
 import LoginForm from '@/features/Auth/components/LoginForm';
-import TransparentButton from '@/components/common/TransparentButton/TransparentButton';
 import { useNavigate } from 'react-router-dom';
 
 function Auth() {

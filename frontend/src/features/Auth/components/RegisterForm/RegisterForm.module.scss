@@ -117,5 +117,17 @@
       @include paragrapgh;
       color: $color-grey-paragraph;
     }
+    &--error{
+      input{
+        border-color: $color-red-error;
+        &::placeholder{
+          color: $color-red-error;
+        }
+      }
+      p{
+        color: $color-red-error;
+        transition: all .1s ease-in;
+      }
+    }
   }
 }
