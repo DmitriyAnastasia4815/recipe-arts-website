@@ -7,7 +7,11 @@ import {
   validUsername,
 } from '../../validation/validation';
 
-function RegisterForm({ openModal }) {
+interface RegisterFormProps {
+  openModal: () => void;
+}
+
+function RegisterForm({ openModal } : RegisterFormProps) {
   const [isChecked, setIsChecked] = useState(false);
   const [isButtonClicked, setIsButtonClicked] = useState(false);
 
