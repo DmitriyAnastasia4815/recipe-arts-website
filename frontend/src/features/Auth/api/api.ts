@@ -1,10 +1,8 @@
-
-import axios, { AxiosError, AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
+import axios, { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 import { authServiceAPI } from './authServiceAPI';
 
 const BASE_URL = 'http://localhost:8000';
 
-// Основные настройки для запросов
 const api = axios.create({
   baseURL: BASE_URL,
   withCredentials: true,
@@ -13,10 +11,9 @@ const api = axios.create({
   },
 });
 
-// Очередь для хранения запросов, ожидающих обновления токена
 interface FailedRequest {
-  resolve: (token: string) => void;
-  reject: (error: AxiosError) => void;
+  resolve: (value: string | PromiseLike<string>) => void;
+  reject: (reason: AxiosError) => void;
 }
 
 let isRefreshing = false;
@@ -33,7 +30,6 @@ const processQueue = (error: AxiosError | null, token: string | null = null) => 
   failedQueue = [];
 };
 
-// Request interceptor
 api.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
     const token = localStorage.getItem('accessToken');
@@ -45,18 +41,16 @@ api.interceptors.request.use(
   (error: AxiosError) => Promise.reject(error)
 );
 
-// Response interceptor
 api.interceptors.response.use(
   (response: AxiosResponse) => response,
   async (error: AxiosError) => {
-    // Добавляем явную проверку на существование config
     if (!error.config) {
       return Promise.reject(error);
     }
 
-    const originalRequest = error.config as AxiosRequestConfig & { _retry?: boolean };
+    const originalRequest = error.config as InternalAxiosRequestConfig & { _retry?: boolean };
 
-    if (error.response?.status === 401 && !originalRequest._retry) {
+    if (error.response && error.response.status === 401 && !originalRequest._retry) {
       if (isRefreshing) {
         return new Promise((resolve, reject) => {
           failedQueue.push({ resolve, reject });
@@ -76,35 +70,40 @@ api.interceptors.response.use(
       try {
         const refreshToken = localStorage.getItem('refreshToken');
         if (!refreshToken) {
-          throw new Error('Refresh token not found');
+          throw new AxiosError('Refresh token not found', 'ERR_NO_REFRESH_TOKEN', error.config, null, error.response);
         }
-        
-        // Предполагаем, что refreshToken возвращает объект с accessToken
-        const { accessToken: newAccessToken } = await authServiceAPI.refreshToken(refreshToken);
+
+        const response = await authServiceAPI.refreshToken(refreshToken);
+        if (!response?.accessToken) {
+          throw new AxiosError('Invalid refresh token response', 'ERR_INVALID_RESPONSE', error.config, null, error.response);
+        }
+
+        const newAccessToken = response.accessToken;
         localStorage.setItem('accessToken', newAccessToken);
-        
+
         processQueue(null, newAccessToken);
-        
+
         if (originalRequest.headers) {
           originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
         }
-        
+
         return api(originalRequest);
       } catch (refreshError) {
         processQueue(refreshError as AxiosError, null);
-        localStorage.removeItem('accessToken');
-        localStorage.removeItem('refreshToken');
-        // Можно добавить редирект на страницу логина
-        // window.location.href = '/login';
+        if ((refreshError as AxiosError).response?.status === 403 || (refreshError as AxiosError).response?.status === 400) {
+          localStorage.removeItem('accessToken');
+          localStorage.removeItem('refreshToken');
+          // Редирект можно вынести в вызывающий код
+          // navigate('/login');
+        }
         return Promise.reject(refreshError);
       } finally {
         isRefreshing = false;
       }
     }
-    
+
     return Promise.reject(error);
   }
 );
 
 export default api;
-

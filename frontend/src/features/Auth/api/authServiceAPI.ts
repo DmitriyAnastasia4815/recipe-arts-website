@@ -4,26 +4,29 @@ import { RegisterResponse, VerifyResponse, ApiError } from '../types/authTypes';
 export const authServiceAPI = {
   //step 1
   async register(
-    username: string,
-    password: string,
     email: string,
+    password: string,
+    username: string,
   ): Promise<RegisterResponse> {
     try {
       const response = await api.post('/v1/auth/register', {
-        username,
-        password,
         email,
+        password,
+        username,
       });
-      const temporaryToken = response.headers['x-temporary-token'];
+      const temporaryToken = response.headers['authorization']
+      console.log(response);
       if (!temporaryToken) {
         throw new Error('Временный токен не получен');
       }
+  
       return {
-        message: response.data.message || 'Код отправлен на почту',
+        message: response?.data?.detail?.[0]?.msg || 'Код отправлен на почту',
         temporaryToken,
       };
     } catch (error: any) {
-      throw new Error(error.response?.data?.message || 'Ошибка регистрации');
+        console.log(error)
+      throw new Error(error.response?.data?.detail?.[0]?.msg || 'Ошибка регистрации');
     }
   },
 
@@ -36,14 +39,14 @@ export const authServiceAPI = {
       const response = await api.post(
         'v1/auth/register/verify',
         { code },
-        { headers: { 'X-Temporary-Token': temporaryToken } },
+        { headers: { 'authorization': temporaryToken } },
       );
       return {
         accessToken: response.data.accessToken,
         refreshToken: response.data.refreshToken,
       };
     } catch (error: any) {
-      throw new Error(error.response?.data?.message || 'Ошибка верификации');
+      throw new Error(error.response?.data?.detail?.[0]?.msg || 'Ошибка верификации');
     }
   },
   // Обновление токена
@@ -53,7 +56,7 @@ export const authServiceAPI = {
       return response.data.accessToken;
     } catch (error: any) {
       throw new Error(
-        error.response?.data?.message || 'Ошибка обновления токена',
+        error.response?.data?.detail?.[0]?.msg || 'Ошибка обновления токена',
       );
     }
   },

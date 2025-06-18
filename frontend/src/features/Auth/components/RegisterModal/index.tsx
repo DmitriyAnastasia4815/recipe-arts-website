@@ -1,6 +1,9 @@
 import styles from './RegisterModal.module.scss';
 import iconArray from '@icon/icon-array.svg';
 import { useState, useRef, useEffect, ChangeEvent, KeyboardEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { authServiceAPI } from '../../api/authServiceAPI';
+
 
 const CODE_LENGTH = 6;
 const RESEND_TIMEOUT = 60;
@@ -17,8 +20,12 @@ function RegisterModal({ onClose }: RegisterModalProps) {
   const [resendTimer, setResendTimer] = useState(RESEND_TIMEOUT);
   const [canResend, setCanResend] = useState(true);
 
+
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (inputRefs.current[0]) {
@@ -53,15 +60,37 @@ function RegisterModal({ onClose }: RegisterModalProps) {
     };
   }, []);
 
-  const handleResendCode = async () => {};
+  const handleResendCode = async () => {
+    //Повторная отправка кода
+    if (!canResend) return;
+    setIsLoading(true);
+    setErrorMessage(null);
 
-  const onClickButton = () => {
+  };
+
+  const onClickButton = async () => {
     const isInComplete = codes.some((code) => code === '');
     setNotEnoughNumbers(isInComplete);
 
     if (!isInComplete) {
-      //отправка на сервер
-      const emailCode = codes.join('');
+      setIsLoading(true);
+      setErrorMessage(null);
+      try {
+        const emailCode = codes.join('');
+        const temporaryToken = localStorage.getItem('temporaryToken');
+        if (!temporaryToken) {
+          throw new Error('Временный токен отсутствует');
+        }
+        const response = await authServiceAPI.verifyCode(emailCode, temporaryToken);
+        localStorage.setItem('accessToken', response.accessToken);
+        localStorage.setItem('refreshToken', response.refreshToken);
+        localStorage.removeItem('temporaryToken');
+        navigate('/'); // Перенаправление после успешной верификации
+      } catch (error: any) {
+        setErrorMessage(error.message);
+      } finally {
+        setIsLoading(false);
+      }
     }
   };
 
