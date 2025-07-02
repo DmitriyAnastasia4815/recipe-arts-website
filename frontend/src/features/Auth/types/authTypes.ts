@@ -16,4 +16,14 @@ interface ApiError {
     message: string;
 }
 
-export type {RegisterResponse, VerifyResponse, ApiError};
+//Состояние авторизации в redux
+interface AuthState {
+    isAuthenticated: boolean;
+    accessToken: string | null;
+    refreshToken: string | null;
+    temporaryToken: string | null;
+    loading: boolean;
+    error: string | null;
+}
+
+export type {RegisterResponse, VerifyResponse, ApiError, AuthState};

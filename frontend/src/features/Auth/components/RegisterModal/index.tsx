@@ -85,7 +85,7 @@ function RegisterModal({ onClose }: RegisterModalProps) {
         localStorage.setItem('accessToken', response.accessToken);
         localStorage.setItem('refreshToken', response.refreshToken);
         localStorage.removeItem('temporaryToken');
-        navigate('/'); // Перенаправление после успешной верификации
+        navigate('/profilepage', { replace: true });
       } catch (error: any) {
         setErrorMessage(error.message);
       } finally {

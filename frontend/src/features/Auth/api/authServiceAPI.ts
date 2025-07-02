@@ -14,20 +14,26 @@ export const authServiceAPI = {
         password,
         username,
       });
-      const temporaryToken = response.headers['authorization']
-      console.log(response);
+      const temporaryToken = response.headers['authorization'];
       if (!temporaryToken) {
         throw new Error('Временный токен не получен');
       }
-  
+
       return {
         message: response?.data?.detail?.[0]?.msg || 'Код отправлен на почту',
         temporaryToken,
       };
     } catch (error: any) {
-        console.log(error)
-      throw new Error(error.response?.data?.detail?.[0]?.msg || 'Ошибка регистрации');
+      console.log(error);
+      throw new Error(
+        error.response?.data?.detail?.[0]?.msg || 'Ошибка регистрации',
+      );
     }
+  },
+  //Повторная отправка кода
+  async resendCode(): Promise<void> {
+    try {
+    } catch {}
   },
 
   //step 2
@@ -39,14 +45,16 @@ export const authServiceAPI = {
       const response = await api.post(
         'v1/auth/register/verify',
         { code },
-        { headers: { 'authorization': temporaryToken } },
+        { headers: { authorization: temporaryToken } },
       );
       return {
         accessToken: response.data.accessToken,
         refreshToken: response.data.refreshToken,
       };
     } catch (error: any) {
-      throw new Error(error.response?.data?.detail?.[0]?.msg || 'Ошибка верификации');
+      throw new Error(
+        error.response?.data?.detail?.[0]?.msg || 'Ошибка верификации',
+      );
     }
   },
   // Обновление токена
@@ -57,6 +65,18 @@ export const authServiceAPI = {
     } catch (error: any) {
       throw new Error(
         error.response?.data?.detail?.[0]?.msg || 'Ошибка обновления токена',
+      );
+    }
+  },
+  //Проверяет валидность access-токена
+  async verifyToken(accessToken: string): Promise<void> {
+    try {
+      await api.get('/v1/auth/verify-token', {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      });
+    } catch (error: any) {
+      throw new Error(
+        error.response?.data?.detail?.[0]?.msg || 'Токен недействителен',
       );
     }
   },
