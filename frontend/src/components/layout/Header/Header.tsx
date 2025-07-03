@@ -1,17 +1,55 @@
-// src/components/Header.tsx
+/**
+ * @component Header
+ * @description Компонент шапки приложения, включающий навигационное меню
+ *
+ *
+ *Компонент  отражает логотип, ссылки на стрнаницы Главная и Избранное, а также иконку профиля пользователя по которой можно перейти в профиль
+ *
+ * @returns {JSX.Element} JSX- элемент, представляющий шапку приложения
+ * * @requires react - Для управления состоянием и рендеринга.
+ * @requires react-router-dom - Для навигации (Link, NavLink).
+ * @requires ../Header/Header.scss - Стили компонента.
+ * @requires @image/logo.svg - Изображение логотипа.
+ * @requires @image/empty-profile-images/empty-user-icon.svg - Иконка профиля пользователя.
+ * @requires @image/icon/shef-icon.png - Иконка пустой книги рецептов.
+ *
+ *
+ * @example
+ * ```jsx
+ * import Header from './components/Header';
+ *
+ * function App() {
+ *   return (
+ *     <div>
+ *       <Header />
+ *       {/* Остальной контент приложения *\/}
+ *     </div>
+ *   );
+ * }
+ * ```
+ */
+
 import { Link, NavLink } from 'react-router-dom'; // Импортируем Link и NavLink
 import { useEffect, useState } from 'react';
 
 import '../Header/Header.scss';
-import image from '@image/icon-user.svg';
+import image from '@image/empty-profile-images/empty-user-icon.svg';
 import logo from '@image/logo.svg';
 import openIcon from '@image/icon/shef-icon.png';
 
-const Header = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+const Header: React.FC = () => {
+  /**
+   * @type {boolean}
+   * @description Состояние, определяющее, открыто ли мобильное меню
+   */
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 
-  const toggleMenu = () => {
-    setIsMenuOpen((prev) => !prev);
+  /**
+   * @function toggleMenu
+   * @description Переключает состояние мобильного меню (открыто/закрыто).
+   */
+  const toggleMenu = (): void => {
+    setIsMenuOpen((prev: boolean) => !prev);
   };
 
   return (
@@ -29,7 +67,7 @@ const Header = () => {
             <li className="header__nav-item">
               <NavLink
                 to="/"
-                className={({ isActive }) =>
+                className={({ isActive }: {isActive : boolean} )=>
                   isActive
                     ? 'header__nav-link header__nav-link--active'
                     : 'header__nav-link'
@@ -41,7 +79,7 @@ const Header = () => {
             <li className="header__nav-item">
               <NavLink
                 to="/favourites"
-                className={({ isActive }) =>
+                className={({ isActive }: {isActive : boolean}) =>
                   isActive
                     ? 'header__nav-link header__nav-link--active'
                     : 'header__nav-link'
@@ -51,8 +89,8 @@ const Header = () => {
               </NavLink>
             </li>
           </ul>
-          <Link to="/profilepage" className="header__nav-link">
-              <img src={image} alt="Profile" />
+          <Link to="/profilepage" className="header__user-profile">
+            <img src={image} alt="Profile" />
           </Link>
         </nav>
         <button className="header__burger" onClick={toggleMenu}>

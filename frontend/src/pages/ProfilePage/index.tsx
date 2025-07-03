@@ -1,4 +1,4 @@
-import styles from './ProfilePageEmpty.module.scss';
+import styles from './ProfilePage.module.scss';
 import { useState, useEffect } from 'react';
 
 import emptyRecipeImg from '@image/empty-profile-images/empty-recipe-img.svg';
@@ -8,7 +8,7 @@ import iconEditSmall from '@image/icon/icon-editing-small.svg';
 import AddedButton from '@/components/common/AddedButton/AddedButton';
 import InputField from '@/components/common/InputField/InputField';
 
-function ProfilePageEmpty() {
+function ProfilePage() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const userName = 'Кочерова Анастасия';
 
@@ -68,4 +68,4 @@ function ProfilePageEmpty() {
   );
 }
 
-export default ProfilePageEmpty;
+export default ProfilePage;

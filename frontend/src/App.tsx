@@ -1,6 +1,6 @@
 import Home from '@/pages/Home/Home';
 import Favourites from '@/pages/Favourites';
-import ProfilePageEmpty from '@/pages/ProfilePageEmpty'; //не закбудь раскомментирвоать это не нужно удалять
+import ProfilePage from '@/pages/ProfilePage'; //не закбудь раскомментирвоать это не нужно удалять
 import Auth from './pages/Auth/Auth';
 import Register from './pages/Register';
 import ProtectedRoute from './router/ProtectedRoute';
@@ -28,7 +28,7 @@ function App() {
           path="profilepage" 
           element={
             <ProtectedRoute>
-              <ProfilePageEmpty />
+              <ProfilePage />
             </ProtectedRoute>
           }
            />
