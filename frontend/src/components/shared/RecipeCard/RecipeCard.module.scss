@@ -1,0 +1,13 @@
+@import '@styles/all';
+
+.container-card{
+    display: flex;
+    width: 100%;
+    &__image{
+        margin-right: 32px;
+    }
+
+    &__actions{
+        align-self: flex-end;
+    }
+}

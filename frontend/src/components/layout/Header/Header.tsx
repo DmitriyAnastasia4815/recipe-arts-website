@@ -35,7 +35,6 @@ import { useEffect, useState } from 'react';
 import '../Header/Header.scss';
 import image from '@image/empty-profile-images/empty-user-icon.svg';
 import logo from '@image/logo.svg';
-import openIcon from '@image/icon/shef-icon.png';
 
 const Header: React.FC = () => {
   /**
@@ -93,9 +92,6 @@ const Header: React.FC = () => {
             <img src={image} alt="Profile" />
           </Link>
         </nav>
-        <button className="header__burger" onClick={toggleMenu}>
-          <img className="header__burger-icon" src={openIcon}></img>
-        </button>
       </div>
       <hr className="header__hr" />
     </header>

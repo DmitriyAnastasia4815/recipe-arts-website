@@ -167,6 +167,10 @@
     }
   }
 
+  &__added-button {
+    @include green-button;
+  }
+
 }
 
 // Кнопка редактирования профиля

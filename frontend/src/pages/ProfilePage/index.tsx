@@ -5,17 +5,39 @@ import emptyRecipeImg from '@image/empty-profile-images/empty-recipe-img.svg';
 import emptyProfileImg from '@image/empty-profile-images/empty-user-icon.svg';
 import iconEditSmall from '@image/icon/icon-editing-small.svg';
 
-import AddedButton from '@/components/common/AddedButton/AddedButton';
 import InputField from '@/components/common/InputField/InputField';
+
+import RecipeCard from '@/components/shared/RecipeCard/RecipeCard';
+
+import RecipeCardImage from '@image/RecipeCardImage.svg';
+
+import type { RecipeCardProps } from '@/components/shared/RecipeCard/RecipeCard';
 
 function ProfilePage() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [recipeItems, setRecipeItems] = useState<RecipeCardProps[]>([]);
   const userName = 'Кочерова Анастасия';
+  const empty = recipeItems.length === 0;
 
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
 
     window.addEventListener('resize', handleResize);
+
+    //Пример данных для рецепта вообще нужно сделать через запрос на сервер
+    const initialRecipes = [
+      {
+        id: 1,
+        image: RecipeCardImage,
+        tags: ['Выпечка и десерты', 'Русская кухня'],
+        name: 'Шарлотка',
+        total_ingredients: ['Яблоко', 'Яйцо'],
+        total_calories: 217,
+        times: 50,
+      },
+    ];
+
+    setRecipeItems(initialRecipes);
 
     // Очистка события при размонтировании компонента
     return () => {
@@ -29,20 +51,32 @@ function ProfilePage() {
         <div className={styles['main-section']}>
           <h1 className={styles['main-section__page-title']}>Книга рецептов</h1>
           <div className={styles['main-section__search-container']}>
-                {<InputField title={"поиск по названию"}/>}
-                <button className={styles['search-container__search-button']}>
-                  поиск по категориям
-                </button>
-
+            {<InputField title={'поиск по названию'} />}
+            <button className={styles['search-container__search-button']}>
+              поиск по категориям
+            </button>
           </div>
 
-          <div className={styles['main-section__empty-state']}>
-            <img src={emptyRecipeImg} alt="empty-recipe" />
-            <p className={styles['empty-message']}>
-              Пока здесь ничего нет, но скоро появятся рецепты и фотографии,
-              которые добавит {userName}
-            </p>
-          </div>
+          {empty ? (
+            <div className={styles['main-section__empty-state']}>
+              <img src={emptyRecipeImg} alt="empty-recipe" />
+              <p className={styles['empty-message']}>
+                Пока здесь ничего нет, но скоро появятся рецепты и фотографии,
+                которые добавит {userName}
+              </p>
+            </div>
+          ) : (
+            recipeItems.map((recipe, index) => 
+            <RecipeCard 
+              id={index}
+              image={recipe.image}
+              tags={recipe.tags}
+              name={recipe.name}
+              total_ingredients={recipe.total_ingredients}
+              total_calories={recipe.total_calories}
+              times={recipe.times}
+            />)
+          )}
         </div>
 
         <div className={styles['between__hr']}></div>
@@ -59,7 +93,9 @@ function ProfilePage() {
                   <img src={iconEditSmall} alt="edit-icon" />
                 </button>
               </div>
-              {<AddedButton title='Добавить ингредиент'/>}
+              <button className={styles['profile-section__added-button']}>
+                Добавить рецепт
+              </button>
             </div>
           </div>
         </div>
