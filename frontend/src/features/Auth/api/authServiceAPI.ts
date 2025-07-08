@@ -1,6 +1,10 @@
 import api from './api';
 import { RegisterResponse, VerifyResponse, ApiError } from '../types/authTypes';
 
+interface RefreshTokenResponse {
+  accessToken: string;
+}
+
 export const authServiceAPI = {
   //step 1
   async register(
@@ -58,7 +62,7 @@ export const authServiceAPI = {
     }
   },
   // Обновление токена
-  async refreshToken(refreshToken: string): Promise<string> {
+  async refreshToken(refreshToken: string): Promise<RefreshTokenResponse> {
     try {
       const response = await api.post('/v1/auth/refresh', { refreshToken });
       return response.data.accessToken;
