@@ -1,5 +1,12 @@
 @import '@styles/all.scss';
 
+
+.container{
+  max-width: 1260px;
+  margin: 0 auto;
+  height: 100%;
+}
+
 .Auth {
   width: 100%;
   min-height: 700px;
@@ -19,18 +26,24 @@
     display: flex;
     align-items: center;
     margin: 0 auto;
+    width: 100%;
+    padding: 0 15px;
   }
   &__register-title {
-    max-width: 100%;
-    flex-wrap: nowrap;
+    width: 100%;
     margin-right: 60px;
+    flex-wrap: nowrap;
+    @media (max-width: 450px) {
+      margin-right: 8px;
+    }
+
   }
 
   &__register-button {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-width: 330px;;
+    width: 100%;
     height: 35px;
     padding: 11px 16px;
     border: 1px solid $color-black;

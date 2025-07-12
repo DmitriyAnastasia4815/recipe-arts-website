@@ -77,16 +77,24 @@ function RegisterModal({ onClose }: RegisterModalProps) {
       setErrorMessage(null);
       try {
         const emailCode = codes.join('');
-        const temporaryToken = localStorage.getItem('temporaryToken');
+        const temporaryToken = localStorage.getItem('temporaryToken')?.split(' ')[1];
+
+        console.log(temporaryToken)
         if (!temporaryToken) {
           throw new Error('Временный токен отсутствует');
         }
         const response = await authServiceAPI.verifyCode(emailCode, temporaryToken);
+        console.log(response)
+        console.log('navigate to')
+        navigate('/profilepage', { replace: true });
         localStorage.setItem('accessToken', response.accessToken);
         localStorage.setItem('refreshToken', response.refreshToken);
         localStorage.removeItem('temporaryToken');
-        navigate('/profilepage', { replace: true });
+
+        
+        
       } catch (error: any) {
+        console.log(error)
         setErrorMessage(error.message);
       } finally {
         setIsLoading(false);

@@ -28,7 +28,6 @@ export const authServiceAPI = {
         temporaryToken,
       };
     } catch (error: any) {
-      console.log(error);
       throw new Error(
         error.response?.data?.detail?.[0]?.msg || 'Ошибка регистрации',
       );
@@ -41,23 +40,30 @@ export const authServiceAPI = {
   },
 
   //step 2
-  async verifyCode(
-    code: string,
-    temporaryToken: string,
-  ): Promise<VerifyResponse> {
+  async verifyCode(code: string, temporaryToken: string): Promise<VerifyResponse> {
     try {
+      console.log('Sending POST to /v1/auth/register/verify with:', { code, temporaryToken });
       const response = await api.post(
-        'v1/auth/register/verify',
+        '/v1/auth/register/verify',
         { code },
-        { headers: { authorization: temporaryToken } },
+        { headers: { Authorization: `${temporaryToken}` } },
       );
+      console.log('Server response:', response.data);
+      if (!response.data.accessToken || !response.data.refreshToken) {
+        throw new Error('Неверный формат ответа сервера');
+      }
       return {
         accessToken: response.data.accessToken,
         refreshToken: response.data.refreshToken,
       };
     } catch (error: any) {
+      console.error('Error in verifyCode:', {
+        status: error.response?.status,
+        data: error.response?.data,
+        message: error.message,
+      });
       throw new Error(
-        error.response?.data?.detail?.[0]?.msg || 'Ошибка верификации',
+        error.response?.data?.detail?.[0]?.msg || error.response?.data?.message || 'Ошибка верификации',
       );
     }
   },
@@ -76,7 +82,7 @@ export const authServiceAPI = {
   async verifyToken(accessToken: string): Promise<void> {
     try {
       await api.get('/v1/auth/verify-token', {
-        headers: { Authorization: `Bearer ${accessToken}` },
+        headers: { Authorization: `${accessToken}` },
       });
     } catch (error: any) {
       throw new Error(

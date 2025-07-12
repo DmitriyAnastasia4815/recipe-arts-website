@@ -84,7 +84,7 @@ api.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
     const token = localStorage.getItem('accessToken');
     if (token && config.headers) {
-      config.headers.Authorization = `Bearer ${token}`;
+      config.headers.Authorization = `${token}`;
     }
     return config;
   },
@@ -139,7 +139,7 @@ api.interceptors.response.use(
         })
           .then((token) => {
             if (originalRequest.headers) {
-              originalRequest.headers.Authorization = `Bearer ${token}`;
+              originalRequest.headers.Authorization = `${token}`;
             }
             return api(originalRequest);
           })
@@ -178,7 +178,7 @@ api.interceptors.response.use(
         processQueue(null, newAccessToken);
 
         if (originalRequest.headers) {
-          originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+          originalRequest.headers.Authorization = `${newAccessToken}`;
         }
 
         return api(originalRequest);
