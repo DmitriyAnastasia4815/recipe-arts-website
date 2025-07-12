@@ -10,9 +10,10 @@ const RESEND_TIMEOUT = 60;
 
 interface RegisterModalProps {
   onClose: () => void;
+  onClick: () => void;
 }
 
-function RegisterModal({ onClose }: RegisterModalProps) {
+function RegisterModal({ onClose, onClick }: RegisterModalProps) {
   const [codes, setCodes] = useState<string[]>(Array(CODE_LENGTH).fill(''));
   const [notEnoughNumbers, setNotEnoughNumbers] = useState(false);
 
@@ -90,8 +91,7 @@ function RegisterModal({ onClose }: RegisterModalProps) {
         localStorage.setItem('accessToken', response.accessToken);
         localStorage.setItem('refreshToken', response.refreshToken);
         localStorage.removeItem('temporaryToken');
-
-        
+        onClick();
         
       } catch (error: any) {
         console.log(error)

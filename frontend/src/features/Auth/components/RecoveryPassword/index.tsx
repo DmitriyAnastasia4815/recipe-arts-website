@@ -7,6 +7,8 @@ import iconArray from '@icon/icon-array.svg';
 import { validEmail } from '../../validation/validation';
 
 import RegisterModal from '../RegisterModal';
+import { UpdatePasswordThird } from '../UpdatePassword/UpdateThird';
+import { UpdatePasswordSecond } from '../UpdatePassword/UpdatePasswordSecond';
 
 interface RecoveryPasswordProps {
   onClose: () => void;
@@ -26,7 +28,6 @@ function RecoveryPassword({ onClose }: RecoveryPasswordProps) {
   const [emailError, setEmailError] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
-
   useEffect(() => {
     inputRef.current?.focus();
   }, []);
@@ -43,7 +44,7 @@ function RecoveryPassword({ onClose }: RecoveryPasswordProps) {
 
   const prevStep = () => {
     setStep(step - 1);
-  }
+  };
 
   return (
     <div className={styles['modal-container']}>
@@ -86,9 +87,14 @@ function RecoveryPassword({ onClose }: RecoveryPasswordProps) {
 
         {step === 2 && (
           <>
-            <RegisterModal onClose={prevStep}/>
+            <UpdatePasswordSecond  onClick={nextStep}/>
           </>
         )}
+
+        {step === 3 && 
+        <>
+          <UpdatePasswordThird onClick={prevStep}/>
+        </>}
       </div>
     </div>
   );
