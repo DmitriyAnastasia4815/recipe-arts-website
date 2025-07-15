@@ -6,7 +6,8 @@ import iconArray from '@icon/icon-array.svg';
 
 import { validEmail } from '../../validation/validation';
 
-import RegisterModal from '../RegisterModal';
+import ModalCode from '@/components/common/ModalCode';
+import UpdatePassword from '../UpdatePassword';
 
 interface RecoveryPasswordProps {
   onClose: () => void;
@@ -26,7 +27,6 @@ function RecoveryPassword({ onClose }: RecoveryPasswordProps) {
   const [emailError, setEmailError] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
-
   useEffect(() => {
     inputRef.current?.focus();
   }, []);
@@ -43,7 +43,7 @@ function RecoveryPassword({ onClose }: RecoveryPasswordProps) {
 
   const prevStep = () => {
     setStep(step - 1);
-  }
+  };
 
   return (
     <div className={styles['modal-container']}>
@@ -86,7 +86,21 @@ function RecoveryPassword({ onClose }: RecoveryPasswordProps) {
 
         {step === 2 && (
           <>
-            <RegisterModal onClose={prevStep}/>
+            <ModalCode
+              onClose={prevStep}
+              title="Мы отправили код сброса пароля на вашу почту"
+              subtitle="Пожалуйста, введите код"
+              resendText="Отправить код повторно"
+              resendTimerText="Отправить код повторно через {seconds} сек"
+              confirmButtonText="подтвердить"
+              onClickNext={nextStep}
+            />
+          </>
+        )}
+
+        {step === 3 && (
+          <>
+            <UpdatePassword onPrev={prevStep}/>
           </>
         )}
       </div>
