@@ -8,20 +8,24 @@
 }
 
 body {
-  @include paragrapgh;
+  @include paragragh;
   font-family: 'Montserrat', sans-serif;
   color: $color-black;
   background-color: #ffffff;
   min-height: 100vh;
+
 }
 
 .container {
   max-width: 1260px;
-  padding: 0 15px;
+  padding: 0px 15px;
   margin: 0 auto;
   height: 100%;
 }
 
-.underline{
+.underline {
   text-decoration: underline;
+}
+
+@media (max-width: 450px) {
 }

@@ -1,13 +1,18 @@
 import styles from './RegisterForm.module.scss';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import {
   validEmail,
   validPassword,
   validUsername,
 } from '../../validation/validation';
+import { authServiceAPI } from '../../api/authServiceAPI';
 
-function RegisterForm({ openModal }) {
+interface RegisterFormProps {
+  openModal: () => void;
+}
+
+function RegisterForm({ openModal } : RegisterFormProps) {
   const [isChecked, setIsChecked] = useState(false);
   const [isButtonClicked, setIsButtonClicked] = useState(false);
 
@@ -18,6 +23,9 @@ function RegisterForm({ openModal }) {
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [usernameError, setUsernameError] = useState(false);
+
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   const changeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     const email = e.target.value;
@@ -53,7 +61,7 @@ function RegisterForm({ openModal }) {
     setIsChecked(!isChecked);
   };
 
-  const handleButtonClick = () => {
+  const handleButtonClick = async () => {
     setIsButtonClicked(true);
 
     const isEmailEmpty = email.trim() === '';
@@ -67,8 +75,21 @@ function RegisterForm({ openModal }) {
     setPasswordError(isPasswordEmpty || isPasswordInvalid);
     setUsernameError(isUsernameEmpty || isUsernameInvalid);
 
-    if (!isEmailEmpty && !isPasswordEmpty && !isUsernameEmpty && !isEmailInvalid && !isPasswordInvalid && !isUsernameInvalid && isChecked) {
-      openModal();
+    if (!isEmailEmpty && 
+      !isPasswordEmpty && 
+      !isUsernameEmpty && 
+      !isEmailInvalid && 
+      !isPasswordInvalid && 
+      !isUsernameInvalid && 
+      isChecked) {
+        try{
+          const response = await authServiceAPI.register(email, password, username);
+          localStorage.setItem('temporaryToken', response.temporaryToken);
+          openModal();
+        } catch (error: any) {
+          setErrorMessage(error.message)
+        }
+      
     }
   };
 
@@ -82,32 +103,46 @@ function RegisterForm({ openModal }) {
       </Link>
       <div className={styles['register']}>
         <h1 className={styles['register__title']}>Регистрация</h1>
-
+        {errorMessage && (
+          <p className={styles['register__error']}>{errorMessage}</p>
+        )}
         <div className={styles['register__input-box']}>
           <div
             className={`${styles['input-box__item']} ${emailError ? styles['input-box__item--error'] : ''}`}
-            onChange={changeEmail}
           >
-            <input type="text" placeholder="email*" />
+            <input
+              type="email"
+              placeholder="email*"
+              value={email}
+              onChange={changeEmail}
+            />
             <p>Ваш email должен соответствовать email@gmail.com</p>
           </div>
 
           <div
             className={`${styles['input-box__item']} ${passwordError ? styles['input-box__item--error'] : ''}`}
-            onChange={changePassword}
           >
-            <input type="text" placeholder="password*" />
+            <input
+              type="password"
+              placeholder="password*"
+              value={password}
+              onChange={changePassword}
+            />
             <p>
-              Пароль должен быть не менее не менее 8 символов, включая цифру и
-              строчную букву.
+              Пароль должен быть не менее 8 символов, включая цифру, строчную и заглавную
+              букву.
             </p>
           </div>
 
           <div
             className={`${styles['input-box__item']} ${usernameError ? styles['input-box__item--error'] : ''}`}
-            onChange={changeUsername}
           >
-            <input type="text" placeholder="username*" />
+            <input
+              type="text"
+              placeholder="username*"
+              value={username}
+              onChange={changeUsername}
+            />
             <p>
               Имя пользователя может содержать только буквенно-цифровые символы
               или одиночные дефисы и не может начинаться или заканчиваться

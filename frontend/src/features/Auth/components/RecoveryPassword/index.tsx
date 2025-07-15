@@ -8,6 +8,9 @@ import { validEmail } from '../../validation/validation';
 
 import ModalCode from '@/components/common/ModalCode';
 import UpdatePassword from '../UpdatePassword';
+import { UpdatePasswordThird } from '../UpdatePassword/UpdateThird';
+import { UpdatePasswordSecond } from '../UpdatePassword/UpdatePasswordSecond';
+import RegisterModal from '../RegisterModal';
 
 interface RecoveryPasswordProps {
   onClose: () => void;
@@ -100,9 +103,14 @@ function RecoveryPassword({ onClose }: RecoveryPasswordProps) {
 
         {step === 3 && (
           <>
-            <UpdatePassword onPrev={prevStep}/>
+            <UpdatePasswordSecond  onClick={nextStep}/>
           </>
         )}
+
+        {step === 3 && 
+        <>
+          <UpdatePasswordThird onClick={prevStep}/>
+        </>}
       </div>
     </div>
   );

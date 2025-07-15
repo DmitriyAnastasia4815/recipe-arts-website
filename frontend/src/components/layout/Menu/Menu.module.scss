@@ -1,0 +1,12 @@
+@import '@styles/all.scss';
+
+.menu {
+    position: fixed;
+    z-index: 10000;
+    min-width: 340px;
+    height: 58px;
+    border: 1px solid $color-black;
+    border-radius: 40px;
+    align-self: center;
+    padding: 6px;
+}
