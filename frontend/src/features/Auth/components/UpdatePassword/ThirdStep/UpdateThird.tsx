@@ -79,55 +79,53 @@ export const UpdatePasswordThird: React.FC<UpdatePasswordProps> = ({
   };
 
   return (
-    <div className={styles['modal-container']}>
-      <div className={styles['modal-content']}>
-        <h4 className={styles['modal-content__title']}>Введите новый пароль</h4>
+    <>
+      <h4 className={styles['modal-content__title']}>Введите новый пароль</h4>
 
-        <div className={styles['modal-content__fields']}>
-          <h5
-            className={`${styles['fields__title']} ${passwordError || passwordCloneError ? styles['fields__title--error'] : ''} `}
-          >
-            Пароль должен быть не менее 8 символов, включая цифру, заглавную и
-            строчную букву.
-          </h5>
+      <div className={styles['modal-content__fields']}>
+        <h5
+          className={`${styles['fields__title']} ${passwordError || passwordCloneError ? styles['fields__title--error'] : ''} `}
+        >
+          Пароль должен быть не менее 8 символов, включая цифру, заглавную и
+          строчную букву.
+        </h5>
 
-          <div
-            className={`${styles['fields__password']} ${styles[passwordError ? 'fields__password--error' : '']}`}
-          >
-            <input
-              type={showPassword ? 'text' : 'password'}
-              placeholder="password*"
-              value={password}
-              onChange={checkPassword}
-            />
-            <button
-              className={styles['fields__show-icon']}
-              onClick={() => setShowPassword(!showPassword)}
-            >
-              <img src={showIcon} alt="смотреть" />
-            </button>
-          </div>
-
-          <div
-            className={`${styles['fields__password']} ${styles[passwordCloneError ? 'fields__password--error' : '']}`}
-          >
-            <input
-              type="password"
-              placeholder="password*"
-              value={passwordClone}
-              onChange={checkPasswordCLone}
-            />
-          </div>
-
+        <div
+          className={`${styles['fields__password']} ${styles[passwordError ? 'fields__password--error' : '']}`}
+        >
+          <input
+            type={showPassword ? 'text' : 'password'}
+            placeholder="password*"
+            value={password}
+            onChange={checkPassword}
+          />
           <button
-            className={styles['modal-content__button']}
-            onClick={onClickButton}
-            disabled={matchPasswords}
+            className={styles['fields__show-icon']}
+            onClick={() => setShowPassword(!showPassword)}
           >
-            подтвердить
+            <img src={showIcon} alt="смотреть" />
           </button>
         </div>
+
+        <div
+          className={`${styles['fields__password']} ${styles[passwordCloneError ? 'fields__password--error' : '']}`}
+        >
+          <input
+            type="password"
+            placeholder="password*"
+            value={passwordClone} 
+            onChange={checkPasswordCLone}
+          />
+        </div>
+
+        <button
+          className={styles['modal-content__button']}
+          onClick={onClickButton}
+          disabled={matchPasswords}
+        >
+          подтвердить
+        </button>
       </div>
-    </div>
+    </>
   );
 };

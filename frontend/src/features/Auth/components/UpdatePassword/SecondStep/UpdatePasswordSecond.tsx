@@ -1,3 +1,5 @@
+
+
 import React from 'react';
 import styles from './UpdatePasswordSecond.module.scss';
 
@@ -5,7 +7,7 @@ import iconArray from '@icon/icon-array.svg';
 
 import { useState, useRef, useEffect, ChangeEvent, KeyboardEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { authServiceAPI } from '../../api/authServiceAPI';
+import { authServiceAPI } from '@/features/Auth/api/authServiceAPI';
 
 const CODE_LENGTH = 6;
 const RESEND_TIMEOUT = 60;
@@ -26,9 +28,8 @@ export const UpdatePasswordSecond: React.FC<UpdatePasswordSecondProps> = ({
 
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
+  const inputRefs = useRef<(HTMLInputElement | null)[]>(Array(CODE_LENGTH).fill(null));
   const timerRef = useRef<NodeJS.Timeout | null>(null);
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (inputRefs.current[0]) {

@@ -39,20 +39,6 @@ function RecoveryPassword({ onClose }: RecoveryPasswordProps) {
 
             {step === 2 && (
               <>
-                <ModalCode
-                  onClose={prevStep}
-                  title="Мы отправили код сброса пароля на вашу почту"
-                  subtitle="Пожалуйста, введите код"
-                  resendText="Отправить код повторно"
-                  resendTimerText="Отправить код повторно через {seconds} сек"
-                  confirmButtonText="подтвердить"
-                  onClickNext={nextStep}
-                />
-              </>
-            )}
-
-            {step === 3 && (
-              <>
                 <UpdatePasswordSecond onClick={nextStep} />
               </>
             )}
