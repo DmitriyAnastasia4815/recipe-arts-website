@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import clsx from 'clsx';
 import styles from './UpdatePasswordTrird.module.scss';
 
-import { validPassword } from '../../validation/validation';
+import { validPassword } from '../../../validation/validation';
 
 import { useState } from 'react';
 
@@ -74,6 +74,7 @@ export const UpdatePasswordThird: React.FC<UpdatePasswordProps> = ({
   };
 
   const onClickButton = () => {
+    onClick();
     //логика отправки на сервер
   };
 
@@ -99,8 +100,10 @@ export const UpdatePasswordThird: React.FC<UpdatePasswordProps> = ({
               value={password}
               onChange={checkPassword}
             />
-            <button className={styles['fields__show-icon']}
-            onClick={() => setShowPassword(!showPassword)}>
+            <button
+              className={styles['fields__show-icon']}
+              onClick={() => setShowPassword(!showPassword)}
+            >
               <img src={showIcon} alt="смотреть" />
             </button>
           </div>

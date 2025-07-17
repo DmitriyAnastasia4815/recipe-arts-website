@@ -1,0 +1,36 @@
+@import '@styles/all.scss';
+
+.modal-container-success {
+  background-color: #fff;
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  max-width: 665px;
+  height: 164px;
+  border-radius: 40px;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  box-sizing: border-box;
+  z-index: 100;
+}
+
+.modal-content-success {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+
+  &__block {
+    display: flex;
+    gap: 16px;
+    img {
+      max-width: 30px
+    }
+
+    h4 {
+      @include h6;
+      font-weight: 500;
+    }
+  }
+}
