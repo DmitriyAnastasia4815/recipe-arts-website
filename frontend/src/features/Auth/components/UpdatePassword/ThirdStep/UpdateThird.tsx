@@ -83,6 +83,9 @@ export const UpdatePasswordThird: React.FC<UpdatePasswordProps> = ({
       <h4 className={styles['modal-content__title']}>Введите новый пароль</h4>
 
       <div className={styles['modal-content__fields']}>
+        {
+          
+        }
         <h5
           className={`${styles['fields__title']} ${passwordError || passwordCloneError ? styles['fields__title--error'] : ''} `}
         >

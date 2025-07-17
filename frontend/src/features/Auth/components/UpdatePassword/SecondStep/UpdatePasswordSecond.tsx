@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 import styles from './UpdatePasswordSecond.module.scss';
 
@@ -20,6 +18,7 @@ export const UpdatePasswordSecond: React.FC<UpdatePasswordSecondProps> = ({
   onClick,
 }) => {
   const [codes, setCodes] = useState<string[]>(Array(CODE_LENGTH).fill(''));
+  // notEnoughNumbers теперь контролирует, показывать ли ошибку для пустых полей
   const [notEnoughNumbers, setNotEnoughNumbers] = useState(false);
 
   const [isLoading, setIsLoading] = useState(false);
@@ -65,54 +64,96 @@ export const UpdatePasswordSecond: React.FC<UpdatePasswordSecondProps> = ({
   }, []);
 
   const handleResendCode = async () => {
-    //Повторная отправка кода
     if (!canResend) return;
     setIsLoading(true);
     setErrorMessage(null);
+    // Здесь будет вызов API для повторной отправки кода
+    // try {
+    //   await authServiceAPI.resendCode(); // Пример
+    //   startTimer();
+    // } catch (error) {
+    //   setErrorMessage('Не удалось отправить код повторно.');
+    // } finally {
+    //   setIsLoading(false);
+    // }
   };
 
   const onClickButton = async () => {
     const isInComplete = codes.some((code) => code === '');
-    setNotEnoughNumbers(isInComplete);
-    //логика отправки запроса на сервер для обновления пароля
-    onClick();
+    setNotEnoughNumbers(isInComplete); // Устанавливаем ошибку, если есть пустые поля
+    if (!isInComplete) {
+      // Если все поля заполнены, сбрасываем ошибку (если она была) и переходим к следующему шагу
+      setNotEnoughNumbers(false); 
+      onClick();
+    }
   };
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>, index: number) => {
     if (e.key === 'Backspace') {
-      if (codes[index] === '' && index > 0) {
-        setCodes((prevCodes) => {
-          const newCodes = [...prevCodes];
-          newCodes[index - 1] = '';
-          return newCodes;
-        });
-        inputRefs.current[index - 1]?.focus();
-      } else if (codes[index] !== '') {
-        setCodes((prevCodes) => {
-          const newCodes = [...prevCodes];
+      e.preventDefault(); // Предотвращаем стандартное поведение Backspace (например, навигацию назад в браузере)
+
+      const currentCodeValue = codes[index]; // Получаем текущее значение поля из состояния
+
+      setCodes((prevCodes) => {
+        const newCodes = [...prevCodes];
+        if (currentCodeValue !== '') {
+          // Если текущее поле не пустое, очищаем его
           newCodes[index] = '';
-          return newCodes;
-        });
+        } else if (index > 0) {
+          // Если текущее поле пустое, очищаем предыдущее поле
+          newCodes[index - 1] = '';
+        }
+
+        // Проверяем, стала ли форма полностью заполненной после этого изменения
+        const isNowComplete = newCodes.every((code) => code !== '');
+        if (isNowComplete) {
+          setNotEnoughNumbers(false); // Сбрасываем состояние ошибки, если форма теперь полная
+        }
+        return newCodes;
+      });
+
+      // Управление фокусом после обновления состояния
+      if (currentCodeValue === '' && index > 0) {
+        inputRefs.current[index - 1]?.focus();
       }
+      // Если currentCodeValue не было пустым, фокус остается на текущем поле (оно было очищено)
     }
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>, index: number) => {
     const value = e.target.value;
-    const enteredChar = value.slice(0, 1);
+    const enteredChar = value.slice(0, 1); // Берем только первый введенный символ
 
     if (enteredChar && /^\d$/.test(enteredChar)) {
       setCodes((prevCodes) => {
         const newCodes = [...prevCodes];
         newCodes[index] = enteredChar;
+
+        // Проверяем, стала ли форма полностью заполненной после этого изменения
+        const isNowComplete = newCodes.every((code) => code !== '');
+        if (isNowComplete) {
+          setNotEnoughNumbers(false); // Сбрасываем состояние ошибки, если форма теперь полная
+        }
         return newCodes;
       });
-
       if (index < CODE_LENGTH - 1 && inputRefs.current[index + 1]) {
         inputRefs.current[index + 1]?.focus();
       }
+    } else if (value === '') {
+      // Позволяем очистку поля, если пользователь удаляет символ напрямую (хотя Backspace обрабатывается onKeyDown)
+      setCodes((prevCodes) => {
+        const newCodes = [...prevCodes];
+        newCodes[index] = '';
+        // Если пользователь вручную удаляет символ, и форма была полной, она становится неполной.
+        // Но notEnoughNumbers устанавливается в true только при клике на кнопку, так что здесь не меняем.
+        return newCodes;
+      });
     }
   };
+
+  // Вычисляем, полностью ли заполнена форма
+  const isFormComplete = codes.every((code) => code !== '');
+
   return (
     <>
       <h4 className={styles['modal-content__title']}>
@@ -127,7 +168,12 @@ export const UpdatePasswordSecond: React.FC<UpdatePasswordSecondProps> = ({
             .map((_, index) => (
               <li
                 key={index}
-                className={`${styles['code-box__code-item']} ${notEnoughNumbers && codes[index] === '' ? styles['code-box__code-item--error'] : ''}`}
+                className={`${styles['code-box__code-item']} ${
+                  // Применяем класс ошибки, если notEnoughNumbers true И это конкретное поле пустое
+                  notEnoughNumbers && codes[index] === ''
+                    ? styles['code-box__code-item--error']
+                    : ''
+                }`}
               >
                 <input
                   type="text"
@@ -144,7 +190,9 @@ export const UpdatePasswordSecond: React.FC<UpdatePasswordSecondProps> = ({
         </ul>
       </div>
       <p
-        className={`${styles['code-box__resend']} ${canResend ? styles['code-box__resend--active'] : ''}`}
+        className={`${styles['code-box__resend']} ${
+          canResend ? styles['code-box__resend--active'] : ''
+        }`}
         onClick={handleResendCode}
       >
         {canResend
@@ -155,7 +203,7 @@ export const UpdatePasswordSecond: React.FC<UpdatePasswordSecondProps> = ({
       <button
         className={styles['modal-content__button']}
         onClick={onClickButton}
-        disabled={isLoading}
+        disabled={isLoading || !isFormComplete} // Кнопка отключена, если идет загрузка или форма не заполнена
       >
         подтвердить
       </button>

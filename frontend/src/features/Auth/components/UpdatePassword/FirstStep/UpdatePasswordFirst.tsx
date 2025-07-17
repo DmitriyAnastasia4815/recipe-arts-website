@@ -8,13 +8,6 @@ import { validEmail } from '@/features/Auth/validation/validation';
 import { useState, useCallback, useRef, useEffect } from 'react';
 import { ChangeEvent } from 'react';
 
-const TEXT_STEP1 = {
-  TITLE: 'Пожалуйста, введите ваш адрес электронной почты',
-  SUBTITLE: 'Мы отправим вам код для сброса пароля',
-  BUTTON: 'сбросить пароль',
-  PLACEHOLDER: 'email',
-};
-
 interface UpdatePasswordFirstProps {
   onClose: () => void;
   nextStep: () => void;
@@ -53,10 +46,10 @@ export const UpdatePasswordFirst: React.FC<UpdatePasswordFirstProps> = ({
         <img src={iconArray} alt="prev-page" />
       </div>
 
-      <h4 className={styles['modal-content__title']}>{TEXT_STEP1.TITLE}</h4>
+      <h4 className={styles['modal-content__title']}>Пожалуйста, введите ваш адрес электронной почты</h4>
 
       <div className={styles['modal-content__code-box']}>
-        <h5 className={styles['code-box__title']}>{TEXT_STEP1.SUBTITLE}</h5>
+        <h5 className={styles['code-box__title']}>Мы отправим вам код для сброса пароля</h5>
         <h5
           className={`${isBlurred && emailError ? styles['code-box__error-message--visible'] : styles['code-box__error-message']}`}
         >
@@ -66,7 +59,7 @@ export const UpdatePasswordFirst: React.FC<UpdatePasswordFirstProps> = ({
         <input
           className={`${styles['code-box__input']} ${isBlurred && emailError ? styles['code-box__input--error'] : ''}`}
           type="email"
-          placeholder={TEXT_STEP1.PLACEHOLDER}
+          placeholder='email'
           onChange={checkEmailInput}
           onBlur={handleBlur}
           ref={inputRef}
@@ -78,7 +71,7 @@ export const UpdatePasswordFirst: React.FC<UpdatePasswordFirstProps> = ({
         disabled={emailError}
         onClick={nextStep}
       >
-        {TEXT_STEP1.BUTTON}
+        сбросить пароль
       </button>
     </>
   );
