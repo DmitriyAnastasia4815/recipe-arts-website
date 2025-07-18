@@ -1,16 +1,16 @@
-import { useState, useCallback, useRef, useEffect } from 'react';
-import { ChangeEvent } from 'react';
+import { useSelector, useDispatch } from 'react-redux'
+
+import { useState} from 'react';
 
 import styles from './RecoveryPassword.module.scss';
 
-import { UpdatePasswordFirst } from '../UpdatePassword/FirstStep/UpdatePasswordFirst';
-import ModalCode from '@/components/common/ModalCode';
-import UpdatePassword from '../UpdatePassword';
-import { UpdatePasswordThird } from '../UpdatePassword/ThirdStep/UpdateThird';
-import RegisterModal from '../RegisterModal';
+import { UpdatePasswordFirst } from '../FirstStep/UpdatePasswordFirst';
+import { UpdatePasswordThird } from '../ThirdStep/UpdateThird';
 
 import { SuccessOperation } from '../SuccessOperation/SuccessOperation';
-import { UpdatePasswordSecond } from '../UpdatePassword/SecondStep/UpdatePasswordSecond';
+import { UpdatePasswordSecond } from '../SecondStep/UpdatePasswordSecond';
+import { RootState } from '../store/store';
+
 
 interface RecoveryPasswordProps {
   onClose: () => void;
@@ -52,7 +52,7 @@ function RecoveryPassword({ onClose }: RecoveryPasswordProps) {
         </div>
       ) : (
         <>
-          <SuccessOperation success={successUpdate} onClose={onClose}/>
+          <SuccessOperation success={successUpdate} onClose={onClose} />
         </>
       )}
     </>

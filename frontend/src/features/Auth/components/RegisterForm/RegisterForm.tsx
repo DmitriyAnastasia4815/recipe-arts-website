@@ -87,6 +87,7 @@ function RegisterForm({ openModal } : RegisterFormProps) {
           localStorage.setItem('temporaryToken', response.temporaryToken);
           openModal();
         } catch (error: any) {
+          console.log(error)
           setErrorMessage(error.message)
         }
       

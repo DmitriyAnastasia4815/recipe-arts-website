@@ -3,7 +3,7 @@ import shefIcon from '@icon/shef-icon.png';
 import { useState } from 'react';
 import closedPassword from '@icon/icon-pot.svg';
 import { validEmail } from '../../validation/validation';
-import RecoveryPassword from '../RecoveryPassword';
+import RecoveryPassword from '../UpdatePassword/RecoveryPassword';
 
 function LoginForm() {
   const [email, setEmail] = useState('');

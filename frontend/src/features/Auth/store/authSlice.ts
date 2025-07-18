@@ -14,20 +14,26 @@ import {
   VerifyPayload,
 } from '../types/authTypes';
 
+// Интерфейс для конфигурации createAsyncThunk
+interface AsyncThunkConfig {
+  state: { auth: AuthState };
+  rejectValue: string;
+}
+
 /**
  * @function register
  * @description Асинхронный thunk для регистрации пользователя через authServiceAPI.
  * @param {RegisterPayload} payload - Данные для регистрации (имя пользователя, пароль, email).
- * @param {Object} options - Опции thunk, включая rejectWithValue.
  * @returns {Promise<RegisterResponse>} Возвращает ответ регистрации или отклоняет с ошибкой.
  */
-export const register = createAsyncThunk<RegisterResponse, RegisterPayload>(
+export const register = createAsyncThunk<RegisterResponse, RegisterPayload, AsyncThunkConfig>(
   'auth/register',
   async ({ username, password, email }, { rejectWithValue }) => {
     try {
+      
       return await authServiceAPI.register(username, password, email);
     } catch (error: any) {
-      return rejectWithValue(error.message || 'Ошибк регистрации');
+      return rejectWithValue(error.message || 'Ошибка регистрации');
     }
   },
 );
@@ -36,10 +42,9 @@ export const register = createAsyncThunk<RegisterResponse, RegisterPayload>(
  * @function verifyCode
  * @description Асинхронный thunk для верификации учетной записи с использованием кода и временного токена.
  * @param {VerifyPayload} payload - Код верификации и временный токен.
- * @param {Object} options - Опции thunk, включая rejectWithValue.
  * @returns {Promise<VerifyResponse>} Возвращает ответ верификации (токены доступа и обновления) или отклоняет с ошибкой.
  */
-export const verifyCode = createAsyncThunk<VerifyResponse, VerifyPayload>(
+export const verifyCode = createAsyncThunk<VerifyResponse, VerifyPayload, AsyncThunkConfig>(
   'auth/verifyCode',
   async ({ code, temporaryToken }, { rejectWithValue }) => {
     try {
@@ -53,18 +58,16 @@ export const verifyCode = createAsyncThunk<VerifyResponse, VerifyPayload>(
 /**
  * @function verifyToken
  * @description Асинхронный thunk для проверки действительности токена доступа.
- * @param {void} _ - Пустой payload (не требуется).
- * @param {Object} options - Опции thunk, включая rejectWithValue и getState.
  * @returns {Promise<void>} Успешно завершается, если токен действителен, или отклоняет с ошибкой.
  */
-export const verifyToken = createAsyncThunk<void, void>(
+export const verifyToken = createAsyncThunk<void, void, AsyncThunkConfig>(
   'auth/verifyToken',
   async (_, { rejectWithValue, getState }) => {
     try {
       const state = getState() as { auth: AuthState };
       const accessToken = state.auth.accessToken;
       if (!accessToken) {
-        throw new Error('Токен отсутствует');
+        return rejectWithValue('Токен отсутствует');
       }
       await authServiceAPI.verifyToken(accessToken);
     } catch (error: any) {
@@ -76,20 +79,20 @@ export const verifyToken = createAsyncThunk<void, void>(
 /**
  * @function refreshToken
  * @description Асинхронный thunk для обновления токена доступа с использованием токена обновления.
- * @param {void} _ - Пустой payload (не требуется).
- * @param {Object} options - Опции thunk, включая rejectWithValue и getState.
  * @returns {Promise<string>} Возвращает новый токен доступа или отклоняет с ошибкой.
  */
-export const refreshToken = createAsyncThunk<string, void>(
+export const refreshToken = createAsyncThunk<string, void, AsyncThunkConfig>(
   'auth/refreshToken',
   async (_, { rejectWithValue, getState }) => {
     try {
       const state = getState() as { auth: AuthState };
       const refreshToken = state.auth.refreshToken;
       if (!refreshToken) {
-        throw new Error('Refresh token отсутствует');
+        return rejectWithValue('Refresh token отсутствует');
       }
-      return await authServiceAPI.refreshToken(refreshToken);
+      const response = await authServiceAPI.refreshToken(refreshToken);
+      // Предполагаем, что authServiceAPI.refreshToken возвращает объект { accessToken: string }
+      return response.accessToken;
     } catch (error: any) {
       return rejectWithValue(error.message || 'Ошибка обновления токена');
     }
@@ -110,7 +113,6 @@ const initialState: AuthState = {
   error: null,
 };
 
-
 /**
  * @constant authSlice
  * @description Redux Toolkit срез для управления состоянием аутентификации.
@@ -123,7 +125,6 @@ const authSlice = createSlice({
     /**
      * @function logout
      * @description Действие для выхода пользователя из системы. Сбрасывает состояние аутентификации и удаляет токены из localStorage.
-     * @param {AuthState} state - Текущее состояние среза.
      */
     logout(state) {
       state.isAuthenticated = false;
@@ -138,7 +139,7 @@ const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-    // Регистрация
+      // Регистрация
       .addCase(register.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -151,6 +152,7 @@ const authSlice = createSlice({
         state.loading = false;
         state.error = action.payload as string;
       })
+      // Верификация кода
       .addCase(verifyCode.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -169,6 +171,7 @@ const authSlice = createSlice({
         state.loading = false;
         state.error = action.payload as string;
       })
+      // Проверка токена
       .addCase(verifyToken.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -186,11 +189,19 @@ const authSlice = createSlice({
         localStorage.removeItem('accessToken');
         localStorage.removeItem('refreshToken');
       })
-      .addCase(refreshToken.fulfilled, (state, action) => {
+      // Обновление токена
+      .addCase(refreshToken.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(refreshToken.fulfilled, (state, action: PayloadAction<string>) => {
+        state.loading = false;
+        state.isAuthenticated = true;
         state.accessToken = action.payload;
         localStorage.setItem('accessToken', action.payload);
       })
       .addCase(refreshToken.rejected, (state, action) => {
+        state.loading = false;
         state.isAuthenticated = false;
         state.accessToken = null;
         state.refreshToken = null;
