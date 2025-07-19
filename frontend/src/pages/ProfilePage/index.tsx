@@ -30,7 +30,16 @@ function ProfilePage() {
         id: 1,
         image: RecipeCardImage,
         tags: ['Выпечка и десерты', 'Русская кухня'],
-        name: 'Шарлотка',
+        name: 'Классическая шарлотка',
+        total_ingredients: ['Яблоко', 'Яйцо'],
+        total_calories: 217,
+        times: 50,
+      },
+      {
+        id: 2,
+        image: RecipeCardImage,
+        tags: ['Выпечка и десерты', 'Русская кухня'],
+        name: 'Классическая шарлотка',
         total_ingredients: ['Яблоко', 'Яйцо'],
         total_calories: 217,
         times: 50,
@@ -66,16 +75,19 @@ function ProfilePage() {
               </p>
             </div>
           ) : (
-            recipeItems.map((recipe, index) => 
-            <RecipeCard 
-              id={index}
-              image={recipe.image}
-              tags={recipe.tags}
-              name={recipe.name}
-              total_ingredients={recipe.total_ingredients}
-              total_calories={recipe.total_calories}
-              times={recipe.times}
-            />)
+            <div className={styles['main-section__content']}>
+              {recipeItems.map((recipe, index) => (
+                <RecipeCard
+                  id={index}
+                  image={recipe.image}
+                  tags={recipe.tags}
+                  name={recipe.name}
+                  total_ingredients={recipe.total_ingredients}
+                  total_calories={recipe.total_calories}
+                  times={recipe.times}
+                />
+              ))}
+            </div>
           )}
         </div>
 

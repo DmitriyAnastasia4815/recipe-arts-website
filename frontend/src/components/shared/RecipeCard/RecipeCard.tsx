@@ -1,3 +1,4 @@
+
 import styles from './RecipeCard.module.scss';
 import React from 'react';
 
@@ -18,51 +19,47 @@ export type RecipeCardProps = {
 };
 
 const RecipeCard: React.FC<RecipeCardProps> = (props) => {
-  const { id, image, tags, name, total_ingredients, total_calories, times } =
-    props;
-
+  const { id, image, tags, name, total_ingredients, total_calories, times } = props;
 
   const countOfingredients = total_ingredients.length;
   return (
     <div className={styles['container-card']}>
+      <div className={styles['container-card__actions']}>
+        <button className={styles['actions__delete']}>
+          <img src={deleteIcon} alt="delete" />
+        </button>
+        <button className={styles['actions__edit']}>
+          <img src={editIconSmall} alt="edit" />
+        </button>
+      </div>
       <div className={styles['container-card__image']}>
         <img src={image} alt={name} />
       </div>
-
       <div className={styles['container-card__info']}>
-        <div className={styles['info__tags']}>{tags}</div>
+        <div className={styles['info__tags']}>{tags[0]} <span></span> {tags[1]}</div>
         <div className={styles['info__name']}>
           <h2>{name}</h2>
         </div>
-
         <div className={styles['container-card__line']}>
           <span className={styles['line__ingredients']}>
             <button>
               <img src={iconMore} alt="more-info" />
             </button>
-            {countOfingredients} ингредиентов
+            <span className={styles['line__text']}>{countOfingredients} ингредиентов</span>
           </span>
           <span className={styles['line__calories']}>
             <img src={iconCalories} alt="calories" />
-            {total_calories} калорий
+            <span className={styles['line__text']}>{total_calories} калорий</span>
           </span>
           <span className={styles['line__times']}>
             <img src={iconTime} alt="times" />
-            {times} минут
+            <span className={styles['line__text']}>{times} минут</span>
           </span>
         </div>
       </div>
-      <div className={styles['container-card__actions']}>
-          <button className={styles['actions__delete']}>
-            <img src={deleteIcon} alt="" />
-          </button>
-
-          <button className={styles['actions__edit']}>
-            <img src={editIconSmall} alt="" />
-          </button>
-        </div>
     </div>
   );
 };
 
 export default RecipeCard;
+
