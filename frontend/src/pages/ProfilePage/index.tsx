@@ -10,6 +10,7 @@ import InputField from '@/components/common/InputField/InputField';
 import RecipeCard from '@/components/shared/RecipeCard/RecipeCard';
 
 import RecipeCardImage from '@image/RecipeCardImage.svg';
+import RecipeCardImageSecond from '@image/RecipeCardImage.png';
 
 import type { RecipeCardProps } from '@/components/shared/RecipeCard/RecipeCard';
 
@@ -37,9 +38,9 @@ function ProfilePage() {
       },
       {
         id: 2,
-        image: RecipeCardImage,
+        image: RecipeCardImageSecond,
         tags: ['Выпечка и десерты', 'Русская кухня'],
-        name: 'Классическая шарлотка',
+        name: 'Сливочный десерт с запеченными абрикосами',
         total_ingredients: ['Яблоко', 'Яйцо'],
         total_calories: 217,
         times: 50,
@@ -60,7 +61,7 @@ function ProfilePage() {
         <div className={styles['main-section']}>
           <h1 className={styles['main-section__page-title']}>Книга рецептов</h1>
           <div className={styles['main-section__search-container']}>
-            {<InputField title={'поиск по названию'} />}
+            <input type="text" placeholder='поиск по названию' className={styles['search-container__search-input']} />
             <button className={styles['search-container__search-button']}>
               поиск по категориям
             </button>

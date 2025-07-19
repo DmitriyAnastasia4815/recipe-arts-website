@@ -5,30 +5,42 @@
   width: 100%;
   position: relative;
 
-  @media (max-width: 850px) {
+  @media (max-width: 680px) {
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    justify-content: flex-start;
+    align-items: flex-start;
     height: 320px;
     width: 100%;
     box-shadow: 0 0 50px -10px rgba(0, 0, 0, 0.2);
     background: #fff;
     border-radius: 13px;
+    position: relative;
+  }
+  @media (max-width: 450px) {
+    gap: 8px;
   }
 
   &__image {
     margin-right: 32px;
+    @media (max-width: 600px) {
+      margin-right: 0px;
+      width: 100%;
+    }
+
+    @media (max-width: 600px) {
+      align-self: center;
+    }
+
     img {
       width: 195px;
       height: 154px;
       border-radius: 8px;
-      
-      @media (max-width: 850px) {
-        border-radius: 13px;
+
+      @media (max-width: 600px) {
+        border-radius: 13px 13px 0 0;
         width: 100%;
         height: 200px;
-        flex: 1;
-        object-fit: contain; 
+        object-fit: cover;
         display: block;
       }
     }
@@ -40,12 +52,22 @@
     right: 0;
     display: flex;
     gap: 8px;
+
+    @media (max-width: 680px) {
+      top: 200px; /* Position below the image (image height is 200px) */
+      right: 8px;
+      z-index: 10;
+    }
+    @media (max-width: 450px) {
+      margin-top: 8px;
+    }
   }
 
   &__line {
     display: flex;
     gap: 16px;
-    @media (max-width: 1064px) {
+    @media (max-width: 600px) {
+      justify-content: flex-start;
     }
 
     span {
@@ -68,10 +90,20 @@
         outline: none;
         &:focus,
         &:hover {
-          outline: none; /* Убираем обводку при фокусе и наведении */
-          background: none; /* Убираем фон при наведении */
+          outline: none;
+          background: none;
         }
       }
+    }
+  }
+
+  &__info {
+    @media (max-width: 600px) {
+      width: 100%;
+      padding-left: 8px;
+    }
+    @media (max-width: 950px) {
+      margin-right: 16px;
     }
   }
 }
@@ -80,6 +112,9 @@
   &__delete {
     img {
       width: 30px;
+      @media (max-width: 600px) {
+        width: 20px;
+      }
     }
     outline: none;
   }
@@ -87,6 +122,9 @@
   &__edit {
     img {
       width: 30px;
+      @media (max-width: 600px) {
+        width: 20px;
+      }
     }
   }
 }
@@ -96,7 +134,7 @@
     color: $color-accent;
     text-transform: uppercase;
     font-size: 10px;
-    font-weight: 500;
+    font-weight: 600;
     span {
       display: inline-block;
       width: 8px;
@@ -112,5 +150,12 @@
     @include h5;
     font-weight: 500;
     margin-bottom: 12px;
+    @media (max-width: 600px) {
+      @include paragragh;
+      font-weight: 500;
+    }
+    @media (max-width: 450px) {
+      margin-bottom: 8px;
+    }
   }
 }

@@ -4,7 +4,6 @@
   line-height: 110%;
 }
 
-
 @mixin h3 {
   font-size: 40px;
   font-weight: 500;
@@ -35,8 +34,14 @@
   line-height: 150%;
 }
 
+@mixin mobile-text {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 134%;
+}
 
 @mixin green-button {
+  display: flex;
   font-size: 16px;
   height: 40px;
   border-radius: 40px;
@@ -49,6 +54,13 @@
     opacity 0.2s ease-in-out;
   &:hover {
     background-color: $color-accent;
+  }
+  @media (max-width: 450px) {
+    font-size: 12px;
+    height: 24px;
+    width: 188px;
+    justify-content: center;
+    
   }
   @media (max-width: 480px) {
     padding: 11px 20px;
@@ -71,4 +83,3 @@
     border-color: $color-light-grey;
   }
 }
-
