@@ -1,8 +1,12 @@
 .header {
+  position: relative;
   background-color: #fff;
   padding-top: 10px;
-  position: relative;
   margin-bottom: 42px;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.15);
+  @media (max-width: 450px) {
+    margin-bottom: 24px;
+  }
 
   &__container {
     max-width: 1260px;
@@ -14,38 +18,43 @@
   &__nav {
     display: flex;
     align-items: center;
+    justify-content: flex-start; /* Логотип и меню прижаты слева */
     flex-direction: row;
-    justify-content: space-between;
     margin-bottom: 10px;
+    @media (max-width: 450px) {
+      justify-content: space-between;
+    }
   }
 
   &__logo {
     display: flex;
     align-items: center;
     margin-right: 24px;
-
   }
 
   &__nav-list {
     display: flex;
     align-items: center;
     flex-direction: row;
-    justify-content: space-between ;
     list-style: none;
     margin: 0;
     padding: 0;
-  }
 
-  &__user-profile {
-    max-width: 65px;
-    width: 100%;
-    img {
-      max-width: 100%;
-      height: auto;
+    &--open {
+      display: flex; /* Показываем меню, если открыто */
+      flex-direction: column;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background-color: #fff;
+      padding: 15px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
     }
-  }
-  &--open {
-    display: block; 
+    @media (max-width: 450px) {
+      display: none;
+    }
   }
 
   &__nav-item {
@@ -54,42 +63,41 @@
     &:last-child {
       margin-right: 0;
     }
+
+    @media (max-width: 450px) {
+      margin: 10px 0;
+    }
   }
 
   &__nav-link {
-    // Компилируется в .header__nav-link
     text-decoration: none;
     color: inherit;
 
-    img {
-      // Компилируется в .header__nav-link img
-      vertical-align: middle;
+    &--active {
+      font-weight: bold; /* Стиль для активной ссылки */
     }
-    // @media (max-width: 450px) {
-    //   display: none;
-    // }
   }
 
-  &__hr {
-    // Компилируется в .header__hr
-    height: 1px;
-    background-color: #333;
-    margin: 0;
+  &__user-profile {
+    max-width: 65px;
     width: 100%;
+    margin-left: auto; /* Профиль прижат к правому краю */
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
   }
 
 
+  /* Медиа-запрос для мобильных устройств */
   @media (max-width: 450px) {
-    .header{
-      &__nav-list {
-        display: none;
-      }
-      &__user-profile{
-        left: 5px;
-      }
+    &__menu-toggle {
+      display: block; /* Показываем кнопку меню */
     }
 
-
-    
+    &__nav-list--open {
+      display: flex; /* Показываем меню при открытии */
+    }
   }
 }

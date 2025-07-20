@@ -55,18 +55,16 @@ const Header: React.FC = () => {
     <header className="header">
       <div className="header__container">
         <nav className="header__nav">
+          <Link to="/" className="header__logo">
+            <img src={logo} alt="Recipe Arts Logo" />
+          </Link>
           <ul
             className={`${isMenuOpen ? 'header__nav-list--open' : 'header__nav-list'}`}
           >
-            <li>
-              <Link to="/" className="header__logo">
-                <img src={logo} alt="Recipe Arts Logo" />
-              </Link>
-            </li>
             <li className="header__nav-item">
               <NavLink
                 to="/"
-                className={({ isActive }: {isActive : boolean} )=>
+                className={({ isActive }: { isActive: boolean }) =>
                   isActive
                     ? 'header__nav-link header__nav-link--active'
                     : 'header__nav-link'
@@ -78,7 +76,7 @@ const Header: React.FC = () => {
             <li className="header__nav-item">
               <NavLink
                 to="/favourites"
-                className={({ isActive }: {isActive : boolean}) =>
+                className={({ isActive }: { isActive: boolean }) =>
                   isActive
                     ? 'header__nav-link header__nav-link--active'
                     : 'header__nav-link'
