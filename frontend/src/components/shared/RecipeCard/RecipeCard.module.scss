@@ -52,6 +52,7 @@
     right: 0;
     display: flex;
     gap: 8px;
+    
 
     @media (max-width: 680px) {
       top: 200px; /* Position below the image (image height is 200px) */
@@ -116,7 +117,7 @@
         width: 20px;
       }
     }
-    outline: none;
+    background: none;
   }
 
   &__edit {
@@ -126,6 +127,7 @@
         width: 20px;
       }
     }
+    background: none;
   }
 }
 

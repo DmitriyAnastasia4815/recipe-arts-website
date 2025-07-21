@@ -1,12 +1,57 @@
 @import '@styles/all.scss';
 
+.container-menu {
+  display: flex;
+  justify-content: center;
+}
+
 .menu {
-    position: fixed;
-    z-index: 10000;
-    min-width: 340px;
-    height: 58px;
-    border: 1px solid $color-black;
-    border-radius: 40px;
-    align-self: center;
-    padding: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  position: fixed;
+  background: $color-white;
+  z-index: 10000;
+  width: 350px;
+  height: 58px;
+  border: 1px solid $color-light-grey;
+  border-radius: 40px;
+  align-self: center;
+  box-sizing: border-box;
+  padding: 9px 25px;
+
+  &__item {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 4px;
+    outline: none;
+    background: none;
+
+    &:hover {
+      color: $color-accent;
+      .item__name {
+        color: $color-accent;
+      }
+
+      .item__icon {
+        fill: $color-accent !important;
+      }
+    }
+  }
+}
+
+.item {
+  &__icon {
+    display: inline-block;
+    width: 20px;
+    transition: color 0.2s linear;
+  }
+
+  &__name {
+    @include mobile-text-second;
+    font-weight: 500;
+    transition: color 0.2s linear;
+  }
 }

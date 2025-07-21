@@ -35,6 +35,7 @@ import { useEffect, useState } from 'react';
 import '../Header/Header.scss';
 import image from '@image/empty-profile-images/empty-user-icon.svg';
 import logo from '@image/logo.svg';
+import Menu from '../Menu/Menu';
 
 const Header: React.FC = () => {
   /**

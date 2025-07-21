@@ -40,6 +40,12 @@
   line-height: 134%;
 }
 
+@mixin mobile-text-second {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 133%;
+}
+
 @mixin green-button {
   display: flex;
   font-size: 16px;
