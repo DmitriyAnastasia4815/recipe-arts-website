@@ -7,6 +7,8 @@ import iconEditSmall from '@image/icon/icon-editing-small.svg';
 
 import InputField from '@/components/common/InputField/InputField';
 
+import addedButton from '@icon/added-button.svg'
+
 import RecipeCard from '@/components/shared/RecipeCard/RecipeCard';
 
 import RecipeCardImage from '@image/RecipeCardImage.svg';
@@ -108,6 +110,7 @@ function ProfilePage() {
               </div>
               <button className={styles['profile-section__added-button']}>
                 Добавить рецепт
+                <img src={addedButton} alt="" />
               </button>
             </div>
           </div>
