@@ -1,3 +1,5 @@
+@import '@styles/all.scss';
+
 .header {
   position: relative;
   background-color: #fff;
@@ -79,7 +81,8 @@
     color: inherit;
 
     &--active {
-      font-weight: bold; /* Стиль для активной ссылки */
+      color: $color-accent; /* Стиль для активной ссылки */
+      font-weight: 500;
     }
   }
 

@@ -7,12 +7,31 @@ import ProtectedRoute from './router/ProtectedRoute';
 
 import MainLayout from '@router/MainLayout';
 
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import {
+  BrowserRouter,
+  Route,
+  Routes,
+  ScrollRestoration,
+  useLocation,
+} from 'react-router-dom';
 import '@/styles/app.scss';
+
+import { useEffect } from 'react';
+
+const ScrollToTop: React.FC = () => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+};
 
 function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop /> {/* Компонент для прокрутки */}
       <Routes>
         {' '}
         {/* Контейнер для всех маршрутов */}
@@ -24,18 +43,18 @@ function App() {
 
           {/* Маршрут для страницы Профиля это не нужно удалять это нужно раскомментировать*/}
 
-          <Route 
-          path="profilepage" 
-          element={
-            <ProtectedRoute>
-              <ProfilePage />
-            </ProtectedRoute>
-          }
-           />
+          <Route
+            path="profilepage"
+            element={
+              <ProtectedRoute>
+                <ProfilePage />
+              </ProtectedRoute>
+            }
+          />
 
-          <Route path="auth" element={<Auth/>} />
-          <Route path="login" element={<Auth/>} />
-          <Route path="register" element={<Register/>} />
+          <Route path="auth" element={<Auth />} />
+          <Route path="login" element={<Auth />} />
+          <Route path="register" element={<Register />} />
 
           {/* <Route path="*" element={<NotFoundPage />} /> */}
         </Route>

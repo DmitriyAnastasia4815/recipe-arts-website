@@ -44,13 +44,6 @@ const Header: React.FC = () => {
    */
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 
-  /**
-   * @function toggleMenu
-   * @description Переключает состояние мобильного меню (открыто/закрыто).
-   */
-  const toggleMenu = (): void => {
-    setIsMenuOpen((prev: boolean) => !prev);
-  };
 
   return (
     <header className="header">
