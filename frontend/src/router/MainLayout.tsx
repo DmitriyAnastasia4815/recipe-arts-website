@@ -24,8 +24,7 @@ const MainLayout = () => {
       <main className="app-content">
         <Outlet />
       </main>
-      {/* {isMobile && <Menu />} */}
-      <Menu />
+      {isMobile && <Menu />}
       <Footer />
     </>
   );

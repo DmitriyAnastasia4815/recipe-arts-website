@@ -3,6 +3,8 @@
 .container-menu {
   display: flex;
   justify-content: center;
+  width: 100%;
+  position: relative;
 }
 
 .menu {
@@ -10,7 +12,6 @@
   align-items: center;
   justify-content: center;
   gap: 24px;
-  position: fixed;
   background: $color-white;
   z-index: 10000;
   width: 350px;
@@ -20,6 +21,8 @@
   align-self: center;
   box-sizing: border-box;
   padding: 9px 25px;
+  position: fixed; // Фиксируем меню
+  bottom: 10px; // Небольшой отступ от низа
 
   &__item {
     display: flex;
@@ -31,6 +34,7 @@
 
     &:hover {
       color: $color-accent;
+
       .item__name {
         color: $color-accent;
       }
@@ -46,7 +50,7 @@
   &__icon {
     display: inline-block;
     width: 20px;
-    transition: color 0.2s linear;
+    transition: fill 0.2s linear; // Изменяем transition на fill
   }
 
   &__name {
@@ -54,4 +58,8 @@
     font-weight: 500;
     transition: color 0.2s linear;
   }
+}
+
+body {
+  padding-bottom: 68px; // Высота меню (58px) + отступ (10px)
 }

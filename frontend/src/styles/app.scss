@@ -13,6 +13,9 @@ body {
   color: $color-black;
   background-color: #ffffff;
   min-height: 100vh;
+  @media (max-width: 450px){
+    padding-bottom: 60px;
+  }
 }
 
 .container {
