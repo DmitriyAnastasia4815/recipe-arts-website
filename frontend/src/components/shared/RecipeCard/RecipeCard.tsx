@@ -1,3 +1,4 @@
+
 import styles from './RecipeCard.module.scss';
 import React, { useState, useRef } from 'react';
 
@@ -25,8 +26,8 @@ const RecipeCard: React.FC<RecipeCardProps> = (props) => {
   const [openIngredients, setOpenIngredients] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
-  const handleOpenIngredientsModal = () => {
-    setOpenIngredients(true);
+  const handleToggleIngredientsModal = () => {
+    setOpenIngredients((prev) => !prev);
   };
 
   const handleCloseIngredientsModal = () => {
@@ -55,13 +56,14 @@ const RecipeCard: React.FC<RecipeCardProps> = (props) => {
         </div>
         <div className={styles['container-card__line']}>
           <span className={styles['line__ingredients']}>
-            <button ref={buttonRef} onClick={handleOpenIngredientsModal}>
-              <img src={iconMore} alt="more-info" />
+            <button ref={buttonRef} onClick={handleToggleIngredientsModal}>
+              <img src={iconMore} alt={openIngredients ? 'close-info' : 'more-info'} />
             </button>
             {openIngredients && (
               <IngredientsModal
                 recipe={props}
                 onClose={handleCloseIngredientsModal}
+                triggerButtonRef={buttonRef}
               />
             )}
             <span className={styles['line__text']}>
@@ -85,3 +87,4 @@ const RecipeCard: React.FC<RecipeCardProps> = (props) => {
 };
 
 export default RecipeCard;
+
