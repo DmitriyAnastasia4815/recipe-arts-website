@@ -5,15 +5,14 @@ import emptyRecipeImg from '@image/empty-profile-images/empty-recipe-img.svg';
 import emptyProfileImg from '@image/empty-profile-images/empty-user-icon.svg';
 import iconEditSmall from '@image/icon/icon-editing-small.svg';
 
+import addedButton from '@icon/added-button.svg';
 
-import addedButton from '@icon/added-button.svg'
-
-import RecipeCard from '@/features/Recipe/RecipeCard/RecipeCard';
+import RecipeCard from '@/features/Recipe/components/RecipeCard/RecipeCard';
 
 import RecipeCardImage from '@image/RecipeCardImage.svg';
 import RecipeCardImageSecond from '@image/RecipeCardImage.png';
 
-import type { RecipeCardProps } from '@/features/Recipe/RecipeCard/RecipeCard';
+import type { RecipeCardProps } from '@/features/Recipe/components/RecipeCard/RecipeCard';
 
 function ProfilePage() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -34,13 +33,13 @@ function ProfilePage() {
         tags: ['Выпечка и десерты', 'Русская кухня'],
         name: 'Классическая шарлотка',
         total_ingredients: {
-          'Яблоко': 100,
-          'Яйцо': 100,
-          'Какао': 20,
-          'Молоко': 40,
-          'Сахар': 100,
-          'Разрыхлитель': 4,
-          'Соль': 2
+          Яблоко: 100,
+          Яйцо: 100,
+          Какао: 20,
+          Молоко: 40,
+          Сахар: 100,
+          Разрыхлитель: 4,
+          Соль: 2,
         },
         total_calories: 217,
         times: 50,
@@ -51,10 +50,10 @@ function ProfilePage() {
         tags: ['Выпечка и десерты', 'Русская кухня'],
         name: 'Сливочный десерт с запеченными абрикосами',
         total_ingredients: {
-          'Яблоко': 100,
-          'Яйцо': 100,
-          'Какао': 20,
-          'Молоко': 40,
+          Яблоко: 100,
+          Яйцо: 100,
+          Какао: 20,
+          Молоко: 40,
         },
         total_calories: 350,
         times: 30,
@@ -75,7 +74,11 @@ function ProfilePage() {
         <div className={styles['main-section']}>
           <h1 className={styles['main-section__page-title']}>Книга рецептов</h1>
           <div className={styles['main-section__search-container']}>
-            <input type="text" placeholder='поиск по названию' className={styles['search-container__search-input']} />
+            <input
+              type="text"
+              placeholder="поиск по названию"
+              className={styles['search-container__search-input']}
+            />
             <button className={styles['search-container__search-button']}>
               поиск по категориям
             </button>

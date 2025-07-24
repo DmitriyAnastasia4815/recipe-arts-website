@@ -1,4 +1,3 @@
-
 import styles from './IngredientsModal.module.scss';
 import React, { useState, useRef, useCallback } from 'react';
 import OutsideClickHandler from 'react-outside-click-handler';
@@ -34,18 +33,23 @@ const IngredientsModal: React.FC<IngredientsModalProps> = ({
 
   const handleOutsideClick = useCallback(
     (event: MouseEvent) => {
-
       // Игнорируем клик, если он произошёл по кнопке открытия
-      if (triggerButtonRef.current && triggerButtonRef.current.contains(event.target as Node)) {
+      if (
+        triggerButtonRef.current &&
+        triggerButtonRef.current.contains(event.target as Node)
+      ) {
         return;
       }
 
       // Проверяем, что клик произошёл вне модального окна
-      if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
+      if (
+        modalRef.current &&
+        !modalRef.current.contains(event.target as Node)
+      ) {
         onClose();
       }
     },
-    [onClose, triggerButtonRef]
+    [onClose, triggerButtonRef],
   );
 
   return (
@@ -56,11 +60,17 @@ const IngredientsModal: React.FC<IngredientsModalProps> = ({
             <h2 className={styles['header__name']}>Ингредиенты</h2>
             <div className={styles['header__portion']}>
               <p className={styles['header__portion-name']}>порции</p>
-              <button className={styles['header__decrease']} onClick={decreasePortion}>
+              <button
+                className={styles['header__decrease']}
+                onClick={decreasePortion}
+              >
                 <img src={decreaseButton} alt="уменьшить" />
               </button>
               <div className={styles['header__counter']}>{countPortion}</div>
-              <button className={styles['header__increase']} onClick={increasePortion}>
+              <button
+                className={styles['header__increase']}
+                onClick={increasePortion}
+              >
                 <img src={increaseButton} alt="увеличить" />
               </button>
             </div>
@@ -71,7 +81,10 @@ const IngredientsModal: React.FC<IngredientsModalProps> = ({
                 <h2 className={styles['ingredient__name']}>{ingredient}</h2>
                 <span className={styles['ingredient__divider']}></span>
                 <span className={styles['ingredient__amount']}>
-                  {amount !== undefined ? (amount * countPortion).toFixed(0) : 0} гр
+                  {amount !== undefined
+                    ? (amount * countPortion).toFixed(0)
+                    : 0}{' '}
+                  гр
                 </span>
               </div>
             ))}
@@ -83,4 +96,3 @@ const IngredientsModal: React.FC<IngredientsModalProps> = ({
 };
 
 export default IngredientsModal;
-

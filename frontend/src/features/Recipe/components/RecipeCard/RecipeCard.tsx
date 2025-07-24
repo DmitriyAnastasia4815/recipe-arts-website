@@ -1,4 +1,3 @@
-
 import styles from './RecipeCard.module.scss';
 import React, { useState, useRef } from 'react';
 
@@ -8,7 +7,7 @@ import iconTime from '@icon/icon-time.svg';
 import deleteIcon from '@icon/icon-delete.svg';
 import editIconSmall from '@icon/icon-editing-large.svg';
 
-import IngredientsModal from '../IngredientsModal/IngredientsModal';
+import IngredientsModal from '../IngredientsModa;/IngredientsModal';
 
 /**
  * @typedef {Object} RecipeCardProps
@@ -40,7 +39,8 @@ export type RecipeCardProps = {
  * @returns {JSX.Element} Элемент карточки рецепта.
  */
 const RecipeCard: React.FC<RecipeCardProps> = (props) => {
-  const { id, image, tags, name, total_ingredients, total_calories, times } = props;
+  const { id, image, tags, name, total_ingredients, total_calories, times } =
+    props;
 
   /** @type {number} Количество ингредиентов в рецепте. */
   const countOfingredients = Object.keys(total_ingredients).length;
@@ -89,7 +89,10 @@ const RecipeCard: React.FC<RecipeCardProps> = (props) => {
         <div className={styles['container-card__line']}>
           <span className={styles['line__ingredients']}>
             <button ref={buttonRef} onClick={handleToggleIngredientsModal}>
-              <img src={iconMore} alt={openIngredients ? 'close-info' : 'more-info'} />
+              <img
+                src={iconMore}
+                alt={openIngredients ? 'close-info' : 'more-info'}
+              />
             </button>
             {openIngredients && (
               <IngredientsModal
@@ -119,4 +122,3 @@ const RecipeCard: React.FC<RecipeCardProps> = (props) => {
 };
 
 export default RecipeCard;
-
