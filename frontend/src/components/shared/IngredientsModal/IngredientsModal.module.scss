@@ -1,4 +1,3 @@
-
 @import '@styles/all.scss';
 
 .container-modal {
@@ -11,6 +10,13 @@
   z-index: 100;
   box-sizing: border-box;
   padding: 12px;
+  top: 90px;
+  left: 220px;
+
+  @media (max-width: 450px) {
+    top: 290px;
+    left: 0;
+  }
 }
 
 .ingredients-box {
@@ -98,4 +104,3 @@
     margin-left: 8px;
   }
 }
-

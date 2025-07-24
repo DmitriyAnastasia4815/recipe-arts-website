@@ -1,10 +1,11 @@
-
 import styles from './IngredientsModal.module.scss';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 import increaseButton from '@icon/increase-icon-ingredients.svg';
 import decreaseButton from '@icon/decrese-icon-ingredients.svg';
 import { RecipeCardProps } from '../RecipeCard/RecipeCard';
+
+import OutsideClickHandler from 'react-outside-click-handler';
 
 interface IngredientsModalProps {
   recipe: RecipeCardProps;
@@ -17,6 +18,7 @@ const IngredientsModal: React.FC<IngredientsModalProps> = ({
 }) => {
   const { total_ingredients, name } = recipe;
   const [countPortion, setCountPortion] = useState(1);
+  const modalRef = useRef<HTMLDivElement>(null);
 
   const increasePortion = () => {
     setCountPortion(countPortion + 1);
@@ -29,8 +31,10 @@ const IngredientsModal: React.FC<IngredientsModalProps> = ({
   };
 
 
+
   return (
-    <div className={styles['container-modal']}>
+    <OutsideClickHandler onOutsideClick={onClose}>
+    <div className={styles['container-modal']} ref={modalRef}>
       <div className={styles['ingredients-box']}>
         <div className={styles['ingredients-box__header']}>
           <h2 className={styles['header__name']}>Ингредиенты</h2>
@@ -51,15 +55,15 @@ const IngredientsModal: React.FC<IngredientsModalProps> = ({
               <h2 className={styles['ingredient__name']}>{ingredient}</h2>
               <span className={styles['ingredient__divider']}></span>
               <span className={styles['ingredient__amount']}>
-                {(amount * countPortion).toFixed(0)} гр
+                {amount !== undefined ? (amount * countPortion).toFixed(0) : 0} гр
               </span>
             </div>
           ))}
         </div>
       </div>
     </div>
+    </OutsideClickHandler>
   );
 };
 
 export default IngredientsModal;
-

@@ -51,9 +51,14 @@ function ProfilePage() {
         image: RecipeCardImageSecond,
         tags: ['Выпечка и десерты', 'Русская кухня'],
         name: 'Сливочный десерт с запеченными абрикосами',
-        total_ingredients: ['Яблоко', 'Яйцо'],
-        total_calories: 217,
-        times: 50,
+        total_ingredients: {
+          'Яблоко': 100,
+          'Яйцо': 100,
+          'Какао': 20,
+          'Молоко': 40,
+        },
+        total_calories: 350,
+        times: 30,
       },
     ];
 

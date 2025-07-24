@@ -1,6 +1,5 @@
-
 import styles from './RecipeCard.module.scss';
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 
 import iconMore from '@icon/icon-more.svg';
 import iconCalories from '@icon/icon-calories.svg';
@@ -15,7 +14,7 @@ export type RecipeCardProps = {
   image: string;
   tags: string[];
   name: string;
-  total_ingredients: { [key: string]: number };
+  total_ingredients: { [key: string]: number | undefined };
   total_calories: number;
   times: number;
 };
@@ -24,7 +23,7 @@ const RecipeCard: React.FC<RecipeCardProps> = (props) => {
   const { id, image, tags, name, total_ingredients, total_calories, times } = props;
   const countOfingredients = Object.keys(total_ingredients).length;
   const [openIngredients, setOpenIngredients] = useState(false);
-  const buttonRef = useRef<HTMLButtonElement>(null); // Референс на кнопку
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
   const handleOpenIngredientsModal = () => {
     setOpenIngredients(true);
@@ -33,7 +32,6 @@ const RecipeCard: React.FC<RecipeCardProps> = (props) => {
   const handleCloseIngredientsModal = () => {
     setOpenIngredients(false);
   };
-
 
   return (
     <div className={styles['container-card']}>
@@ -87,4 +85,3 @@ const RecipeCard: React.FC<RecipeCardProps> = (props) => {
 };
 
 export default RecipeCard;
-
