@@ -5,16 +5,15 @@ import emptyRecipeImg from '@image/empty-profile-images/empty-recipe-img.svg';
 import emptyProfileImg from '@image/empty-profile-images/empty-user-icon.svg';
 import iconEditSmall from '@image/icon/icon-editing-small.svg';
 
-import InputField from '@/components/common/InputField/InputField';
 
 import addedButton from '@icon/added-button.svg'
 
-import RecipeCard from '@/components/shared/RecipeCard/RecipeCard';
+import RecipeCard from '@/features/Recipe/RecipeCard/RecipeCard';
 
 import RecipeCardImage from '@image/RecipeCardImage.svg';
 import RecipeCardImageSecond from '@image/RecipeCardImage.png';
 
-import type { RecipeCardProps } from '@/components/shared/RecipeCard/RecipeCard';
+import type { RecipeCardProps } from '@/features/Recipe/RecipeCard/RecipeCard';
 
 function ProfilePage() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);

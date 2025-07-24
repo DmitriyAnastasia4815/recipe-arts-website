@@ -10,7 +10,7 @@ import { RecipeCardProps } from '../RecipeCard/RecipeCard';
 interface IngredientsModalProps {
   recipe: RecipeCardProps;
   onClose: () => void;
-  triggerButtonRef: React.RefObject<HTMLButtonElement>;
+  triggerButtonRef: React.RefObject<HTMLButtonElement | null>;
 }
 
 const IngredientsModal: React.FC<IngredientsModalProps> = ({
