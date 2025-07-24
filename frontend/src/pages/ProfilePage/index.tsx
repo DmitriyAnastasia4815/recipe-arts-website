@@ -34,7 +34,15 @@ function ProfilePage() {
         image: RecipeCardImage,
         tags: ['Выпечка и десерты', 'Русская кухня'],
         name: 'Классическая шарлотка',
-        total_ingredients: ['Яблоко', 'Яйцо'],
+        total_ingredients: {
+          'Яблоко': 100,
+          'Яйцо': 100,
+          'Какао': 20,
+          'Молоко': 40,
+          'Сахар': 100,
+          'Разрыхлитель': 4,
+          'Соль': 2
+        },
         total_calories: 217,
         times: 50,
       },
