@@ -20,10 +20,11 @@ const SearchByCategory: React.FC<SearchByCategoryProps> = ({ onClose }) => {
     );
   };
 
-  const handleSearch = () => {
+  const handleSearchCategory = () => {
     //отправка на сервер
     onClose();
   };
+
 
   // Данные категорий
   const initialCategory = [
@@ -93,7 +94,7 @@ const SearchByCategory: React.FC<SearchByCategoryProps> = ({ onClose }) => {
         ))}
         <button
           className={styles['content-box__search-button']}
-          onClick={handleSearch}
+          onClick={handleSearchCategory}
         >
           искать
         </button>

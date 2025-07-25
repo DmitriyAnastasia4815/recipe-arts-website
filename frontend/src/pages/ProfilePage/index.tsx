@@ -1,5 +1,6 @@
 import styles from './ProfilePage.module.scss';
 import { useState, useEffect } from 'react';
+import { debounce } from 'lodash';
 
 import emptyRecipeImg from '@image/empty-profile-images/empty-recipe-img.svg';
 import emptyProfileImg from '@image/empty-profile-images/empty-user-icon.svg';
@@ -16,6 +17,41 @@ import SearchByCategory from '@/components/ui/SearchByCategory/SearchByCategory'
 
 import type { RecipeCardProps } from '@/features/Recipe/components/RecipeCard/RecipeCard';
 
+//Пример данных для рецепта вообще нужно сделать через запрос на сервер
+const initialRecipes = [
+  {
+    id: 1,
+    image: RecipeCardImage,
+    tags: ['Выпечка и десерты', 'Русская кухня'],
+    name: 'Классическая шарлотка',
+    total_ingredients: {
+      Яблоко: 100,
+      Яйцо: 100,
+      Какао: 20,
+      Молоко: 40,
+      Сахар: 100,
+      Разрыхлитель: 4,
+      Соль: 2,
+    },
+    total_calories: 217,
+    times: 50,
+  },
+  {
+    id: 2,
+    image: RecipeCardImageSecond,
+    tags: ['Выпечка и десерты', 'Русская кухня'],
+    name: 'Сливочный десерт с запеченными абрикосами',
+    total_ingredients: {
+      Яблоко: 100,
+      Яйцо: 100,
+      Какао: 20,
+      Молоко: 40,
+    },
+    total_calories: 350,
+    times: 30,
+  },
+];
+
 function ProfilePage() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [recipeItems, setRecipeItems] = useState<RecipeCardProps[]>([]);
@@ -23,50 +59,28 @@ function ProfilePage() {
   const empty = recipeItems.length === 0;
 
   const [openSearchByCategory, setOpenSearchByCategory] = useState(false);
+  const [searchValue, setSearchValue] = useState<string>('');
 
   const handleToggleSearchCategory = () => {
     setOpenSearchByCategory((prev) => !prev);
+  };
+
+  const handleSearch = debounce((value) => {
+    setSearchValue(value);
+    const filteredRecipes = initialRecipes.filter((recipe) =>
+      recipe.name.toLowerCase().includes(value.toLowerCase()),
+    );
+    setRecipeItems(filteredRecipes);
+  }, 300);
+
+  const handleInputChange = (event) => {
+    handleSearch(event.target.value);
   };
 
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
 
     window.addEventListener('resize', handleResize);
-
-    //Пример данных для рецепта вообще нужно сделать через запрос на сервер
-    const initialRecipes = [
-      {
-        id: 1,
-        image: RecipeCardImage,
-        tags: ['Выпечка и десерты', 'Русская кухня'],
-        name: 'Классическая шарлотка',
-        total_ingredients: {
-          Яблоко: 100,
-          Яйцо: 100,
-          Какао: 20,
-          Молоко: 40,
-          Сахар: 100,
-          Разрыхлитель: 4,
-          Соль: 2,
-        },
-        total_calories: 217,
-        times: 50,
-      },
-      {
-        id: 2,
-        image: RecipeCardImageSecond,
-        tags: ['Выпечка и десерты', 'Русская кухня'],
-        name: 'Сливочный десерт с запеченными абрикосами',
-        total_ingredients: {
-          Яблоко: 100,
-          Яйцо: 100,
-          Какао: 20,
-          Молоко: 40,
-        },
-        total_calories: 350,
-        times: 30,
-      },
-    ];
 
     setRecipeItems(initialRecipes);
 
@@ -86,6 +100,7 @@ function ProfilePage() {
               type="text"
               placeholder="поиск по названию"
               className={styles['search-container__search-input']}
+              onChange={handleInputChange}
             />
             <button
               className={styles['search-container__search-button']}
@@ -107,6 +122,7 @@ function ProfilePage() {
             <div className={styles['main-section__content']}>
               {recipeItems.map((recipe, index) => (
                 <RecipeCard
+                  key={recipe.id}
                   id={index}
                   image={recipe.image}
                   tags={recipe.tags}
@@ -143,9 +159,9 @@ function ProfilePage() {
         </div>
       </div>
 
-      {
-        openSearchByCategory && <SearchByCategory onClose={handleToggleSearchCategory}/>
-      }
+      {openSearchByCategory && (
+        <SearchByCategory onClose={handleToggleSearchCategory} />
+      )}
     </div>
   );
 }
