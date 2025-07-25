@@ -12,6 +12,8 @@ import RecipeCard from '@/features/Recipe/components/RecipeCard/RecipeCard';
 import RecipeCardImage from '@image/RecipeCardImage.svg';
 import RecipeCardImageSecond from '@image/RecipeCardImage.png';
 
+import SearchByCategory from '@/components/ui/SearchByCategory/SearchByCategory';
+
 import type { RecipeCardProps } from '@/features/Recipe/components/RecipeCard/RecipeCard';
 
 function ProfilePage() {
@@ -19,6 +21,12 @@ function ProfilePage() {
   const [recipeItems, setRecipeItems] = useState<RecipeCardProps[]>([]);
   const userName = 'Кочерова Анастасия';
   const empty = recipeItems.length === 0;
+
+  const [openSearchByCategory, setOpenSearchByCategory] = useState(false);
+
+  const handleToggleSearchCategory = () => {
+    setOpenSearchByCategory((prev) => !prev);
+  };
 
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
@@ -79,7 +87,10 @@ function ProfilePage() {
               placeholder="поиск по названию"
               className={styles['search-container__search-input']}
             />
-            <button className={styles['search-container__search-button']}>
+            <button
+              className={styles['search-container__search-button']}
+              onClick={handleToggleSearchCategory}
+            >
               поиск по категориям
             </button>
           </div>
@@ -131,6 +142,10 @@ function ProfilePage() {
           </div>
         </div>
       </div>
+
+      {
+        openSearchByCategory && <SearchByCategory onClose={handleToggleSearchCategory}/>
+      }
     </div>
   );
 }
