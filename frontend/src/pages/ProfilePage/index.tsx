@@ -2,23 +2,27 @@ import styles from './ProfilePage.module.scss';
 import { useState, useEffect } from 'react';
 import { debounce } from 'lodash';
 
+// Импорт изображений
 import emptyRecipeImg from '@image/empty-profile-images/empty-recipe-img.svg';
 import emptyProfileImg from '@image/empty-profile-images/empty-user-icon.svg';
 import iconEditSmall from '@image/icon/icon-editing-small.svg';
-
 import addedButton from '@icon/added-button.svg';
-
-import RecipeCard from '@/features/Recipe/components/RecipeCard/RecipeCard';
-
 import RecipeCardImage from '@image/RecipeCardImage.svg';
 import RecipeCardImageSecond from '@image/RecipeCardImage.png';
 
+// Импорт компонентов
+import RecipeCard from '@/features/Recipe/components/RecipeCard/RecipeCard';
 import SearchByCategory from '@/components/ui/SearchByCategory/SearchByCategory';
-
 import type { RecipeCardProps } from '@/features/Recipe/components/RecipeCard/RecipeCard';
 
-//Пример данных для рецепта вообще нужно сделать через запрос на сервер
-const initialRecipes = [
+
+// Определение типа для ингредиентов
+interface Ingredient {
+  [key: string]: number;
+}
+
+// Пример данных для рецептов
+const initialRecipes: RecipeCardProps[] = [
   {
     id: 1,
     image: RecipeCardImage,
@@ -52,39 +56,59 @@ const initialRecipes = [
   },
 ];
 
-function ProfilePage() {
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  const [recipeItems, setRecipeItems] = useState<RecipeCardProps[]>([]);
+/**
+ * Компонент страницы профиля, отображающий книгу рецептов пользователя.
+ * Поддерживает поиск по названию рецепта и категориям.
+ * @returns JSX.Element
+ */
+const ProfilePage: React.FC = () => {
+  const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth);
+  const [recipeItems, setRecipeItems] =
+    useState<RecipeCardProps[]>(initialRecipes);
+  const [openSearchByCategory, setOpenSearchByCategory] =
+    useState<boolean>(false);
+ 
+
+  const [searchValue, setSearchValue] = useState<string>('');
   const userName = 'Кочерова Анастасия';
   const empty = recipeItems.length === 0;
 
-  const [openSearchByCategory, setOpenSearchByCategory] = useState(false);
-  const [searchValue, setSearchValue] = useState<string>('');
-
-  const handleToggleSearchCategory = () => {
+  /**
+   * Переключает видимость панели поиска по категориям.
+   */
+  const handleToggleSearchCategory = (): void => {
     setOpenSearchByCategory((prev) => !prev);
   };
 
-  const handleSearch = debounce((value) => {
+  /**
+   * Обрабатывает поиск по названию рецепта с использованием debounce.
+   * @param value - Введённая строка поиска.
+   */
+  const handleSearch = debounce((value: string): void => {
     setSearchValue(value);
     const filteredRecipes = initialRecipes.filter((recipe) =>
       recipe.name.toLowerCase().includes(value.toLowerCase()),
     );
     setRecipeItems(filteredRecipes);
-  }, 300);
+  }, 100);
 
-  const handleInputChange = (event) => {
+  /**
+   * Обрабатывает изменение значения в поле ввода поиска.
+   * @param event - Событие изменения поля ввода.
+   */
+  const handleInputChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ): void => {
     handleSearch(event.target.value);
   };
 
+  /**
+   * Инициализирует обработчик изменения размера окна и очищает его при размонтировании.
+   */
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
-
     window.addEventListener('resize', handleResize);
 
-    setRecipeItems(initialRecipes);
-
-    // Очистка события при размонтировании компонента
     return () => {
       window.removeEventListener('resize', handleResize);
     };
@@ -100,6 +124,7 @@ function ProfilePage() {
               type="text"
               placeholder="поиск по названию"
               className={styles['search-container__search-input']}
+              value={searchValue}
               onChange={handleInputChange}
             />
             <button
@@ -112,7 +137,7 @@ function ProfilePage() {
 
           {empty ? (
             <div className={styles['main-section__empty-state']}>
-              <img src={emptyRecipeImg} alt="empty-recipe" />
+              <img src={emptyRecipeImg} alt="Нет рецептов" />
               <p className={styles['empty-message']}>
                 Пока здесь ничего нет, но скоро появятся рецепты и фотографии,
                 которые добавит {userName}
@@ -120,10 +145,10 @@ function ProfilePage() {
             </div>
           ) : (
             <div className={styles['main-section__content']}>
-              {recipeItems.map((recipe, index) => (
+              {recipeItems.map((recipe) => (
                 <RecipeCard
                   key={recipe.id}
-                  id={index}
+                  id={recipe.id}
                   image={recipe.image}
                   tags={recipe.tags}
                   name={recipe.name}
@@ -141,18 +166,18 @@ function ProfilePage() {
         <div className={styles['sidebar']}>
           <div className={styles['profile-section']}>
             <div className={styles['profile-section__profile-avatar']}>
-              <img src={emptyProfileImg} alt="" />
+              <img src={emptyProfileImg} alt="Аватар пользователя" />
             </div>
             <div className={styles['profile-section__added-settings']}>
               <div className={styles['profile-section__profile-name']}>
                 <span>{userName}</span>
                 <button className={styles['edit-button']}>
-                  <img src={iconEditSmall} alt="edit-icon" />
+                  <img src={iconEditSmall} alt="Иконка редактирования" />
                 </button>
               </div>
               <button className={styles['profile-section__added-button']}>
                 Добавить рецепт
-                <img src={addedButton} alt="" />
+                <img src={addedButton} alt="Иконка добавления рецепта" />
               </button>
             </div>
           </div>
@@ -164,6 +189,6 @@ function ProfilePage() {
       )}
     </div>
   );
-}
+};
 
 export default ProfilePage;

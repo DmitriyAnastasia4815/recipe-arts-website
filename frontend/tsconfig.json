@@ -41,7 +41,10 @@
       "@types/*": ["./src/types/*"]
     }
   },
-  "include": ["src"] /* Директории и файлы для включения в компиляцию. */,
+  "include": [
+    "src",
+    "src/pages/RecipePage/RecipePage.tsx"
+  ] /* Директории и файлы для включения в компиляцию. */,
   "exclude": [
     "../node_modules",
     "dist"

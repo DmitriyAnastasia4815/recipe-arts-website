@@ -90,3 +90,10 @@
     border-color: $color-light-grey;
   }
 }
+
+@mixin tags {
+  font-size: 12px;
+  font-weight: 600;
+  color: $color-accent;
+  text-transform: uppercase;
+}

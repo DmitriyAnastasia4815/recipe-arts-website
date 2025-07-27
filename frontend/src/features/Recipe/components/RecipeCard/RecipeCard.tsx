@@ -1,5 +1,6 @@
 import styles from './RecipeCard.module.scss';
 import React, { useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import iconMore from '@icon/icon-more.svg';
 import iconCalories from '@icon/icon-calories.svg';
@@ -41,7 +42,7 @@ export type RecipeCardProps = {
 const RecipeCard: React.FC<RecipeCardProps> = (props) => {
   const { id, image, tags, name, total_ingredients, total_calories, times } =
     props;
-
+  const navigate = useNavigate();
   /** @type {number} Количество ингредиентов в рецепте. */
   const countOfingredients = Object.keys(total_ingredients).length;
 
@@ -66,6 +67,10 @@ const RecipeCard: React.FC<RecipeCardProps> = (props) => {
     setOpenIngredients(false);
   };
 
+  const handleNavigateToRecipe = (): void => {
+    navigate(`/recipe/${id}`);
+  };
+
   return (
     <div className={styles['container-card']}>
       <div className={styles['container-card__actions']}>
@@ -76,14 +81,14 @@ const RecipeCard: React.FC<RecipeCardProps> = (props) => {
           <img src={editIconSmall} alt="edit" />
         </button>
       </div>
-      <div className={styles['container-card__image']}>
+      <div className={styles['container-card__image']} onClick={handleNavigateToRecipe}>
         <img src={image} alt={name} />
       </div>
       <div className={styles['container-card__info']}>
         <div className={styles['info__tags']}>
           {tags[0]} <span></span> {tags[1]}
         </div>
-        <div className={styles['info__name']}>
+        <div className={styles['info__name']} onClick={handleNavigateToRecipe}>
           <h2>{name}</h2>
         </div>
         <div className={styles['container-card__line']}>

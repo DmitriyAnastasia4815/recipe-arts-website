@@ -23,6 +23,7 @@
 
   &__image {
     margin-right: 32px;
+    cursor: pointer;
     @media (max-width: 600px) {
       margin-right: 0px;
       width: 100%;
@@ -53,7 +54,6 @@
     right: 0;
     display: flex;
     gap: 8px;
-    
 
     @media (max-width: 680px) {
       top: 200px; /* Position below the image (image height is 200px) */
@@ -151,6 +151,7 @@
   }
   &__name {
     @include h5;
+    cursor: pointer;
     font-weight: 500;
     margin-bottom: 12px;
     @media (max-width: 600px) {
