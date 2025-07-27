@@ -62,9 +62,24 @@
 .info-box {
   &__tags {
     margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
     &-tag {
       @include tags;
-      margin-right: 8px;
+      margin-right: 16px;
+      position: relative;
+      &:not(:first-child)::before {
+        content: '';
+        position: absolute;
+        left: -10px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 6px;
+        height: 6px;
+        background-color: $color-accent;
+        border-radius: 50%;
+      }
     }
   }
 
@@ -72,6 +87,7 @@
     @include h5;
     font-weight: 500;
     margin-bottom: 24px;
+    margin-right: 16px;
   }
 
   &__calories-table {
@@ -81,6 +97,29 @@
     height: 172px;
     background-color: $color-light-green;
     padding: 20px 13px;
+  }
+
+  &__main-info {
+    display: flex;
+    flex-direction: row;
+  }
+
+  &__favourites {
+    width: 25px;
+    height: 25px;
+    color: $color-red-error;
+    transition: color 0.3s ease; // Плавный переход цвета
+  }
+  &__unfavourites {
+    width: 25px;
+    height: 25px;
+    color: $color-light-grey;
+    transition: color 0.3s ease; // Плавный переход цвета
+  }
+
+  &__favourite-button {
+    background: none;
+    display: flex;
   }
 }
 
@@ -233,7 +272,7 @@
     @include h5;
     margin-bottom: 16px;
   }
-  &__number{
+  &__number {
     font-weight: 500;
   }
 }
@@ -251,15 +290,13 @@
   }
 }
 
-
 //Четвертая секция
 .fourth-section {
-    &__advance {
-        display: flex;
-        border: 1px solid $color-black;
-        border-radius: $border-radius-custom;
-        min-height: 50px;
-        padding: 15px 32px;
-    }
-
+  &__advance {
+    display: flex;
+    border: 1px solid $color-black;
+    border-radius: $border-radius-custom;
+    min-height: 50px;
+    padding: 15px 32px;
+  }
 }

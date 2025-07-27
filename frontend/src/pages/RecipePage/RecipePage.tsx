@@ -7,6 +7,8 @@ import arrayIcon from '@icon/icon-array.svg';
 import increaseIcon from '@icon/PortionButton/icon-increase.svg';
 import decreseIcon from '@icon/PortionButton/icon-decrease.svg';
 
+import { FavouriteIconAdded } from '@/assets/image/icon/FavouriteIcon/FavouriteIcon';
+
 //пока нет сервера
 import recipeImage from '@image/ReipeImage.svg';
 import recipeSteps from '@image/RecipeStep.svg';
@@ -57,7 +59,12 @@ interface Recipe {
 
 const initialRecipe: Recipe = {
   id: 1,
-  categories: ['Выпечка и десерты', 'Русская кухня'],
+  categories: [
+    'Выпечка и десерты',
+    'Русская кухня',
+    'Русская кухня',
+    'Русская кухня',
+  ],
   image: 'картинка',
   name: 'Классическая шарлотка',
   energy_value: {
@@ -96,7 +103,8 @@ const initialRecipe: Recipe = {
       step_4: { image: '', description: 'Выпекать при 180°C 30 минут.' },
     },
   },
-  advance: 'Lörem ipsum vöräse terahylig rengar pörar. Rågen mahifask. Dekanuhins redat har spenura årar. Poss prosk i ossade om dulig, liksom desm. Tenosam tusm, hyperaktiv, nuvis hutessa. Polyv pede vaktiga pöpusm yr. Mikronokanade prell. Fas foden och fasat portad. Dupp intrasm prenusa. Enynde por: far när fatelig i radiometer. ',
+  advance:
+    'Lörem ipsum vöräse terahylig rengar pörar. Rågen mahifask. Dekanuhins redat har spenura årar. Poss prosk i ossade om dulig, liksom desm. Tenosam tusm, hyperaktiv, nuvis hutessa. Polyv pede vaktiga pöpusm yr. Mikronokanade prell. Fas foden och fasat portad. Dupp intrasm prenusa. Enynde por: far när fatelig i radiometer. ',
 };
 
 const RecipePage: React.FC = () => {
@@ -104,6 +112,7 @@ const RecipePage: React.FC = () => {
   const [recipeInfo, setRecipeInfo] = useState<Recipe | null>(null);
   const [counterPortion, setCounterPortion] = useState<number>(1);
   const hours = recipeInfo?.recipe_steps.time.hours || null;
+  const [favouriteRecipe, setFavouriteRecipe] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -129,6 +138,11 @@ const RecipePage: React.FC = () => {
       recipeInfo.energy_value.fat * 9 +
       recipeInfo.energy_value.protein * 4
     : 0;
+
+  const handleFavouriteRecipe = () => {
+    //отправка на сервер
+    setFavouriteRecipe((prev) => !prev);
+  };
 
   return (
     <div className="container">
@@ -158,7 +172,15 @@ const RecipePage: React.FC = () => {
                     </span>
                   ))}
               </div>
-              <h3 className={styles['info-box__name']}>{recipeInfo?.name}</h3>
+              <div className={styles['info-box__main-info']}>
+                <h3 className={styles['info-box__name']}>{recipeInfo?.name}</h3>
+                <button className={styles['info-box__favourite-button']} onClick={handleFavouriteRecipe}>
+                  <FavouriteIconAdded
+                    className={`${favouriteRecipe ? styles['info-box__favourites'] : styles['info-box__unfavourites']}`}
+                  />
+                </button>
+              </div>
+
               <div className={styles['info-box__calories-table']}>
                 <h3 className={styles['calories-table__name']}>
                   Энергетическая ценность на 100 грамм
@@ -284,13 +306,10 @@ const RecipePage: React.FC = () => {
         </div>
 
         <div className={styles['content-container__fourth-section']}>
-            <h2 className={styles['header__name']}>Совет </h2>
-            <div className={styles['fourth-section__advance']}>
-              {
-                recipeInfo?.advance
-              }
-            </div>
-
+          <h2 className={styles['header__name']}>Совет </h2>
+          <div className={styles['fourth-section__advance']}>
+            {recipeInfo?.advance}
+          </div>
         </div>
       </div>
     </div>
