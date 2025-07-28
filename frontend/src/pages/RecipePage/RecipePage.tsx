@@ -156,56 +156,67 @@ const RecipePage: React.FC = () => {
 
         <div className={styles['content-container__first-section']}>
           <div className={styles['main-content']}>
-            <img
-              className={styles['main-content__image']}
-              // src={recipeInfo.image}
-              src={recipeImage}
-              alt={recipeInfo.name}
-            />
-
             <div className={styles['main-content__info-box']}>
-              <div className={styles['info-box__tags']}>
-                {recipeInfo.categories?.length > 0 &&
-                  recipeInfo.categories.map((tag, index) => (
-                    <span key={index} className={styles['info-box__tags-tag']}>
-                      {tag}
-                    </span>
-                  ))}
-              </div>
-              <div className={styles['info-box__main-info']}>
-                <h3 className={styles['info-box__name']}>{recipeInfo?.name}</h3>
-                <button className={styles['info-box__favourite-button']} onClick={handleFavouriteRecipe}>
-                  <FavouriteIconAdded
-                    className={`${favouriteRecipe ? styles['info-box__favourites'] : styles['info-box__unfavourites']}`}
-                  />
-                </button>
-              </div>
+              <img
+                className={styles['main-content__image']}
+                // src={recipeInfo.image}
+                src={recipeImage}
+                alt={recipeInfo.name}
+              />
+              <div className={styles['info-box__info']}>
+                <div className={styles['info-box__info-right']}>
+                  <div className={styles['info-box__tags']}>
+                    {recipeInfo.categories?.length > 0 &&
+                      recipeInfo.categories.map((tag, index) => (
+                        <span
+                          key={index}
+                          className={styles['info-box__tags-tag']}
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                  </div>
+                  <div className={styles['info-box__main-info']}>
+                    <h3 className={styles['info-box__name']}>
+                      {recipeInfo?.name}
+                    </h3>
+                    <button
+                      className={styles['info-box__favourite-button']}
+                      onClick={handleFavouriteRecipe}
+                    >
+                      <FavouriteIconAdded
+                        className={`${favouriteRecipe ? styles['info-box__favourites'] : styles['info-box__unfavourites']}`}
+                      />
+                    </button>
+                  </div>
+                </div>
 
-              <div className={styles['info-box__calories-table']}>
-                <h3 className={styles['calories-table__name']}>
-                  Энергетическая ценность на 100 грамм
-                </h3>
-                <hr className={styles['calories-table__hr']} />
-                <div className={styles['calories-table__info']}>
-                  <div className={styles['calories-table__item']}>
-                    <h2>Калорийность</h2>
-                    <span>{energyValue}</span>
-                    <span>ккал</span>
-                  </div>
-                  <div className={styles['calories-table__item']}>
-                    <h2>Белки</h2>
-                    <span>{recipeInfo?.energy_value.protein}</span>
-                    <span>грамм</span>
-                  </div>
-                  <div className={styles['calories-table__item']}>
-                    <h2>Жиры</h2>
-                    <span>{recipeInfo?.energy_value.fat}</span>
-                    <span>грамм</span>
-                  </div>
-                  <div className={styles['calories-table__item']}>
-                    <h2>Углеводы</h2>
-                    <span>{recipeInfo?.energy_value.carb}</span>
-                    <span>грамм</span>
+                <div className={styles['info-box__calories-table']}>
+                  <h3 className={styles['calories-table__name']}>
+                    Энергетическая ценность на 100 грамм
+                  </h3>
+                  <hr className={styles['calories-table__hr']} />
+                  <div className={styles['calories-table__info']}>
+                    <div className={styles['calories-table__item']}>
+                      <h2>Калорийность</h2>
+                      <span>{energyValue}</span>
+                      <span>ккал</span>
+                    </div>
+                    <div className={styles['calories-table__item']}>
+                      <h2>Белки</h2>
+                      <span>{recipeInfo?.energy_value.protein}</span>
+                      <span>грамм</span>
+                    </div>
+                    <div className={styles['calories-table__item']}>
+                      <h2>Жиры</h2>
+                      <span>{recipeInfo?.energy_value.fat}</span>
+                      <span>грамм</span>
+                    </div>
+                    <div className={styles['calories-table__item']}>
+                      <h2>Углеводы</h2>
+                      <span>{recipeInfo?.energy_value.carb}</span>
+                      <span>грамм</span>
+                    </div>
                   </div>
                 </div>
               </div>
