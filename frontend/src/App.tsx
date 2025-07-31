@@ -6,8 +6,6 @@ import Register from './pages/Register';
 import ProtectedRoute from './router/ProtectedRoute';
 import RecipePage from './pages/RecipePage/RecipePage';
 
-
-
 import MainLayout from '@router/MainLayout';
 
 import {
@@ -20,7 +18,6 @@ import {
 import '@/styles/app.scss';
 
 import { useEffect } from 'react';
-
 
 const ScrollToTop: React.FC = () => {
   const { pathname } = useLocation();
@@ -60,7 +57,9 @@ function App() {
           <Route path="login" element={<Auth />} />
           <Route path="register" element={<Register />} />
           <Route path="recipe/:id" element={<RecipePage />} />
-
+          <Route path="recipe/new" element={<RecipePage />} />
+          <Route path="recipe/:id/edit" element={<RecipePage />} />
+          
           {/* <Route path="*" element={<NotFoundPage />} /> */}
         </Route>
       </Routes>

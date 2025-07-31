@@ -71,17 +71,24 @@ const RecipeCard: React.FC<RecipeCardProps> = (props) => {
     navigate(`/recipe/${id}`);
   };
 
+  const handleEditRecipe = (): void => {
+    navigate(`/recipe/${id}/edit`);
+  };
+
   return (
     <div className={styles['container-card']}>
       <div className={styles['container-card__actions']}>
         <button className={styles['actions__delete']}>
           <img src={deleteIcon} alt="delete" />
         </button>
-        <button className={styles['actions__edit']}>
+        <button className={styles['actions__edit']} onClick={handleEditRecipe}>
           <img src={editIconSmall} alt="edit" />
         </button>
       </div>
-      <div className={styles['container-card__image']} onClick={handleNavigateToRecipe}>
+      <div
+        className={styles['container-card__image']}
+        onClick={handleNavigateToRecipe}
+      >
         <img src={image} alt={name} />
       </div>
       <div className={styles['container-card__info']}>

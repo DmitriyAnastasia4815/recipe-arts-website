@@ -14,7 +14,7 @@ import RecipeCardImageSecond from '@image/RecipeCardImage.png';
 import RecipeCard from '@/features/Recipe/components/RecipeCard/RecipeCard';
 import SearchByCategory from '@/components/ui/SearchByCategory/SearchByCategory';
 import type { RecipeCardProps } from '@/features/Recipe/components/RecipeCard/RecipeCard';
-
+import { useNavigate } from 'react-router-dom';
 
 // Определение типа для ингредиентов
 interface Ingredient {
@@ -67,7 +67,7 @@ const ProfilePage: React.FC = () => {
     useState<RecipeCardProps[]>(initialRecipes);
   const [openSearchByCategory, setOpenSearchByCategory] =
     useState<boolean>(false);
- 
+  const navigate = useNavigate();
 
   const [searchValue, setSearchValue] = useState<string>('');
   const userName = 'Кочерова Анастасия';
@@ -100,6 +100,10 @@ const ProfilePage: React.FC = () => {
     event: React.ChangeEvent<HTMLInputElement>,
   ): void => {
     handleSearch(event.target.value);
+  };
+
+  const handleAddRecipe = (): void => {
+    navigate('/recipe/new');
   };
 
   /**
@@ -175,7 +179,10 @@ const ProfilePage: React.FC = () => {
                   <img src={iconEditSmall} alt="Иконка редактирования" />
                 </button>
               </div>
-              <button className={styles['profile-section__added-button']}>
+              <button
+                className={styles['profile-section__added-button']}
+                onClick={handleAddRecipe}
+              >
                 Добавить рецепт
                 <img src={addedButton} alt="Иконка добавления рецепта" />
               </button>
