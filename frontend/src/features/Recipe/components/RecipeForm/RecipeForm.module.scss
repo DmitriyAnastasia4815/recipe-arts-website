@@ -39,11 +39,18 @@
     display: flex;
     gap: 32px;
     flex-direction: column;
-    margin-bottom: 90px;
+    margin-bottom: 20px;
+
     @media (max-width: 450px) {
       margin-bottom: 64px;
       gap: 8px;
     }
+  }
+
+  &__confirm-recipe {
+    @include green-button;
+    width: 100%;
+    margin-bottom: 90px;
   }
 }
 
@@ -426,23 +433,28 @@
     margin-bottom: 16px;
   }
 
-  &__empty-list {
+  &__empty-advance {
     display: flex;
     flex-direction: column;
     justify-content: center;
-
-    p {
-      text-align: center;
-      margin-bottom: 32px;
-    }
-    @media (max-width: 450px) {
-      p {
-        @include mobile-text-second;
-        margin-bottom: 16px;
-      }
-    }
-
+    width: 100%;
+    text-wrap: wrap;
     margin-bottom: 20px;
+  }
+
+  &__empty-advance-area {
+    width: 100%;
+    min-height: 50px;
+    resize: none;
+    font-family: inherit;
+    font-size: 1rem;
+    line-height: 1.5;
+    overflow: auto;
+    background-color: transparent;
+    @media (max-width: 450px) {
+      @include mobile-text-second;
+      padding: 12px 20px;
+    }
   }
 
   &__empty-item {
@@ -486,7 +498,6 @@
       height: 212px;
     }
   }
-
 }
 
 //Третья секция
@@ -549,6 +560,10 @@
     display: flex;
     align-items: center;
     gap: 8px;
+    margin-bottom: 8px;
+    @media (max-width: 450px) {
+      margin-bottom: 4px;
+    }
   }
 }
 
@@ -609,5 +624,37 @@
     display: flex;
     align-items: center;
     gap: 8px;
+  }
+}
+
+//Все поп апы
+.pop-up {
+  &__overlay {
+    position: fixed; /* Фиксированное позиционирование относительно viewport */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Полупрозрачный фон */
+    display: flex;
+    justify-content: center; /* Центрирование по горизонтали */
+    align-items: center; /* Центрирование по вертикали */
+    z-index: 1000; /* Высокий z-index, чтобы быть поверх других элементов */
+  }
+  &__edit-name {
+    width: 100%;
+    max-width: 650px; /* Ограничьте максимальную ширину, как в EditingRecipeName */
+    background-color: $color-white; /* Убедитесь, что фон есть */
+    border-radius: $border-radius-custom;
+    box-sizing: border-box;
+    padding: 16px 24px;
+    @media (max-width: 768px) {
+      max-width: 90%;
+      padding: 16px;
+    }
+    @media (max-width: 450px) {
+      max-width: 95%;
+      padding: 12px;
+    }
   }
 }

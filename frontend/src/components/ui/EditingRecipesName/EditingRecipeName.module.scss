@@ -1,0 +1,102 @@
+
+@import '@styles/all.scss';
+
+.main-container {
+  @media (max-width: 768px) {
+    max-width: 90%;
+    height: auto;
+    padding: 16px;
+  }
+  @media (max-width: 450px) {
+    max-width: 95%;
+    padding: 12px;
+  }
+
+  &__return-button {
+    background: none;
+    margin-bottom: 16px;
+    img {
+      width: 40px;
+    }
+  }
+  &__editing {
+    display: flex;
+    flex-direction: column;
+  }
+  &__edit-name {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+  &__edit-image {
+    display: flex;
+    margin-bottom: 16px;
+  }
+  &__confirm-button {
+    @include green-button;
+    width: 100%;
+  }
+}
+
+.edit-name {
+  &__name {
+    @include h6;
+    margin-right: 16px;
+  }
+  &__input {
+    @include inputField;
+    width: 100%;
+    height: 30px;
+  }
+}
+
+.edit-image {
+  &__name {
+    @include h6;
+    margin-right: 64px;
+  }
+  &__input {
+    display: none;
+  }
+  &__image-box {
+    position: relative;
+    width: 200px;
+    height: 136px;
+    &--overlay {
+      position: relative;
+      cursor: pointer;
+      &:hover {
+        .edit-image__overlay {
+          opacity: 0.8;
+        }
+      }
+    }
+  }
+  &__image {
+    width: 200px;
+    height: 136px;
+    object-fit: cover;
+    border-radius: $border-radius-custom;
+  }
+  &__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: $border-radius-custom;
+  }
+  &__cooking-thing {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+  }
+}
+

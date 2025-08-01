@@ -3,6 +3,8 @@ import styles from './RecipeForm.module.scss';
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
+import EditingRecipeName from '@/components/ui/EditingRecipesName/EditingRecipeName';
+
 import arrayIcon from '@icon/icon-array.svg';
 
 import increaseIcon from '@icon/PortionButton/icon-increase.svg';
@@ -13,7 +15,7 @@ import deleteIcon from '@icon/icon-delete.svg';
 import addedStepIcon from '@icon/added-button.svg';
 
 import emptyRecipeImage from '@image/emptyRecipeImage.svg';
-import emptyRecipeStep from '@image/emptyRecipeStep.svg'
+import emptyRecipeStep from '@image/emptyRecipeStep.svg';
 
 //пока нет сервера
 import recipeImage from '@image/ReipeImage.svg';
@@ -155,6 +157,10 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ mode }) => {
   const [counterPortion, setCounterPortion] = useState<number>(1);
   const hours = recipeInfo?.recipe_steps.time.hours || null;
 
+  const [openEditName, setOpenEditName] = useState(false);
+
+  const [advance, setAdvance] = useState('');
+
   useEffect(() => {
     if (mode === 'edit' && id) {
       //запрос на сервер для получения данных о рецепте
@@ -170,6 +176,10 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ mode }) => {
     return <div>Загрузка...</div>;
   }
 
+  const onChangeAdvance = (event: HTMLTextAreaElement) => {
+    const advance = event.value;
+    setAdvance(advance);
+  };
   const handleIncreasePortion = () => {
     setCounterPortion(counterPortion + 1);
   };
@@ -185,7 +195,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ mode }) => {
   };
 
   const handleEditName = () => {
-    //кнопка редактирования названия рецепта
+    setOpenEditName((prev) => !prev);
   };
 
   const handleEditIngredients = () => {
@@ -502,16 +512,30 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ mode }) => {
             {recipeInfo?.advance.length > 0 ? (
               recipeInfo?.advance
             ) : (
-              <div className={styles['ingredients-list__empty-list']}>
-                <p>
-                  Расскажите, на что обратить внимание при приготовлении блюда
-                  или как можно его усовершенствовать
-                </p>
+              <div className={styles['ingredients-list__empty-advance']}>
+                <textarea
+                  value={advance}
+                  onChange={onChangeAdvance}
+                  className={styles['ingredients-list__empty-advance-area']}
+                  placeholder=" Расскажите, на что обратить внимание при приготовлении блюда или как можно его усовершенствовать"
+                />
               </div>
             )}
           </div>
         </div>
       </div>
+
+      <button className={styles['content-container__confirm-recipe']}>
+        Добавить рецепт
+      </button>
+
+      {openEditName && (
+        <div className={styles['pop-up__overlay']}>
+          <div className={styles['pop-up__edit-name']}>
+            <EditingRecipeName onClose={handleEditName} />
+          </div>
+        </div>
+      )}
     </div>
   );
 };
