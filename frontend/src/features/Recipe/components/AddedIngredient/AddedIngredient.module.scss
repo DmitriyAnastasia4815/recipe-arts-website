@@ -13,7 +13,7 @@
   }
   &__search-input {
     width: 100%;
-    padding: 8px;
+    padding: 8px 16px;
     border: 1px solid $color-light-grey;
     border-radius: 40px;
     font-size: 16px;
@@ -21,6 +21,9 @@
     text-align: center;
     height: 40px;
     margin-bottom: 12px;
+    text-align: left; /* Текст начинается слева, но визуально смотрится естественно */
+    box-sizing: border-box; /* Учитываем padding и border в ширине */
+    transition: all 0.3s ease; /* Плавный переход для эффектов */
 
     &:focus {
       border-color: $color-light-grey;
@@ -53,20 +56,72 @@
   }
 }
 
-.ingredients-list{
+.ingredients-list {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 24px;
+  height: 210px;
+  overflow-y: auto;
+  &__item {
     display: flex;
-    flex-direction: column;
-    margin-bottom: 24px;
-    height: 210px;
-    &__item {
-        display: flex;
-        flex-direction: row;
-        gap: 8px;
-        margin-bottom: 16px;
+    flex-direction: row;
+    gap: 8px;
+    margin-bottom: 16px;
+    position: relative; /* Для позиционирования модального окна */
 
-        &--name {
-            @include paragragh;
-        }
+    &--name {
+      @include paragragh;
     }
-    
+
+    &--info {
+      background: none;
+      border: none;
+      cursor: pointer;
+      flex-shrink: 0;
+      img {
+        width: 16px; /* Размер иконки информации */
+        height: 16px;
+      }
+    }
+
+    &--modal {
+      position: absolute;
+      top: 100%; /* Модальное окно ниже кнопки */
+      left: 30%;
+      transform: translateX(-50%);
+      z-index: 10;
+      background-color: #fff;
+      border: 1px solid $color-light-grey;
+      border-radius: 8px;
+      padding: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      min-width: 200px; /* Минимальная ширина модального окна */
+    }
+  }
+}
+
+
+.ingredients-list__item--checkbox {
+  appearance: none; /* Убираем стандартный вид чекбокса */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 20px;
+  height: 20px;
+  background-color: $color-light-green;
+  border: 2px solid $color-accent;
+  border-radius: 4px;
+  position: relative;
+  cursor: pointer;
+  outline: none;
+
+  &:checked::after {
+    content: '\2713'; /* Unicode для галочки */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: $color-accent;
+    font-size: 14px;
+    font-weight: bold;
+  }
 }

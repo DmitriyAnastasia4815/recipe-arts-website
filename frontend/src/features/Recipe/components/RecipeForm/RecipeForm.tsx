@@ -30,7 +30,7 @@ import { initialRecipe } from '@/assets/example/example';
 import { initialIngredient } from '@/assets/example/example';
 
 //типизация
-import type { Recipe } from '@/assets/example/example';
+import type { Recipe } from '../../types/types';
 
 interface RecipeFormProps {
   mode: string;
@@ -445,7 +445,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ mode }) => {
       {openAddedIngredient && (
         <div className={styles['pop-up__overlay']}>
           <div className={styles['pop-up__edit-ingredients']}>
-            <AddedIngredient onClose={handleEditIngredients} />
+            <AddedIngredient onClose={handleEditIngredients}/>
           </div>
         </div>
       )}

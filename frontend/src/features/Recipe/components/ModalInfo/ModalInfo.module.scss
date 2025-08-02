@@ -1,0 +1,21 @@
+@import '@styles/all.scss';
+
+.container{
+    &__content {
+        display: flex;
+        flex-direction: column;
+        &--box{
+            display: flex;
+            flex-direction: column;
+        }
+    }
+
+    &__content-item {
+        display: flex;
+        flex-direction: row;
+        gap: 8px;
+        &--calories{
+            font-weight: 500;
+        }
+    }
+}
