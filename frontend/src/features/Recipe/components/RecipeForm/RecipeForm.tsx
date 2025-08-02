@@ -3,17 +3,20 @@ import styles from './RecipeForm.module.scss';
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import EditingRecipeName from '@/components/ui/EditingRecipesName/EditingRecipeName';
+//все поп апы
+import EditingRecipeName from '@/features/Recipe/components/EditingRecipesName/EditingRecipeName';
+import SearchByCategory from '@/components/ui/SearchByCategory/SearchByCategory';
+import AddedIngredient from '../AddedIngredient/AddedIngredient';
 
+//иконки
 import arrayIcon from '@icon/icon-array.svg';
-
 import increaseIcon from '@icon/PortionButton/icon-increase.svg';
 import decreseIcon from '@icon/PortionButton/icon-decrease.svg';
-
 import editIcon from '@icon/icon-editing-small.svg';
 import deleteIcon from '@icon/icon-delete.svg';
 import addedStepIcon from '@icon/added-button.svg';
 
+//изображения
 import emptyRecipeImage from '@image/emptyRecipeImage.svg';
 import emptyRecipeStep from '@image/emptyRecipeStep.svg';
 
@@ -21,129 +24,13 @@ import emptyRecipeStep from '@image/emptyRecipeStep.svg';
 import recipeImage from '@image/ReipeImage.svg';
 import recipeSteps from '@image/RecipeStep.svg';
 
-interface Ingredient {
-  id: number;
-  name: string;
-  amount: number;
-}
+//примеры рецептов
+import { initialEmptyRecipe } from '@/assets/example/example';
+import { initialRecipe } from '@/assets/example/example';
+import { initialIngredient } from '@/assets/example/example';
 
-interface EnergyValue {
-  protein: number;
-  fat: number;
-  carb: number;
-}
-
-interface Time {
-  hours: number;
-  minutes: number;
-}
-
-interface Step {
-  image: string;
-  description: string;
-}
-
-interface RecipeSteps {
-  time: Time;
-  steps: {
-    [key: string]: Step;
-  };
-}
-
-interface Ingredients {
-  portion: number;
-  list_ingredients: Ingredient[];
-}
-
-interface Recipe {
-  id: number;
-  categories: string[];
-  image: string;
-  name: string;
-  energy_value: EnergyValue;
-  ingredients: Ingredients;
-  recipe_steps: RecipeSteps;
-  advance: string;
-}
-
-const initialEmptyRecipe: Recipe = {
-  id: 0,
-  categories: ['категория блюда', 'категория блюда'],
-  image: '',
-  name: 'Название блюда',
-  energy_value: { protein: 0, fat: 0, carb: 0 },
-  ingredients: { portion: 1, list_ingredients: [] },
-  recipe_steps: { time: { hours: 0, minutes: 0 }, steps: {} },
-  advance: '',
-};
-
-const initialRecipe: Recipe = {
-  id: 1,
-  categories: [
-    'Выпечка и десерты',
-    'Русская кухня',
-    'Русская кухня',
-    'Русская кухня',
-  ],
-  image: 'картинка',
-  name: 'Классическая шарлотка',
-  energy_value: {
-    protein: 30,
-    fat: 20,
-    carb: 120,
-  },
-  ingredients: {
-    portion: 4,
-    list_ingredients: [
-      { id: 1, name: 'Яблоки', amount: 450 },
-      { id: 2, name: 'Пшеничная мука хлебопекарная', amount: 130 },
-      { id: 3, name: 'Куриное яйцо', amount: 180 },
-      { id: 4, name: 'Сахар', amount: 180 },
-      { id: 5, name: 'Ванилин', amount: 2 },
-    ],
-  },
-  recipe_steps: {
-    time: {
-      hours: 2,
-      minutes: 40,
-    },
-    steps: {
-      step_1: {
-        image: '',
-        description: 'Яблоки нарезать, очистить от кожуры.',
-      },
-      step_2: {
-        image: '',
-        description: 'Яйца с сахаром взбить миксером до пышности.',
-      },
-      step_3: {
-        image: '',
-        description: 'Добавить муку и ванилин, аккуратно перемешать.',
-      },
-      step_4: { image: '', description: 'Выпекать при 180°C 30 минут.' },
-    },
-  },
-  advance:
-    'Lörem ipsum vöräse terahylig rengar pörar. Rågen mahifask. Dekanuhins redat har spenura årar. Poss prosk i ossade om dulig, liksom desm. Tenosam tusm, hyperaktiv, nuvis hutessa. Polyv pede vaktiga pöpusm yr. Mikronokanade prell. Fas foden och fasat portad. Dupp intrasm prenusa. Enynde por: far när fatelig i radiometer. ',
-};
-
-interface initialIngredient {
-  id: number;
-  name: string;
-  protein: number;
-  fat: number;
-  carbs: number;
-  calories: number;
-}
-
-const initialIngredient: initialIngredient = {
-  id: 1,
-  name: 'Яблоки',
-  protein: 0.3,
-  fat: 0.2,
-  carbs: 13.8,
-  calories: 52,
-};
+//типизация
+import type { Recipe } from '@/assets/example/example';
 
 interface RecipeFormProps {
   mode: string;
@@ -157,7 +44,10 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ mode }) => {
   const [counterPortion, setCounterPortion] = useState<number>(1);
   const hours = recipeInfo?.recipe_steps.time.hours || null;
 
+  //управление открытием поп апов
+  const [openEditCategories, setOpenEditCategories] = useState(false);
   const [openEditName, setOpenEditName] = useState(false);
+  const [openAddedIngredient, setOpenAddedIngredient] = useState(false);
 
   const [advance, setAdvance] = useState('');
 
@@ -175,6 +65,12 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ mode }) => {
   if (!recipeInfo) {
     return <div>Загрузка...</div>;
   }
+  const handleUpdateRecipe = (updatedRecipe: Partial<Recipe>) => {
+    setRecipeInfo((prev) => ({
+      ...prev!,
+      ...updatedRecipe,
+    }));
+  };
 
   const onChangeAdvance = (event: HTMLTextAreaElement) => {
     const advance = event.value;
@@ -191,7 +87,8 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ mode }) => {
   };
 
   const handleEditTags = () => {
-    //кнопка редактирования тегов
+    //кнопка редактирования тегов  закрытия по апа
+    setOpenEditCategories((prev) => !prev);
   };
 
   const handleEditName = () => {
@@ -200,6 +97,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ mode }) => {
 
   const handleEditIngredients = () => {
     //кнопка редактирования списка ингредиентов
+    setOpenAddedIngredient((prev) => !prev);
   };
 
   const handleAddedSteps = () => {
@@ -524,15 +422,30 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ mode }) => {
           </div>
         </div>
       </div>
-
       <button className={styles['content-container__confirm-recipe']}>
         Добавить рецепт
       </button>
-
       {openEditName && (
         <div className={styles['pop-up__overlay']}>
           <div className={styles['pop-up__edit-name']}>
-            <EditingRecipeName onClose={handleEditName} />
+            <EditingRecipeName
+              onClose={handleEditName}
+              mode={mode}
+              id={id ? parseInt(id) : undefined}
+            />
+          </div>
+        </div>
+      )}
+      {openEditCategories && (
+        <div className={styles['pop-up__edit-name']}>
+          <SearchByCategory onClose={handleEditTags} />
+        </div>
+      )}
+
+      {openAddedIngredient && (
+        <div className={styles['pop-up__overlay']}>
+          <div className={styles['pop-up__edit-ingredients']}>
+            <AddedIngredient onClose={handleEditIngredients} />
           </div>
         </div>
       )}

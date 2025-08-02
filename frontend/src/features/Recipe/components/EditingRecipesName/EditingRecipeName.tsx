@@ -1,23 +1,62 @@
-
-import React, { useRef, useState } from 'react';
 import styles from './EditingRecipeName.module.scss';
+import React, { useEffect, useRef, useState } from 'react';
+import { debounce } from 'lodash';
 
-import emptyRecipe from '@image/EmptyRecipe/EmptyRecipe.svg';
 import returnIcon from '@icon/icon-array.svg';
 import cookingThing from '@icon/cookingThing.svg';
 
+//картинки при отсутствии шагов или картинок рецепта от пользователя
+import emptyRecipeImage from '@image/emptyRecipeImage.svg';
+import emptyRecipeStep from '@image/emptyRecipeStep.svg';
+
+//пока нет сервера
+import recipeImage from '@image/ReipeImage.svg';
+import recipeSteps from '@image/RecipeStep.svg';
+
+//примеры рецептов
+import { initialEmptyRecipe } from '@/assets/example/example';
+import { initialRecipe } from '@/assets/example/example';
+import { initialIngredient } from '@/assets/example/example';
+
+//типизация
+import type { Recipe } from '@/assets/example/example';
+
+
 interface EditingRecipeNameProps {
   onClose: () => void;
+  mode: string;
+  id?: number;
 }
 
 export const EditingRecipeName: React.FC<EditingRecipeNameProps> = ({
   onClose,
+  mode,
+  id,
 }) => {
-  const [imageSrc, setImageSrc] = useState<string>(emptyRecipe);
+  const [recipeInfo, setRecipeInfo] = useState<Recipe | null>(null);
+  // const [imageSrc, setImageSrc] = useState<string>(recipeInfo?.image );
+  const [imageSrc, setImageSrc] = useState<string>(
+    mode === 'edit' ? recipeImage : emptyRecipeImage,
+  );
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const nameRef = useRef(null);
+
+  useEffect(() => {
+    if (mode === 'edit') {
+      //взаимодействие с сервером получение информации о существующем рецепте по айди
+      setRecipeInfo(initialRecipe);
+    } else if (mode === 'create') {
+      setRecipeInfo(initialEmptyRecipe);
+    }
+  }, [id]);
+
+  useEffect(() => {
+    nameRef.current?.focus();
+  }, []);
 
   const handleConfirm = () => {
-    // Взаимодействие с редаксом скорее всего
+    // Взаимодействие с редаксом скорее всего или с сервером я хз
+     onClose()
   };
 
   const handleImageClick = () => {
@@ -32,6 +71,17 @@ export const EditingRecipeName: React.FC<EditingRecipeNameProps> = ({
     }
   };
 
+  const handleChangeName = 
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const name = event.target.value;
+      setRecipeInfo((prev) => ({
+        ...prev!,
+        name,
+      }));
+     
+      console.log(recipeInfo);
+    }
+
 
   return (
     <div className={styles['main-container']}>
@@ -45,12 +95,21 @@ export const EditingRecipeName: React.FC<EditingRecipeNameProps> = ({
         <div className={styles['main-container__editing']}>
           <div className={styles['main-container__edit-name']}>
             <h2 className={styles['edit-name__name']}>Название</h2>
-            <input className={styles['edit-name__input']} type="text" />
+            <input
+              className={styles['edit-name__input']}
+              type="text"
+              placeholder={recipeInfo?.name}
+              ref={nameRef}
+              onChange={handleChangeName}
+            />
           </div>
 
           <div className={styles['main-container__edit-image']}>
             <h2 className={styles['edit-image__name']}>Фото</h2>
-            <div className={styles['edit-image__image-box--overlay']} onClick={handleImageClick}>
+            <div
+              className={styles['edit-image__image-box--overlay']}
+              onClick={handleImageClick}
+            >
               <div className={styles['edit-image__image-box']}>
                 <img
                   className={styles['edit-image__image']}
@@ -87,4 +146,3 @@ export const EditingRecipeName: React.FC<EditingRecipeNameProps> = ({
 };
 
 export default EditingRecipeName;
-

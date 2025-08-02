@@ -657,4 +657,21 @@
       padding: 12px;
     }
   }
+
+  &__edit-ingredients {
+    width: 100%;
+    max-width: 720px; /* Ограничьте максимальную ширину, как в EditingRecipeName */
+    background-color: $color-white; /* Убедитесь, что фон есть */
+    border-radius: $border-radius-custom;
+    box-sizing: border-box;
+    padding: 24px 16px;
+    @media (max-width: 768px) {
+      max-width: 90%;
+      padding: 16px;
+    }
+    @media (max-width: 450px) {
+      max-width: 95%;
+      padding: 12px;
+    }
+  }
 }

@@ -1,0 +1,72 @@
+@import '@styles/all.scss';
+
+.content-container {
+  display: flex;
+  flex-direction: column;
+  &__header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 16px;
+  }
+  &__search-input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid $color-light-grey;
+    border-radius: 40px;
+    font-size: 16px;
+    outline: none;
+    text-align: center;
+    height: 40px;
+    margin-bottom: 12px;
+
+    &:focus {
+      border-color: $color-light-grey;
+    }
+    @media (max-width: 450px) {
+      @include mobile-text;
+      height: 32px;
+      padding: 4px;
+    }
+  }
+
+  &__added-button {
+    @include green-button;
+  }
+}
+
+.header {
+  &__name {
+    @include h6;
+    font-weight: 500;
+    flex-grow: 1;
+    text-align: center;
+  }
+  &__close-button {
+    background: none;
+    flex-shrink: 0;
+    img {
+      width: 20px;
+    }
+  }
+}
+
+.ingredients-list{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 24px;
+    height: 210px;
+    &__item {
+        display: flex;
+        flex-direction: row;
+        gap: 8px;
+        margin-bottom: 16px;
+
+        &--name {
+            @include paragragh;
+        }
+    }
+    
+}
