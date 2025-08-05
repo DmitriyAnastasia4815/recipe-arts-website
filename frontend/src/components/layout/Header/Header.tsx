@@ -1,49 +1,11 @@
-/**
- * @component Header
- * @description Компонент шапки приложения, включающий навигационное меню
- *
- *
- *Компонент  отражает логотип, ссылки на стрнаницы Главная и Избранное, а также иконку профиля пользователя по которой можно перейти в профиль
- *
- * @returns {JSX.Element} JSX- элемент, представляющий шапку приложения
- * * @requires react - Для управления состоянием и рендеринга.
- * @requires react-router-dom - Для навигации (Link, NavLink).
- * @requires ../Header/Header.scss - Стили компонента.
- * @requires @image/logo.svg - Изображение логотипа.
- * @requires @image/empty-profile-images/empty-user-icon.svg - Иконка профиля пользователя.
- * @requires @image/icon/shef-icon.png - Иконка пустой книги рецептов.
- *
- *
- * @example
- * ```jsx
- * import Header from './components/Header';
- *
- * function App() {
- *   return (
- *     <div>
- *       <Header />
- *       {/* Остальной контент приложения *\/}
- *     </div>
- *   );
- * }
- * ```
- */
-
-import { Link, NavLink } from 'react-router-dom'; // Импортируем Link и NavLink
-import { useEffect, useState } from 'react';
-
+import { Link, NavLink } from 'react-router-dom';
+import { useState } from 'react';
+import { Icons } from '@/styles/import-image';
 import '../Header/Header.scss';
-import image from '@image/empty-profile-images/empty-user-icon.svg';
 import logo from '@image/logo.svg';
-import Menu from '../Menu/Menu';
 
 const Header: React.FC = () => {
-  /**
-   * @type {boolean}
-   * @description Состояние, определяющее, открыто ли мобильное меню
-   */
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
-
 
   return (
     <header className="header">
@@ -52,16 +14,12 @@ const Header: React.FC = () => {
           <Link to="/" className="header__logo">
             <img src={logo} alt="Recipe Arts Logo" />
           </Link>
-          <ul
-            className={`${isMenuOpen ? 'header__nav-list--open' : 'header__nav-list'}`}
-          >
+          <ul className={`${isMenuOpen ? 'header__nav-list--open' : 'header__nav-list'}`}>
             <li className="header__nav-item">
               <NavLink
                 to="/"
-                className={({ isActive }: { isActive: boolean }) =>
-                  isActive
-                    ? 'header__nav-link header__nav-link--active'
-                    : 'header__nav-link'
+                className={({ isActive }) =>
+                  isActive ? 'header__nav-link header__nav-link--active' : 'header__nav-link'
                 }
               >
                 Главная
@@ -70,18 +28,50 @@ const Header: React.FC = () => {
             <li className="header__nav-item">
               <NavLink
                 to="/favourites"
-                className={({ isActive }: { isActive: boolean }) =>
-                  isActive
-                    ? 'header__nav-link header__nav-link--active'
-                    : 'header__nav-link'
+                className={({ isActive }) =>
+                  isActive ? 'header__nav-link header__nav-link--active' : 'header__nav-link'
                 }
               >
                 Избранное
               </NavLink>
             </li>
+            <li className="header__nav-item">
+              <NavLink
+                to="/recipes"
+                className={({ isActive }) =>
+                  isActive ? 'header__nav-link header__nav-link--active' : 'header__nav-link'
+                }
+              >
+                Рецепты
+              </NavLink>
+            </li>
+            <li className="header__nav-item">
+              <NavLink
+                to="/articles"
+                className={({ isActive }) =>
+                  isActive ? 'header__nav-link header__nav-link--active' : 'header__nav-link'
+                }
+              >
+                Статьи
+              </NavLink>
+            </li>
+            <li className="header__nav-item">
+              <NavLink
+                to="/support"
+                className={({ isActive }) =>
+                  isActive ? 'header__nav-link header__nav-link--active' : 'header__nav-link'
+                }
+              >
+                Поддержка
+              </NavLink>
+            </li>
           </ul>
           <Link to="/profilepage" className="header__user-profile">
-            <img src={image} alt="Profile" />
+            <button className="header__exit-button">
+              <h2>Выйти</h2>
+              <img src={Icons.iconExit} alt="Выйти" />
+            </button>
+            <img src={Icons.iconEmptyUser} alt="Profile" />
           </Link>
         </nav>
       </div>

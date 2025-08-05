@@ -12,27 +12,7 @@
     margin-bottom: 16px;
   }
   &__search-input {
-    width: 100%;
-    padding: 8px 16px;
-    border: 1px solid $color-light-grey;
-    border-radius: 40px;
-    font-size: 16px;
-    outline: none;
-    text-align: center;
-    height: 40px;
-    margin-bottom: 12px;
-    text-align: left; /* Текст начинается слева, но визуально смотрится естественно */
-    box-sizing: border-box; /* Учитываем padding и border в ширине */
-    transition: all 0.3s ease; /* Плавный переход для эффектов */
-
-    &:focus {
-      border-color: $color-light-grey;
-    }
-    @media (max-width: 450px) {
-      @include mobile-text;
-      height: 32px;
-      padding: 4px;
-    }
+    @include inputFieldLeft;
   }
 
   &__added-button {

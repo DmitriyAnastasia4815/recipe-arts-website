@@ -5,7 +5,7 @@
   background-color: #fff;
   padding-top: 10px;
   margin-bottom: 42px;
-  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.15);
+  border-bottom: 1px solid #DCDCDC;
   @media (max-width: 450px) {
     margin-bottom: 24px;
   }
@@ -14,14 +14,15 @@
     max-width: 1260px;
     padding: 0 15px;
     margin: 0 auto;
-    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   &__nav {
     display: flex;
     align-items: center;
-    justify-content: flex-start; /* Логотип и меню прижаты слева */
-    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
     margin-bottom: 10px;
     @media (max-width: 450px) {
       justify-content: space-between;
@@ -39,6 +40,24 @@
     }
   }
 
+  &__exit-button {
+    background: none;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0;
+    cursor: pointer;
+    font-size: 16px;
+    color: inherit;
+    h2 {
+      @include paragragh;
+    }
+    @media (max-width: 450px) {
+      font-size: 14px;
+    }
+  }
+
   &__nav-list {
     display: flex;
     align-items: center;
@@ -48,7 +67,7 @@
     padding: 0;
 
     &--open {
-      display: flex; /* Показываем меню, если открыто */
+      display: flex;
       flex-direction: column;
       position: absolute;
       top: 100%;
@@ -66,11 +85,9 @@
 
   &__nav-item {
     margin-right: 32px;
-
     &:last-child {
       margin-right: 0;
     }
-
     @media (max-width: 450px) {
       margin: 10px 0;
     }
@@ -79,35 +96,21 @@
   &__nav-link {
     text-decoration: none;
     color: inherit;
-
     &--active {
-      color: $color-accent; /* Стиль для активной ссылки */
+      color: $color-accent;
       font-weight: 500;
     }
   }
 
   &__user-profile {
-    max-width: 65px;
-    width: 100%;
-    margin-left: auto; /* Профиль прижат к правому краю */
-
-    img {
-      max-width: 100%;
-      height: auto;
-      @media (max-width: 450px) {
-        width: 45px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: auto;
+    @media (max-width: 450px) {
+      img {
+        width: 35px;
       }
-    }
-  }
-
-  /* Медиа-запрос для мобильных устройств */
-  @media (max-width: 450px) {
-    &__menu-toggle {
-      display: block; /* Показываем кнопку меню */
-    }
-
-    &__nav-list--open {
-      display: flex; /* Показываем меню при открытии */
     }
   }
 }

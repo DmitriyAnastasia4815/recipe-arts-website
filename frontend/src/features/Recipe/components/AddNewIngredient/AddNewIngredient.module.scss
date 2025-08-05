@@ -1,0 +1,85 @@
+@import '@styles/all.scss';
+
+.container {
+  &__content {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.content {
+  &__return-button {
+    display: flex;
+    background: none;
+    left: 0;
+    margin-bottom: 16px;
+    justify-content: flex-start;
+    img {
+      width: 30px;
+    }
+  }
+  &__main-content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__confirm-button {
+    @include green-button;
+    height: 40px;
+  }
+}
+
+.main-content {
+  &__input {
+    @include inputFieldLeft;
+  }
+  &__nutri-box {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+}
+
+.nutri-box {
+  &__item {
+    display: flex;
+    flex-direction: row;
+
+    &--first {
+      h2 {
+        margin-right: 42px;
+      }
+    }
+
+    &--second {
+      h2 {
+        margin-right: 43px;
+      }
+    }
+
+    &--third {
+      h2 {
+        margin-right: 13px;
+      }
+    }
+
+    &--fourth {
+      h2 {
+        margin-right: 16px;
+        &:last-child{
+            font-weight: 500;
+        }
+      }
+    }
+
+    input{
+        border: 1px solid $color-accent;
+        border-radius: 40px;
+        width: 100px;
+        height: 24px;
+        text-align: center;
+        background: $color-light-green;
+    }
+  }
+}

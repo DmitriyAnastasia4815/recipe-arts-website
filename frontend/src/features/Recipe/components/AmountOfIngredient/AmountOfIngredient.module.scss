@@ -1,0 +1,61 @@
+@import '@styles/all.scss';
+
+.container {
+  background: #fff;
+  left: 120px;
+  z-index: 10;
+  position: absolute;
+  max-width: 278px;
+  width: 100%;
+  padding: 16px;
+  border: 1px solid $color-black;
+  border-radius: $border-radius-custom;
+}
+
+.container {
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+  }
+}
+
+.content {
+  &__header {
+    font-weight: 500;
+  }
+  &__box-amount {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+  }
+  &__confirm {
+    @include green-button;
+    height: 32px;
+    width: 100%;
+  }
+}
+
+.box-amount {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &__dec,
+  &__inc {
+    background: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+  }
+  &__input {
+    @include inputField;
+    width: 90px;
+    height: 24px;
+    text-align: center;
+  }
+}

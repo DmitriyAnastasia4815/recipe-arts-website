@@ -1,21 +1,34 @@
 //для всех переменных 
 
 $color-accent: #6FC875;
-$color-accent-light: #BAE5BD;
-$color-light-green: #D2FBD5;
-$color-black: #151515;
+$color-accent-light: #D2FBD5;
+
+$color-light-green-first: #AAFAAF;
+$color-light-green: #ECFFE1;
+
+$color-black: #272727;
 $color-light-grey: #B9B9B9;
 $color-dark-grey: #363636;
 $color-grey-paragraph: #7D7D7D;
 $color-white: #FFFFFF;
 $color-red-error: #FF1F1F;
 
+//инпуты и серые кнопки
+$color-grey-background: #FAFAFA;
+$color-grey-stroke: #D9D9D9;
+$color-grey-text: #656565;
 
+//зеленые кнопки
+$color-disable-button: #85D28A;
+ 
 
 
 //картинки и фоны
 $background-login: url('@background/bg-login.svg');
 $background-register: url('@background/bg-register.svg');
 
+
+$border-radius-main: 40px;
 $border-radius-custom: 13px;
 
+$linear-gradient-main: linear-gradient(180deg, #bae5bd 0%, #6fc875 70.19%);;

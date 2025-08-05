@@ -18,41 +18,45 @@
 
 @mixin h5 {
   font-size: 24px;
-  font-weight: 400;
+  font-weight: 500;
   line-height: 120%;
 }
 
-@mixin h6 {
+@mixin h6{
   font-size: 20px;
-  font-weight: 400;
+  font-weight: 500;
   line-height: 120%;
 }
 
 @mixin paragragh {
   font-size: 16px;
-  font-weight: 400;
+  font-weight: 500;
   line-height: 150%;
 }
 
 @mixin mobile-text {
   font-size: 14px;
-  font-weight: 400;
+  font-weight: 500;
   line-height: 134%;
 }
 
 @mixin mobile-text-second {
   font-size: 12px;
-  font-weight: 400;
+  font-weight: 500;
   line-height: 170%;
 }
+
+
 
 @mixin green-button {
   display: flex;
   font-size: 16px;
   height: 40px;
   border-radius: 40px;
-  background-color: $color-accent-light;
-  padding: 11px 30px;
+  border: 1px solid $color-light-green;
+  background-color: $color-disable-button;
+  color: $color-white;
+  padding: 10px 30px;
   align-items: center;
   justify-content: center;
   transition:
@@ -67,7 +71,6 @@
     height: 24px;
     width: 188px;
     justify-content: center;
-    
   }
   @media (max-width: 480px) {
     padding: 11px 20px;
@@ -88,6 +91,33 @@
 
   &:focus {
     border-color: $color-light-grey;
+  }
+}
+
+/*
+Миксин для инпута поиска светло серый текст с левой стороны
+*/
+@mixin inputFieldLeft {
+  width: 100%;
+  padding: 8px 16px;
+  border: 1px solid $color-light-grey;
+  border-radius: 40px;
+  font-size: 16px;
+  outline: none;
+  text-align: center;
+  height: 40px;
+  margin-bottom: 12px;
+  text-align: left; /* Текст начинается слева, но визуально смотрится естественно */
+  box-sizing: border-box; /* Учитываем padding и border в ширине */
+  transition: all 0.3s ease; /* Плавный переход для эффектов */
+
+  &:focus {
+    border-color: $color-light-grey;
+  }
+  @media (max-width: 450px) {
+    @include mobile-text;
+    height: 32px;
+    padding: 4px;
   }
 }
 

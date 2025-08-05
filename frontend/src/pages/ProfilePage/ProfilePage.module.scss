@@ -78,27 +78,8 @@
 
 .search-container {
   &__search-button {
+    @include green-button;
     width: 100%;
-    padding: 11px 16px;
-    border: 1px solid $color-accent;
-    border-radius: 40px;
-    font-size: 16px;
-    outline: none;
-    text-align: center;
-    justify-content: center;
-    background-color: $color-accent-light;
-    transition:
-      background-color 0.5s ease,
-      color 0.5s linear,
-      opacity 0.2s ease-in-out;
-    &:hover {
-      background-color: $color-accent;
-    }
-    @media (max-width: 450px) {
-      @include mobile-text;
-      height: 32px;
-      padding: 0px 0px;
-    }
   }
 
   &__search-input {

@@ -42,6 +42,16 @@ function App() {
           {/* Маршрут для страницы Избранное */}
           <Route path="favourites" element={<Favourites />} />
 
+          {/* Маршрут для страницы Статей но пока ее нет */}
+          <Route path="articles" element={<Home />} />
+
+          {/* Маршрут для страницы c рецептами но пока ее нет */}
+          <Route path="recipes" element={<Home />} />
+
+
+          {/* Маршрут для страницы поддержки но пока ее нет */}
+          <Route path="support" element={<Home />} />
+
           {/* Маршрут для страницы Профиля это не нужно удалять это нужно раскомментировать*/}
 
           <Route
@@ -59,7 +69,7 @@ function App() {
           <Route path="recipe/:id" element={<RecipePage />} />
           <Route path="recipe/new" element={<RecipePage />} />
           <Route path="recipe/:id/edit" element={<RecipePage />} />
-          
+
           {/* <Route path="*" element={<NotFoundPage />} /> */}
         </Route>
       </Routes>
