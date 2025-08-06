@@ -20,11 +20,18 @@
     box-sizing: border-box;
     margin-top: 32px;
     margin-bottom: 24px;
+    @media (max-width: 450px) {
+      margin-top: 12px;
+    }
   }
 
   &__header {
     display: flex;
     margin-bottom: 24px;
+    @media (max-width: 450px) {
+      margin-bottom: 16px;
+      justify-content: space-between;
+    }
   }
   &__content {
     display: flex;
@@ -32,11 +39,18 @@
     justify-content: center;
     gap: 16px;
     margin-bottom: 24px;
+    @media (max-width: 450px) {
+      @include mobile-text-second;
+      flex-direction: column;
+    }
   }
   &__root {
     display: flex;
     flex-direction: column;
     text-align: center;
+    @media (max-width: 450px) {
+      @include mobile-text-second;
+    }
   }
   &__root-box {
     display: flex;
@@ -45,11 +59,26 @@
     justify-content: center;
     gap: 16px;
     margin-bottom: 24px;
+    @media (max-width: 450px) {
+      flex-wrap: wrap; 
+      margin-left: 16px;
+      margin-right: 16px;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
     &-item {
       @include paragragh;
       background: none;
       color: $color-black;
       text-decoration: underline;
+      @media (max-width: 450px) {
+        @include mobile-text-second;
+        gap: 8px;
+      }
+    }
+    @media (max-width: 450px) {
+      margin-left: 32px;
+      margin-right: 32px;
     }
   }
 
@@ -61,6 +90,9 @@
 .header {
   &__logo {
     margin-right: 24px;
+    @media (max-width: 450px) {
+      width: 160px;
+    }
   }
   &__button {
     display: flex;
@@ -76,9 +108,21 @@
     &-name {
       @include paragragh;
       color: $color-white;
+      @media (max-width: 450px) {
+        @include mobile-text-second;
+      }
     }
     &-image {
       width: 20px;
+      @media (max-width: 450px) {
+        width: 12px;
+      }
+    }
+
+    @media (max-width: 450px) {
+      height: 32px;
+      width: 150px;
+      border-radius: 10px;
     }
   }
 }
