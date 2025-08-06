@@ -1,0 +1,99 @@
+@import '@styles/all.scss';
+
+.footer {
+  &__main {
+    width: 100%;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 45px;
+    background: $color-footer;
+    @media (max-width: 450px) {
+      gap: 24px;
+    }
+  }
+  &__container {
+    max-width: 1260px;
+    padding: 0 15px;
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 32px;
+    margin-bottom: 24px;
+  }
+
+  &__header {
+    display: flex;
+    margin-bottom: 24px;
+  }
+  &__content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  &__root {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
+  &__root-box {
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 24px;
+    &-item {
+      @include paragragh;
+      background: none;
+      color: $color-black;
+      text-decoration: underline;
+    }
+  }
+
+  &__root-text {
+    color: $color-black;
+  }
+}
+
+.header {
+  &__logo {
+    margin-right: 24px;
+  }
+  &__button {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+
+    background: rgba(255, 255, 255, 0.13);
+    border: 1px solid rgba(111, 111, 111, 0.67);
+    width: 182px;
+    height: 44px;
+    border-radius: 13px;
+    &-name {
+      @include paragragh;
+      color: $color-white;
+    }
+    &-image {
+      width: 20px;
+    }
+  }
+}
+
+.content {
+  &__name {
+    color: $color-white;
+  }
+
+  &__box-icon {
+    display: flex;
+    gap: 16px;
+  }
+
+  &__box-item {
+    background: none;
+  }
+}

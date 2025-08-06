@@ -18,14 +18,14 @@ const MainLayout = () => {
   }, []);
 
   return (
-    <>
+    <div className="app">
       <Header />
       <main className="app-content">
         <Outlet />
       </main>
       {isMobile && <Menu />}
       <Footer />
-    </>
+    </div>
   );
 };
 
