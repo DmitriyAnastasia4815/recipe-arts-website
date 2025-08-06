@@ -5,7 +5,7 @@
   background-color: #fff;
   padding-top: 10px;
   margin-bottom: 42px;
-  border-bottom: 1px solid #DCDCDC;
+  border-bottom: 1px solid #dcdcdc;
   @media (max-width: 450px) {
     margin-bottom: 24px;
   }
@@ -35,7 +35,7 @@
     margin-right: 24px;
     img {
       @media (max-width: 450px) {
-        width: 45px;
+        width: 130px;
       }
     }
   }
@@ -50,8 +50,14 @@
     cursor: pointer;
     font-size: 16px;
     color: inherit;
+    img {
+      max-width: 13px;
+    }
     h2 {
       @include paragragh;
+      @media (max-width: 450px) {
+        font-size: 14px;
+      }
     }
     @media (max-width: 450px) {
       font-size: 14px;
@@ -77,6 +83,19 @@
       padding: 15px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
       z-index: 1000;
+    }
+
+    @media (min-width: 451px) and (max-width: 980px) {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      white-space: nowrap;
+      margin-right: 18px;
+      margin-left: 16px;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      &::-webkit-scrollbar {
+        display: none;
+      }
     }
     @media (max-width: 450px) {
       display: none;
