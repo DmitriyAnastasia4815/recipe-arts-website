@@ -1,4 +1,4 @@
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import { Icons } from '@/styles/import-image';
 import '../Header/Header.scss';
@@ -7,19 +7,27 @@ import logo from '@image/logo.svg';
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 
+  const location = useLocation();
+  const noMarginPages = ['/login', '/register', '/auth'];
+  const noMarginBottom = noMarginPages.includes(location.pathname);
+
   return (
-    <header className="header">
+    <header className={noMarginBottom ? "header--no-margin" : "header"}>
       <div className="header__container">
         <nav className="header__nav">
           <Link to="/" className="header__logo">
             <img src={logo} alt="Recipe Arts Logo" />
           </Link>
-          <ul className={`${isMenuOpen ? 'header__nav-list--open' : 'header__nav-list'}`}>
+          <ul
+            className={`${isMenuOpen ? 'header__nav-list--open' : 'header__nav-list'}`}
+          >
             <li className="header__nav-item">
               <NavLink
                 to="/"
                 className={({ isActive }) =>
-                  isActive ? 'header__nav-link header__nav-link--active' : 'header__nav-link'
+                  isActive
+                    ? 'header__nav-link header__nav-link--active'
+                    : 'header__nav-link'
                 }
               >
                 Главная
@@ -29,7 +37,9 @@ const Header: React.FC = () => {
               <NavLink
                 to="/favourites"
                 className={({ isActive }) =>
-                  isActive ? 'header__nav-link header__nav-link--active' : 'header__nav-link'
+                  isActive
+                    ? 'header__nav-link header__nav-link--active'
+                    : 'header__nav-link'
                 }
               >
                 Избранное
@@ -39,7 +49,9 @@ const Header: React.FC = () => {
               <NavLink
                 to="/recipes"
                 className={({ isActive }) =>
-                  isActive ? 'header__nav-link header__nav-link--active' : 'header__nav-link'
+                  isActive
+                    ? 'header__nav-link header__nav-link--active'
+                    : 'header__nav-link'
                 }
               >
                 Рецепты
@@ -49,7 +61,9 @@ const Header: React.FC = () => {
               <NavLink
                 to="/articles"
                 className={({ isActive }) =>
-                  isActive ? 'header__nav-link header__nav-link--active' : 'header__nav-link'
+                  isActive
+                    ? 'header__nav-link header__nav-link--active'
+                    : 'header__nav-link'
                 }
               >
                 Статьи
@@ -59,7 +73,9 @@ const Header: React.FC = () => {
               <NavLink
                 to="/support"
                 className={({ isActive }) =>
-                  isActive ? 'header__nav-link header__nav-link--active' : 'header__nav-link'
+                  isActive
+                    ? 'header__nav-link header__nav-link--active'
+                    : 'header__nav-link'
                 }
               >
                 Поддержка
