@@ -2,11 +2,7 @@ import styles from './RecipeCard.module.scss';
 import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import iconMore from '@icon/icon-more.svg';
-import iconCalories from '@icon/icon-calories.svg';
-import iconTime from '@icon/icon-time.svg';
-import deleteIcon from '@icon/icon-delete.svg';
-import editIconSmall from '@icon/icon-editing-large.svg';
+import { Icons } from '@/styles/import-image';
 
 import IngredientsModal from '../IngredientsModa;/IngredientsModal';
 
@@ -79,10 +75,10 @@ const RecipeCard: React.FC<RecipeCardProps> = (props) => {
     <div className={styles['container-card']}>
       <div className={styles['container-card__actions']}>
         <button className={styles['actions__delete']}>
-          <img src={deleteIcon} alt="delete" />
+          <img src={Icons.deleteIcon} alt="delete" />
         </button>
         <button className={styles['actions__edit']} onClick={handleEditRecipe}>
-          <img src={editIconSmall} alt="edit" />
+          <img src={Icons.iconEdit} alt="edit" />
         </button>
       </div>
       <div
@@ -102,7 +98,7 @@ const RecipeCard: React.FC<RecipeCardProps> = (props) => {
           <span className={styles['line__ingredients']}>
             <button ref={buttonRef} onClick={handleToggleIngredientsModal}>
               <img
-                src={iconMore}
+                src={Icons.iconMore}
                 alt={openIngredients ? 'close-info' : 'more-info'}
               />
             </button>
@@ -118,13 +114,13 @@ const RecipeCard: React.FC<RecipeCardProps> = (props) => {
             </span>
           </span>
           <span className={styles['line__calories']}>
-            <img src={iconCalories} alt="calories" />
+            <img src={Icons.iconCalories} alt="calories" />
             <span className={styles['line__text']}>
               {total_calories} калорий
             </span>
           </span>
           <span className={styles['line__times']}>
-            <img src={iconTime} alt="times" />
+            <img src={Icons.iconTime} alt="times" />
             <span className={styles['line__text']}>{times} минут</span>
           </span>
         </div>

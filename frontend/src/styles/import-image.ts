@@ -11,6 +11,11 @@ import iconPinterest from '@icon/SocialIcon/icon-pinterest.svg';
 import iconAddedButton from '@icon/added-button.svg';
 import iconEdit from '@icon/icon-edit.svg';
 
+import iconMore from '@icon/icon-more.svg';
+import iconCalories from '@icon/icon-calories.svg';
+import iconTime from '@icon/icon-time.svg';
+import deleteIcon from '@icon/icon-delete.svg';
+
 export const Icons = {
   iconEmptyUser: iconEmptyUser,
   iconExit: iconExit,
@@ -21,6 +26,10 @@ export const Icons = {
   iconPinterest: iconPinterest,
   iconAddedButton: iconAddedButton,
   iconEdit: iconEdit,
+  iconMore: iconMore,
+  iconCalories: iconCalories,
+  iconTime: iconTime,
+  deleteIcon: deleteIcon,
 };
 
 //Импорт картинок

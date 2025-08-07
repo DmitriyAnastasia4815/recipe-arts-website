@@ -35,6 +35,7 @@
   }
 
   &__search-container {
+    @include paragragh;
     display: flex;
     flex-direction: row;
     gap: 12px;
@@ -81,6 +82,10 @@
   &__search-button {
     @include green-button;
     width: 100%;
+    min-height: 32px;
+    @media (max-width: 450px) {
+      width: 100%;
+    }
   }
 
   &__search-input {
@@ -98,6 +103,9 @@
     @media (max-width: 450px) {
       @include mobile-text;
       height: 32px;
+      &::placeholder {
+        font-size: 12px;
+      }
     }
   }
 }
@@ -114,7 +122,7 @@
   background-color: $color-light-grey;
   margin: 0 34px 0 40px;
   flex-shrink: 0;
-  align-self: stretch; 
+  align-self: stretch;
   @media (max-width: 980px) {
     display: none;
   }
@@ -148,6 +156,7 @@
 
   &__added-settings {
     display: flex;
+    width: 100%;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -180,9 +189,11 @@
   &__profile-name {
     display: flex;
     align-items: center;
-    gap: 7px;
     font-size: 16px;
     max-width: 100%;
+    span {
+      margin-right: 4px;
+    }
     @media (max-width: 450px) {
       @include paragragh;
       width: 200px;
