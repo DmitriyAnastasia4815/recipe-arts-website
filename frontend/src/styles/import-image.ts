@@ -1,4 +1,6 @@
 //Импорт иконок
+import iconWelcome from '@icon/icon-welcome.svg';
+
 import iconEmptyUser from '@image/empty-profile-images/empty-user-icon.svg';
 import iconExit from '@icon/icon-exit.svg';
 import iconMail from '@icon/icon-mail.svg';
@@ -17,6 +19,7 @@ import iconTime from '@icon/icon-time.svg';
 import deleteIcon from '@icon/icon-delete.svg';
 
 export const Icons = {
+  iconWelcome: iconWelcome,
   iconEmptyUser: iconEmptyUser,
   iconExit: iconExit,
   iconMail: iconMail,

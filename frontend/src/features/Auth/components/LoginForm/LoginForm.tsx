@@ -1,11 +1,15 @@
 import styles from './LoginForm.module.scss';
+import { Icons } from '@/styles/import-image';
+
 import shefIcon from '@icon/shef-icon.png';
 import { useState } from 'react';
 import closedPassword from '@icon/icon-pot.svg';
 import { validEmail } from '../../validation/validation';
 import RecoveryPassword from '../UpdatePassword/RecoveryPassword';
+import { useNavigate } from 'react-router-dom';
 
-function LoginForm() {
+export const LoginForm: React.FC = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -16,6 +20,9 @@ function LoginForm() {
 
   const [openRecoveryPassword, setOpenRecoveryPassword] = useState(false);
 
+  const handleRegisterClick = () => {
+    navigate('/register');
+  };
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const email = e.target.value;
     setEmail(email);
@@ -68,7 +75,7 @@ function LoginForm() {
       <div className={styles['login-container']}>
         <div className={styles['login__login-welcome']}>
           <div className={styles['login__login-icon']}>
-            <img src={shefIcon} alt="shef-icon" />
+            <img src={Icons.iconWelcome} alt="shef-icon" />
           </div>
           <h5>Добро пожаловать!</h5>
         </div>
@@ -76,7 +83,7 @@ function LoginForm() {
         <div className={styles['login__login-form']}>
           <input
             type="email"
-            placeholder="email*"
+            placeholder="Email"
             value={email}
             className={`${styles['login__input-field']} ${
               emailError ? styles['login__input-field--error'] : ''
@@ -88,7 +95,7 @@ function LoginForm() {
             <input
               type={showPassword ? 'text' : 'password'}
               value={password}
-              placeholder="password*"
+              placeholder="Password"
               className={`${styles['login__input-field']} ${styles['input-password']} ${
                 passwordError ? styles['login__input-field--error'] : ''
               }`}
@@ -108,15 +115,28 @@ function LoginForm() {
           </div>
         </div>
 
-        <button
-          className={styles['login-container__password-alive']}
-          onClick={handleOpenRecoveryPassword}
-        >
-          Забыли пароль?
-        </button>
-        <button className={styles['login__button']} onClick={handleLoginClick}>
-          войти
-        </button>
+        <div className={styles['login-container__buttons']}>
+          <button
+            className={styles['login-container__password-alive']}
+            onClick={handleOpenRecoveryPassword}
+          >
+            Забыли пароль?
+          </button>
+
+          <button
+            className={styles['login__button']}
+            onClick={handleLoginClick}
+          >
+            Войти
+          </button>
+
+          <button
+            className={styles['login__button-registry']}
+            onClick={handleRegisterClick}
+          >
+            Регистрация
+          </button>
+        </div>
       </div>
       {openRecoveryPassword && (
         <>
@@ -125,6 +145,6 @@ function LoginForm() {
       )}
     </>
   );
-}
+};
 
 export default LoginForm;
