@@ -12,6 +12,7 @@ import iconPinterest from '@icon/SocialIcon/icon-pinterest.svg';
 
 import iconAddedButton from '@icon/added-button.svg';
 import iconEdit from '@icon/icon-edit.svg';
+import iconArray from '@icon/icon-array.svg';
 
 import iconMore from '@icon/icon-more.svg';
 import iconCalories from '@icon/icon-calories.svg';
@@ -29,6 +30,7 @@ export const Icons = {
   iconPinterest: iconPinterest,
   iconAddedButton: iconAddedButton,
   iconEdit: iconEdit,
+  iconArray: iconArray,
   iconMore: iconMore,
   iconCalories: iconCalories,
   iconTime: iconTime,

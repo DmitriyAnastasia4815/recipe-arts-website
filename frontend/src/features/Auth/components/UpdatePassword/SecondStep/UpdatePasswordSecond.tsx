@@ -205,7 +205,7 @@ export const UpdatePasswordSecond: React.FC<UpdatePasswordSecondProps> = ({
         onClick={onClickButton}
         disabled={isLoading || !isFormComplete} // Кнопка отключена, если идет загрузка или форма не заполнена
       >
-        подтвердить
+        Подтвердить
       </button>
     </>
   );

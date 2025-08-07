@@ -1,7 +1,8 @@
 
 import React from 'react';
 import styles from './UpdatePasswordFirst.module.scss';
-import iconArray from '@icon/icon-array.svg';
+import { Icons } from '@/styles/import-image';
+
 
 import { validEmail } from '@/features/Auth/validation/validation';
 
@@ -43,7 +44,7 @@ export const UpdatePasswordFirst: React.FC<UpdatePasswordFirstProps> = ({
   return (
     <>
       <div onClick={onClose} className={styles['modal-content__return-arrow']}>
-        <img src={iconArray} alt="prev-page" />
+        <img src={Icons.iconArray} alt="prev-page" />
       </div>
 
       <h4 className={styles['modal-content__title']}>Пожалуйста, введите ваш адрес электронной почты</h4>
@@ -59,7 +60,7 @@ export const UpdatePasswordFirst: React.FC<UpdatePasswordFirstProps> = ({
         <input
           className={`${styles['code-box__input']} ${isBlurred && emailError ? styles['code-box__input--error'] : ''}`}
           type="email"
-          placeholder='email'
+          placeholder='Email'
           onChange={checkEmailInput}
           onBlur={handleBlur}
           ref={inputRef}
@@ -71,7 +72,7 @@ export const UpdatePasswordFirst: React.FC<UpdatePasswordFirstProps> = ({
         disabled={emailError}
         onClick={nextStep}
       >
-        сбросить пароль
+        Сбросить пароль
       </button>
     </>
   );
