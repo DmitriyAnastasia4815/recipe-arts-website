@@ -27,8 +27,7 @@
   }
 
   &__page-title {
-    font-size: 24px;
-    font-weight: normal;
+    @include h5;
     margin-bottom: 16px;
     @media (max-width: 450px) {
       @include paragragh;
@@ -168,6 +167,7 @@
     align-items: center;
     justify-content: center;
     img {
+      width: 190px;
       @media (max-width: 980px) {
         width: 180px;
       }

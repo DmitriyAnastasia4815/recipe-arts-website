@@ -1,12 +1,16 @@
 import styles from './ProfilePage.module.scss';
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { debounce } from 'lodash';
 
+//импорт иконок
+import {Icons} from '@styles/import-image'
+
+
+
 // Импорт изображений
-import emptyRecipeImg from '@image/empty-profile-images/empty-recipe-img.svg';
-import emptyProfileImg from '@image/empty-profile-images/empty-user-icon.svg';
-import iconEditSmall from '@image/icon/icon-editing-small.svg';
-import addedButton from '@icon/added-button.svg';
+import { Image } from '@styles/import-image';
+//Пока нет сервера
 import RecipeCardImage from '@image/RecipeCardImage.svg';
 import RecipeCardImageSecond from '@image/RecipeCardImage.png';
 
@@ -14,7 +18,7 @@ import RecipeCardImageSecond from '@image/RecipeCardImage.png';
 import RecipeCard from '@/features/Recipe/components/RecipeCard/RecipeCard';
 import SearchByCategory from '@/components/ui/SearchByCategory/SearchByCategory';
 import type { RecipeCardProps } from '@/features/Recipe/components/RecipeCard/RecipeCard';
-import { useNavigate } from 'react-router-dom';
+
 
 // Определение типа для ингредиентов
 interface Ingredient {
@@ -126,7 +130,7 @@ const ProfilePage: React.FC = () => {
           <div className={styles['main-section__search-container']}>
             <input
               type="text"
-              placeholder="поиск по названию"
+              placeholder="Поиск по названию"
               className={styles['search-container__search-input']}
               value={searchValue}
               onChange={handleInputChange}
@@ -135,13 +139,13 @@ const ProfilePage: React.FC = () => {
               className={styles['search-container__search-button']}
               onClick={handleToggleSearchCategory}
             >
-              поиск по категориям
+              Поиск по категориям
             </button>
           </div>
 
           {empty ? (
             <div className={styles['main-section__empty-state']}>
-              <img src={emptyRecipeImg} alt="Нет рецептов" />
+              <img src={Image.emptyRecipeImg} alt="Нет рецептов" />
               <p className={styles['empty-message']}>
                 Пока здесь ничего нет, но скоро появятся рецепты и фотографии,
                 которые добавит {userName}
@@ -170,13 +174,13 @@ const ProfilePage: React.FC = () => {
         <div className={styles['sidebar']}>
           <div className={styles['profile-section']}>
             <div className={styles['profile-section__profile-avatar']}>
-              <img src={emptyProfileImg} alt="Аватар пользователя" />
+              <img src={Image.emptyProfileImg} alt="Аватар пользователя" />
             </div>
             <div className={styles['profile-section__added-settings']}>
               <div className={styles['profile-section__profile-name']}>
                 <span>{userName}</span>
                 <button className={styles['edit-button']}>
-                  <img src={iconEditSmall} alt="Иконка редактирования" />
+                  <img src={Icons.iconEdit} alt="Иконка редактирования" />
                 </button>
               </div>
               <button
@@ -184,7 +188,7 @@ const ProfilePage: React.FC = () => {
                 onClick={handleAddRecipe}
               >
                 Добавить рецепт
-                <img src={addedButton} alt="Иконка добавления рецепта" />
+                <img src={Icons.iconAddedButton} alt="Иконка добавления рецепта" />
               </button>
             </div>
           </div>
