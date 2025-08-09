@@ -1,6 +1,6 @@
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux';
 
-import { useState} from 'react';
+import { useState } from 'react';
 
 import styles from './RecoveryPassword.module.scss';
 
@@ -10,7 +10,6 @@ import { UpdatePasswordThird } from '../ThirdStep/UpdateThird';
 import { SuccessOperation } from '../SuccessOperation/SuccessOperation';
 import { UpdatePasswordSecond } from '../SecondStep/UpdatePasswordSecond';
 import { RootState } from '../store/store';
-
 
 interface RecoveryPasswordProps {
   onClose: () => void;
@@ -25,7 +24,9 @@ function RecoveryPassword({ onClose }: RecoveryPasswordProps) {
   };
 
   const prevStep = () => {
-    setStep(step - 1);
+    if (step > 1) {
+      setStep(step - 1);
+    }
   };
 
   return (
@@ -34,7 +35,7 @@ function RecoveryPassword({ onClose }: RecoveryPasswordProps) {
         <div className={styles['modal-container']}>
           <div className={styles['modal-content']}>
             {step === 1 && (
-              <UpdatePasswordFirst onClose={prevStep} nextStep={nextStep} />
+              <UpdatePasswordFirst onClose={onClose} nextStep={nextStep} />
             )}
 
             {step === 2 && (
