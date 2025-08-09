@@ -1,6 +1,6 @@
 import styles from './Register.module.scss';
 import RegisterForm from '@/features/Auth/components/RegisterForm/RegisterForm';
-import RegisterModal from '@/features/Auth/components/RegisterModal';
+import RegisterModal from '@/features/Auth/components/RegisterModal/RegisterModal';
 import { useState } from 'react';
 
 function Register() {

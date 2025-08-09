@@ -63,6 +63,7 @@ function RegisterForm({ openModal } : RegisterFormProps) {
 
   const handleButtonClick = async () => {
     setIsButtonClicked(true);
+    openModal();
 
     const isEmailEmpty = email.trim() === '';
     const isPasswordEmpty = password.trim() === '';
@@ -113,7 +114,7 @@ function RegisterForm({ openModal } : RegisterFormProps) {
           >
             <input
               type="email"
-              placeholder="email*"
+              placeholder="Email*"
               value={email}
               onChange={changeEmail}
             />
@@ -125,7 +126,7 @@ function RegisterForm({ openModal } : RegisterFormProps) {
           >
             <input
               type="password"
-              placeholder="password*"
+              placeholder="Password*"
               value={password}
               onChange={changePassword}
             />
@@ -140,7 +141,7 @@ function RegisterForm({ openModal } : RegisterFormProps) {
           >
             <input
               type="text"
-              placeholder="username*"
+              placeholder="Username*"
               value={username}
               onChange={changeUsername}
             />
@@ -176,7 +177,7 @@ function RegisterForm({ openModal } : RegisterFormProps) {
         className={styles['register-container__button']}
         onClick={handleButtonClick}
       >
-        продолжить
+        Продолжить
       </button>
 
       <p className={styles['register-container__politics']}>

@@ -4,7 +4,6 @@ import { useState, useRef, useEffect, ChangeEvent, KeyboardEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { authServiceAPI } from '../../api/authServiceAPI';
 
-
 const CODE_LENGTH = 6;
 const RESEND_TIMEOUT = 60;
 
@@ -20,7 +19,6 @@ function RegisterModal({ onClose, onClick }: RegisterModalProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [resendTimer, setResendTimer] = useState(RESEND_TIMEOUT);
   const [canResend, setCanResend] = useState(true);
-
 
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
@@ -66,7 +64,6 @@ function RegisterModal({ onClose, onClick }: RegisterModalProps) {
     if (!canResend) return;
     setIsLoading(true);
     setErrorMessage(null);
-
   };
 
   const onClickButton = async () => {
@@ -78,23 +75,27 @@ function RegisterModal({ onClose, onClick }: RegisterModalProps) {
       setErrorMessage(null);
       try {
         const emailCode = codes.join('');
-        const temporaryToken = localStorage.getItem('temporaryToken')?.split(' ')[1];
+        const temporaryToken = localStorage
+          .getItem('temporaryToken')
+          ?.split(' ')[1];
 
-        console.log(temporaryToken)
+        console.log(temporaryToken);
         if (!temporaryToken) {
           throw new Error('Временный токен отсутствует');
         }
-        const response = await authServiceAPI.verifyCode(emailCode, temporaryToken);
-        console.log(response)
-        console.log('navigate to')
+        const response = await authServiceAPI.verifyCode(
+          emailCode,
+          temporaryToken,
+        );
+        console.log(response);
+        console.log('navigate to');
         navigate('/profilepage', { replace: true });
         localStorage.setItem('accessToken', response.accessToken);
         localStorage.setItem('refreshToken', response.refreshToken);
         localStorage.removeItem('temporaryToken');
         onClick();
-        
       } catch (error: any) {
-        console.log(error)
+        console.log(error);
         setErrorMessage(error.message);
       } finally {
         setIsLoading(false);
@@ -139,59 +140,63 @@ function RegisterModal({ onClose, onClick }: RegisterModalProps) {
   };
 
   return (
-    <div className={styles['modal-container']}>
-      <div className={styles['modal-content']}>
-        <div
-          onClick={onClose}
-          className={styles['modal-content__return-arrow']}
-        >
-          <img src={iconArray} alt="prev-page" />
+    <div className={styles['backdrop']} onClick={onClose}>
+      <div className={styles['modal-container']}>
+        <div className={styles['modal-content']}>
+          <div
+            onClick={onClose}
+            className={styles['modal-content__return-arrow']}
+          >
+            <img src={iconArray} alt="prev-page" />
+          </div>
+
+          <h4 className={styles['modal-content__title']}>
+            Мы отправили код подтверждения регистрации на вашу почту
+          </h4>
+
+          <div className={styles['modal-content__code-box']}>
+            <h5 className={styles['code-box__title']}>
+              Пожалуйста, введите код
+            </h5>
+            <ul className={styles['code-box__line-code']}>
+              {Array(CODE_LENGTH)
+                .fill(null)
+                .map((_, index) => (
+                  <li
+                    key={index}
+                    className={`${styles['code-box__code-item']} ${notEnoughNumbers && codes[index] === '' ? styles['code-box__code-item--error'] : ''}`}
+                  >
+                    <input
+                      type="text"
+                      maxLength={1}
+                      ref={(el) => (inputRefs.current[index] = el)}
+                      value={codes[index]}
+                      onChange={(e) => handleChange(e, index)}
+                      onKeyDown={(e) => handleKeyDown(e, index)}
+                      inputMode="numeric"
+                      pattern="\d"
+                    />
+                  </li>
+                ))}
+            </ul>
+          </div>
+          <p
+            className={`${styles['code-box__resend']} ${canResend ? styles['code-box__resend--active'] : ''}`}
+            onClick={handleResendCode}
+          >
+            {canResend
+              ? 'Отправить код повторно'
+              : `Отправить код повторно через ${resendTimer} сек`}
+          </p>
+
+          <button
+            className={styles['modal-content__button']}
+            onClick={onClickButton}
+            disabled={isLoading}
+          >
+            Подтвердить
+          </button>
         </div>
-
-        <h4 className={styles['modal-content__title']}>
-          Мы отправили код подтверждения регистрации на вашу почту
-        </h4>
-
-        <div className={styles['modal-content__code-box']}>
-          <h5 className={styles['code-box__title']}>Пожалуйста, введите код</h5>
-          <ul className={styles['code-box__line-code']}>
-            {Array(CODE_LENGTH)
-              .fill(null)
-              .map((_, index) => (
-                <li
-                  key={index}
-                  className={`${styles['code-box__code-item']} ${notEnoughNumbers && codes[index] === '' ? styles['code-box__code-item--error'] : ''}`}
-                >
-                  <input
-                    type="text"
-                    maxLength={1}
-                    ref={(el) => (inputRefs.current[index] = el)}
-                    value={codes[index]}
-                    onChange={(e) => handleChange(e, index)}
-                    onKeyDown={(e) => handleKeyDown(e, index)}
-                    inputMode="numeric"
-                    pattern="\d"
-                  />
-                </li>
-              ))}
-          </ul>
-        </div>
-        <p
-          className={`${styles['code-box__resend']} ${canResend ? styles['code-box__resend--active'] : ''}`}
-          onClick={handleResendCode}
-        >
-          {canResend
-            ? 'Отправить код повторно'
-            : `Отправить код повторно через ${resendTimer} сек`}
-        </p>
-
-        <button
-          className={styles['modal-content__button']}
-          onClick={onClickButton}
-          disabled={isLoading}
-        >
-          подтвердить
-        </button>
       </div>
     </div>
   );

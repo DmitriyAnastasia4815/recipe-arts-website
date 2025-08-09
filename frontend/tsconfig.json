@@ -43,7 +43,8 @@
   },
   "include": [
     "src",
-    "src/pages/RecipePage/RecipePage.tsx"
+    "src/pages/RecipePage/RecipePage.tsx",
+    "src/features/Auth/components/RegisterModal/RegisterModal.tsx"
   ] /* Директории и файлы для включения в компиляцию. */,
   "exclude": [
     "../node_modules",

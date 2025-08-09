@@ -164,7 +164,7 @@ export const UpdatePasswordThird: React.FC<UpdatePasswordProps> = ({
         >
           <input
             type={showPassword ? 'text' : 'password'}
-            placeholder="password*"
+            placeholder="Password*"
             value={password}
             onChange={handlePasswordChange}
             onBlur={handlePasswordBlur}
@@ -186,7 +186,7 @@ export const UpdatePasswordThird: React.FC<UpdatePasswordProps> = ({
         >
           <input
             type="password"
-            placeholder="password*"
+            placeholder="Password*"
             value={passwordClone}
             onChange={handlePasswordCloneChange}
             onBlur={handlePasswordCloneBlur}
@@ -198,7 +198,7 @@ export const UpdatePasswordThird: React.FC<UpdatePasswordProps> = ({
           onClick={onClickButton}
           disabled={!isFormValid}
         >
-          подтвердить
+          Подтвердить
         </button>
       </div>
     </>
