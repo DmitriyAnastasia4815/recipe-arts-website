@@ -8,8 +8,6 @@ export interface initialIngredient {
   calories: number;
 }
 
-
-
 //типизация для рецепта
 
 interface Ingredient {
@@ -46,13 +44,20 @@ interface Ingredients {
   list_ingredients: Ingredient[];
 }
 
+interface Advance {
+  image: string;
+  hero_advance: string;
+  main: string;
+}
+
 export interface Recipe {
   id: number;
   categories: string[];
   image: string;
+  description: string;
   name: string;
   energy_value: EnergyValue;
   ingredients: Ingredients;
   recipe_steps: RecipeSteps;
-  advance: string;
+  advance: Advance;
 }

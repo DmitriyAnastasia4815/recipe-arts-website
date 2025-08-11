@@ -19,6 +19,23 @@ import iconCalories from '@icon/icon-calories.svg';
 import iconTime from '@icon/icon-time.svg';
 import deleteIcon from '@icon/icon-delete.svg';
 
+import favouriteBackground from '@icon/favourite-background.svg'
+
+import iconIdea from '@icon/icon-idea.svg'
+
+//Для порционной кнопки
+import iconIncrease from '@icon/PortionButton/icon-increase.svg'
+import iconDecrease from '@icon/PortionButton/icon-decrease.svg'
+import iconKitchenThings from '@icon/PortionButton/icon-kitchen-thing.svg'
+import iconTimer from '@icon/PortionButton/icon-timer.svg'
+
+
+//пока нет сервера
+import step1 from '@icon/initialRecipe/step1.svg'
+import step2 from '@icon/initialRecipe/step2.svg'
+import step3 from '@icon/initialRecipe/step3.svg'
+import step4 from '@icon/initialRecipe/step4.svg'
+import advanceImage from '@icon/initialRecipe/advance-image.svg'
 export const Icons = {
   iconWelcome: iconWelcome,
   iconEmptyUser: iconEmptyUser,
@@ -35,6 +52,12 @@ export const Icons = {
   iconCalories: iconCalories,
   iconTime: iconTime,
   deleteIcon: deleteIcon,
+  favouriteBackground: favouriteBackground,
+  iconIncrease: iconIncrease,
+  iconDecrease: iconDecrease,
+  iconKitchenThings: iconKitchenThings,
+  iconTimer: iconTimer,
+  iconIdea:iconIdea,
 };
 
 //Импорт картинок
@@ -45,3 +68,12 @@ export const Image = {
   emptyRecipeImg: emptyRecipeImg,
   emptyProfileImg: emptyProfileImg,
 };
+
+
+export const noServer = {
+  step1: step1,
+  step2: step2,
+  step3: step3,
+  step4: step4,
+  advanceImage: advanceImage,
+}

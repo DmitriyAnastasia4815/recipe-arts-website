@@ -4,7 +4,7 @@
   display: flex;
   flex-direction: column;
   &__return-button {
-    margin-bottom: 24px;
+    margin-bottom: 16px;
     background: none;
     border: none;
     padding: 0;
@@ -12,12 +12,12 @@
     display: flex;
     align-items: center;
     img {
-      width: 50px;
+      width: 31px;
     }
     @media (max-width: 450px) {
       margin-bottom: 16px;
       img {
-        width: 30px;
+        width: 24px;
       }
     }
   }
@@ -52,9 +52,11 @@
   display: flex;
   justify-content: center;
   width: 100%;
+  min-width: 554px;
 
   @media (max-width: 768px) {
     flex-direction: column;
+    min-width: 0;
   }
   &__calories {
     display: flex;
@@ -65,16 +67,16 @@
     flex-direction: row;
     @media (max-width: 768px) {
       flex-direction: column;
-      align-items: center;
+      align-items: flex-start;
+      width: 100%;
     }
   }
 
   &__image {
-    width: 450px;
-    max-width: 100%;
-    height: auto;
-    margin-right: 5vw;
-    border-radius: $border-radius-custom;
+    width: 554px; /* Фиксированная ширина */
+    height: auto; /* Сохраняем пропорции */
+    margin-right: 32px;
+    border-radius: 40px;
     @media (max-width: 768px) {
       margin-bottom: 16px;
       width: 95%;
@@ -92,6 +94,9 @@
 }
 
 .info-box {
+  &__info {
+    width: 50%;
+  }
   &__tags {
     margin-bottom: 8px;
     display: flex;
@@ -123,9 +128,8 @@
   }
 
   &__name {
-    @include h5;
-    font-weight: 500;
-    margin-bottom: 24px;
+    @include h5-bold;
+    margin-bottom: 16px;
     margin-right: 16px;
     @media (max-width: 450px) {
       @include h6;
@@ -133,18 +137,30 @@
     }
   }
 
-  &__calories-table {
-    border: 1px solid $color-accent;
-    border-radius: 20px;
-    width: 413px;
-    height: 172px;
-    background-color: $color-light-green;
-    padding: 20px 13px;
+  &__description {
+    border-top: 1px solid $color-grey-stroke;
+    padding-top: 20px;
+    margin-bottom: 40px;
+    max-height: 115px;
+    overflow-y: auto;
+    width: 100%;
     @media (max-width: 768px) {
-      width: 100%;
+      width: 700px;
+    }
+  }
+
+  &__calories-table {
+    border: 1px solid $color-grey-stroke;
+    border-radius: 20px;
+    width: 552px;
+    height: 170px;
+    background-color: $color-grey-background;
+    padding: 20px 25px;
+    @media (max-width: 768px) {
+      width: 700px;
     }
     @media (max-width: 450px) {
-      width: 350px;
+      width: 100%;
       height: 130px;
       margin-bottom: 16px;
       padding: 18px;
@@ -153,39 +169,64 @@
 
   &__main-info {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    width: 100%;
   }
+
   &__info-right {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     @media (max-width: 768px) {
-      display: flex;
-      flex-direction: column;
+      width: 700px;
       align-items: center;
     }
   }
 
+  &__favourite-background {
+    position: absolute; /* Фон может быть абсолютно позиционирован */
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1; /* Меньший z-index */
+  }
   &__favourites {
-    width: 25px;
-    height: 25px;
+    position: relative; /* Иконка относительно кнопки */
+    z-index: 100; /* Высокий z-index для иконки */
+    width: 15px;
+    height: 15px;
+
     color: $color-red-error;
     transition: color 0.3s ease; // Плавный переход цвета
   }
   &__unfavourites {
-    width: 25px;
-    height: 25px;
+    position: relative; /* Иконка относительно кнопки */
+    z-index: 100; /* Высокий z-index для иконки */
+    width: 15px;
+    height: 15px;
+
     color: $color-light-grey;
     transition: color 0.3s ease; // Плавный переход цвета
   }
 
   &__favourite-button {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background: none;
     display: flex;
+    position: relative;
   }
 }
 
 .calories-table {
   &__name {
-    margin-bottom: 12px;
-    font-weight: 500;
+    @include paragragh;
+    text-align: center;
+    font-weight: 600;
+    margin-bottom: 8px;
     @media (max-width: 768px) {
       text-align: center;
     }
@@ -199,9 +240,9 @@
   &__hr {
     width: 100%;
     height: 1px;
-    background-color: $color-accent;
+    background-color: $color-grey-stroke;
     border: none;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
     @media (max-width: 450px) {
       margin-bottom: 8px;
     }
@@ -209,6 +250,7 @@
   &__info {
     display: flex;
     flex-direction: row;
+    justify-content: center;
     @media (max-width: 768px) {
       justify-content: center;
     }
@@ -218,8 +260,17 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 8px;
-    margin-right: 16px;
+    margin-right: 58px;
+    &--count {
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    &--measure {
+      color: $color-grey-text;
+    }
+    h2 {
+      margin-bottom: 8px;
+    }
     @media (max-width: 768px) {
       margin-right: 32px;
     }
@@ -236,7 +287,7 @@
       }
     }
     &:first-child {
-      margin-right: 24px;
+      margin-right: 42px;
     }
     &:last-child {
       margin-right: 0;
@@ -259,6 +310,7 @@
 
 .header {
   &__portion-box {
+    @include green-button;
     display: flex;
   }
   &__name {
@@ -281,16 +333,24 @@
       padding-left: 8px;
     }
   }
+
+  &__info-box {
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+  }
 }
 
 .portion-box {
   display: flex;
   flex-direction: row;
   align-items: center; /* Выравнивание всех элементов по центру */
-
+  &__image {
+    margin-right: 12px;
+  }
   &__name {
     @include h6;
-    margin-right: 16px;
+    margin-right: 53px;
     @media (max-width: 450px) {
       @include mobile-text-second;
       margin-right: 8px;
@@ -309,10 +369,8 @@
     align-items: center;
     justify-content: center;
     border: 1px solid $color-light-grey;
-    width: 30px;
-    height: 30px;
-    border-radius: 10px;
     font-size: 1rem;
+    min-width: 20px;
     @media (max-width: 450px) {
       @include mobile-text-second;
       width: 20px;
@@ -356,6 +414,7 @@
     }
   }
   &__item-amount {
+    font-weight: 400;
     @media (max-width: 450px) {
       @include mobile-text-second;
     }
@@ -364,7 +423,7 @@
   &__item-hr {
     width: 100%;
     height: 1px;
-    background-color: $color-black;
+    background-color: $color-grey-stroke;
     border: none;
     margin-bottom: 16px;
   }
@@ -389,6 +448,8 @@
   &__step {
     display: flex;
     margin-bottom: 40px;
+    background: $color-grey-background;
+    border-radius: $border-radius-custom;
     @media (max-width: 450px) {
       flex-direction: column;
       margin-bottom: 16px;
@@ -399,7 +460,7 @@
     margin-right: 32px;
     @media (max-width: 450px) {
       margin-right: 0;
-      margin-bottom: 8px;
+      margin-bottom: 16px;
     }
   }
   &__content {
@@ -410,7 +471,9 @@
     }
   }
   &__number {
-    font-weight: 500;
+    margin-bottom: 8px;
+    font-weight: 600;
+    padding-top: 16px;
     @media (max-width: 450px) {
       @include paragragh;
       font-weight: 500;
@@ -418,6 +481,8 @@
     }
   }
   &__description {
+    max-height: 150px;
+    overflow-y: auto;
     @media (max-width: 450px) {
       @include mobile-text-second;
     }
@@ -432,14 +497,13 @@
 
 .header-recipe {
   &__times-button {
+    @include inputField;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
-    border: 1px solid $color-black;
-    width: 272px;
-    height: 40px;
-    border-radius: 40px;
+    width: 290px;
+
     @media (max-width: 450px) {
       @include mobile-text-second;
       width: 136px;
@@ -453,7 +517,8 @@
 .fourth-section {
   &__advance {
     display: flex;
-    border: 1px solid $color-black;
+    gap: 24px;
+    border: 1px solid $color-grey-stroke;
     border-radius: $border-radius-custom;
     min-height: 50px;
     padding: 15px 32px;
@@ -461,5 +526,18 @@
       @include mobile-text-second;
       padding: 12px 20px;
     }
+  }
+  &__advance-hero {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 8px;
+    h2 {
+      font-size: 18px;
+      font-weight: 600;
+    }
+  }
+  &__advance-box {
+    @include paragragh;
   }
 }

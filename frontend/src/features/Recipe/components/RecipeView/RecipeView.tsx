@@ -2,61 +2,18 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import styles from './RecipeView.module.scss';
+import { Icons } from '@/styles/import-image';
+import { noServer } from '@/styles/import-image';
+
+import type { Recipe } from '../../types/types';
 
 import arrayIcon from '@icon/icon-array.svg';
-
-import increaseIcon from '@icon/PortionButton/icon-increase.svg';
-import decreseIcon from '@icon/PortionButton/icon-decrease.svg';
 
 import { FavouriteIconAdded } from '@/assets/image/icon/FavouriteIcon/FavouriteIcon';
 
 //пока нет сервера
 import recipeImage from '@image/ReipeImage.svg';
 import recipeSteps from '@image/RecipeStep.svg';
-
-interface Ingredient {
-  name: string;
-  amount: number;
-}
-
-interface EnergyValue {
-  protein: number;
-  fat: number;
-  carb: number;
-}
-
-interface Time {
-  hours: number;
-  minutes: number;
-}
-
-interface Step {
-  image: string;
-  description: string;
-}
-
-interface RecipeSteps {
-  time: Time;
-  steps: {
-    [key: string]: Step;
-  };
-}
-
-interface Ingredients {
-  portion: number;
-  list_ingredients: Ingredient[];
-}
-
-interface Recipe {
-  id: number;
-  categories: string[];
-  image: string;
-  name: string;
-  energy_value: EnergyValue;
-  ingredients: Ingredients;
-  recipe_steps: RecipeSteps;
-  advance: string;
-}
 
 const initialRecipe: Recipe = {
   id: 1,
@@ -68,6 +25,8 @@ const initialRecipe: Recipe = {
   ],
   image: 'картинка',
   name: 'Классическая шарлотка',
+  description:
+    'Классическая шарлотка с яблоками — пирог очень простой в приготовлении, но при этом вкусный, потому невероятно популярный. Печь его лучше осенью, так как именно местные сезонные фрукты зимних сортов идеально подходят для начинки.',
   energy_value: {
     protein: 30,
     fat: 20,
@@ -76,11 +35,11 @@ const initialRecipe: Recipe = {
   ingredients: {
     portion: 4,
     list_ingredients: [
-      { name: 'Яблоки', amount: 450 },
-      { name: 'Пшеничная мука хлебопекарная', amount: 130 },
-      { name: 'Куриное яйцо', amount: 180 },
-      { name: 'Сахар', amount: 180 },
-      { name: 'Ванилин', amount: 2 },
+      { id: 1, name: 'Яблоки', amount: 450 },
+      { id: 2, name: 'Пшеничная мука хлебопекарная', amount: 130 },
+      { id: 3, name: 'Куриное яйцо', amount: 180 },
+      { id: 4, name: 'Сахар', amount: 180 },
+      { id: 5, name: 'Ванилин', amount: 2 },
     ],
   },
   recipe_steps: {
@@ -90,22 +49,32 @@ const initialRecipe: Recipe = {
     },
     steps: {
       step_1: {
-        image: '',
-        description: 'Яблоки нарезать, очистить от кожуры.',
+        image: noServer.step1,
+        description:
+          'Готовим тесто классической шарлотки. В чашу миксера вбиваем яйца. Добавляем сахар. Взбиваем миксером сначала на средней, затем на высокой скорости до получения светло-желтой массы однородной консистенции.',
       },
       step_2: {
-        image: '',
-        description: 'Яйца с сахаром взбить миксером до пышности.',
+        image: noServer.step2,
+        description:
+          'В сладкую яичную смесь добавляем муку, предварительно просеянную через мелкое сито со щепоткой соды и ванилином (ванильным сахаром). Снова взбиваем миксером. Тесто шарлотки готово.',
       },
       step_3: {
-        image: '',
-        description: 'Добавить муку и ванилин, аккуратно перемешать.',
+        image: noServer.step3,
+        description:
+          'Готовим начинку шарлотки. Яблоки моем и каждое разрезаем пополам. Удаляем сердцевины с семенами. Мякоть очищаем и нарезаем небольшими кубиками или ломтиками произвольной формы.',
       },
-      step_4: { image: '', description: 'Выпекать при 180°C 30 минут.' },
+      step_4: {
+        image: noServer.step4,
+        description:
+          'Яблоки добавляем в тесто шарлотки и осторожно перемешиваем. Выливаем получившуюся массу в форму, смазанную любым жиром, и отправляем в духовку, нагретую до 190°C, на 30 минут.',
+      },
     },
   },
-  advance:
-    'Lörem ipsum vöräse terahylig rengar pörar. Rågen mahifask. Dekanuhins redat har spenura årar. Poss prosk i ossade om dulig, liksom desm. Tenosam tusm, hyperaktiv, nuvis hutessa. Polyv pede vaktiga pöpusm yr. Mikronokanade prell. Fas foden och fasat portad. Dupp intrasm prenusa. Enynde por: far när fatelig i radiometer. ',
+  advance: {
+    image: noServer.advanceImage,
+    hero_advance: 'Используйте только яблоки Голден',
+    main: 'При приготовлении шарлотки обязательно используйте перчатки при доставании из духовки. Дайте шарлотке остыть после приготовления около часа. Подавайте с шариком мороженого и хорошим настроением:)',
+  },
 };
 
 interface RecipeViewProps {
@@ -169,30 +138,42 @@ const RecipeView: React.FC<RecipeViewProps> = ({ recipeId }) => {
               />
               <div className={styles['info-box__info']}>
                 <div className={styles['info-box__info-right']}>
-                  <div className={styles['info-box__tags']}>
-                    {recipeInfo.categories?.length > 0 &&
-                      recipeInfo.categories.map((tag, index) => (
-                        <span
-                          key={index}
-                          className={styles['info-box__tags-tag']}
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                  </div>
                   <div className={styles['info-box__main-info']}>
+                    <div className={styles['info-box__tags']}>
+                      {recipeInfo.categories?.length > 0 &&
+                        recipeInfo.categories.map((tag, index) => (
+                          <span
+                            key={index}
+                            className={styles['info-box__tags-tag']}
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                    </div>
+
                     <h3 className={styles['info-box__name']}>
                       {recipeInfo?.name}
                     </h3>
-                    <button
-                      className={styles['info-box__favourite-button']}
-                      onClick={handleFavouriteRecipe}
-                    >
-                      <FavouriteIconAdded
-                        className={`${favouriteRecipe ? styles['info-box__favourites'] : styles['info-box__unfavourites']}`}
-                      />
-                    </button>
                   </div>
+                  <button
+                    className={styles['info-box__favourite-button']}
+                    onClick={handleFavouriteRecipe}
+                  >
+                    <img
+                      className={styles['info-box__favourite-background']}
+                      src={Icons.favouriteBackground}
+                      alt="фон"
+                    />
+                    <FavouriteIconAdded
+                      className={`${favouriteRecipe ? styles['info-box__favourites'] : styles['info-box__unfavourites']}`}
+                    />
+                  </button>
+                </div>
+
+                <div className={styles['info-box__description']}>
+                  <p className={styles['info-box__description-text']}>
+                    {recipeInfo.description}
+                  </p>
                 </div>
 
                 <div className={styles['info-box__calories-table']}>
@@ -203,23 +184,39 @@ const RecipeView: React.FC<RecipeViewProps> = ({ recipeId }) => {
                   <div className={styles['calories-table__info']}>
                     <div className={styles['calories-table__item']}>
                       <h2>Калорийность</h2>
-                      <span>{energyValue}</span>
-                      <span>ккал</span>
+                      <span className={styles['calories-table__item--count']}>
+                        {energyValue}
+                      </span>
+                      <span className={styles['calories-table__item--measure']}>
+                        ккал
+                      </span>
                     </div>
                     <div className={styles['calories-table__item']}>
                       <h2>Белки</h2>
-                      <span>{recipeInfo?.energy_value.protein}</span>
-                      <span>грамм</span>
+                      <span className={styles['calories-table__item--count']}>
+                        {recipeInfo?.energy_value.protein}
+                      </span>
+                      <span className={styles['calories-table__item--measure']}>
+                        грамм
+                      </span>
                     </div>
                     <div className={styles['calories-table__item']}>
                       <h2>Жиры</h2>
-                      <span>{recipeInfo?.energy_value.fat}</span>
-                      <span>грамм</span>
+                      <span className={styles['calories-table__item--count']}>
+                        {recipeInfo?.energy_value.fat}
+                      </span>
+                      <span className={styles['calories-table__item--measure']}>
+                        грамм
+                      </span>
                     </div>
                     <div className={styles['calories-table__item']}>
                       <h2>Углеводы</h2>
-                      <span>{recipeInfo?.energy_value.carb}</span>
-                      <span>грамм</span>
+                      <span className={styles['calories-table__item--count']}>
+                        {recipeInfo?.energy_value.carb}
+                      </span>
+                      <span className={styles['calories-table__item--measure']}>
+                        грамм
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -231,25 +228,54 @@ const RecipeView: React.FC<RecipeViewProps> = ({ recipeId }) => {
         <div className={styles['content-container__second-section']}>
           <div className={styles['ingredients-section__header']}>
             <h2 className={styles['header__name']}>Ингредиенты</h2>
-            <div className={styles['header__portion-box']}>
-              <div className={styles['portion-box']}>
-                <h2 className={styles['portion-box__name']}>порции</h2>
-                <div className={styles['portion-box__counter']}>
-                  <button
-                    onClick={handleDecreasePortion}
-                    className={styles['portion-box__decrease-button']}
-                  >
-                    <img src={decreseIcon} alt="уменьшить" />
-                  </button>
-                  <div className={styles['portion-box__counter-box']}>
-                    {counterPortion}
+
+            <div className={styles['header__info-box']}>
+              <div className={styles['header-recipe__buttons']}>
+                <div className={styles['header-recipe__times-button']}>
+                  <img
+                    className={styles['header-recipe__times-time']}
+                    src={Icons.iconTimer}
+                    alt=""
+                  />
+                  {hours && hours > 1 ? (
+                    <h2 className={styles['header-recipe__times-hours']}>
+                      {hours} часа
+                    </h2>
+                  ) : hours === 1 ? (
+                    <h2 className={styles['header-recipe__times-hours']}>
+                      {hours} час
+                    </h2>
+                  ) : (
+                    ''
+                  )}
+                  {recipeInfo.recipe_steps.time.minutes} минут
+                </div>
+              </div>
+              <div className={styles['header__portion-box']}>
+                <div className={styles['portion-box']}>
+                  <img
+                    className={styles['portion-box__image']}
+                    src={Icons.iconKitchenThings}
+                    alt="предметы"
+                  />
+                  <h2 className={styles['portion-box__name']}>Порции</h2>
+                  <div className={styles['portion-box__counter']}>
+                    <button
+                      onClick={handleDecreasePortion}
+                      className={styles['portion-box__decrease-button']}
+                    >
+                      <img src={Icons.iconDecrease} alt="уменьшить" />
+                    </button>
+                    <div className={styles['portion-box__counter-box']}>
+                      {counterPortion}
+                    </div>
+                    <button
+                      onClick={handleIncreasePortion}
+                      className={styles['portion-box__increase-button']}
+                    >
+                      <img src={Icons.iconIncrease} alt="добавить" />
+                    </button>
                   </div>
-                  <button
-                    onClick={handleIncreasePortion}
-                    className={styles['portion-box__increase-button']}
-                  >
-                    <img src={increaseIcon} alt="добавить" />
-                  </button>
                 </div>
               </div>
             </div>
@@ -279,22 +305,6 @@ const RecipeView: React.FC<RecipeViewProps> = ({ recipeId }) => {
         <div className={styles['content-container__third-section']}>
           <div className={styles['recipe-section__header']}>
             <h2 className={styles['header__name']}>Пошаговый рецепт </h2>
-            <div className={styles['header-recipe__buttons']}>
-              <div className={styles['header-recipe__times-button']}>
-                {hours && hours > 1 ? (
-                  <h2 className={styles['header-recipe__times-hours']}>
-                    {hours} часа
-                  </h2>
-                ) : hours === 1 ? (
-                  <h2 className={styles['header-recipe__times-hours']}>
-                    {hours} час
-                  </h2>
-                ) : (
-                  ''
-                )}
-                {recipeInfo.recipe_steps.time.minutes} минут
-              </div>
-            </div>
           </div>
 
           <div className={styles['recipe-section__steps']}>
@@ -323,7 +333,14 @@ const RecipeView: React.FC<RecipeViewProps> = ({ recipeId }) => {
         <div className={styles['content-container__fourth-section']}>
           <h2 className={styles['header__name']}>Совет </h2>
           <div className={styles['fourth-section__advance']}>
-            {recipeInfo?.advance}
+            <img className={styles['fourth-section__advance-image']} src={recipeInfo?.advance.image} alt="картинка" />
+            <div className={styles['fourth-section__advance-box']}>
+              <div className={styles['fourth-section__advance-hero']}>
+                <img src={Icons.iconIdea} alt="картинка" />
+                <h2>{recipeInfo?.advance.hero_advance}</h2>
+              </div>
+              <h2>{recipeInfo?.advance.main}</h2>
+            </div>
           </div>
         </div>
       </div>

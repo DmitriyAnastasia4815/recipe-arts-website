@@ -4,6 +4,7 @@ export const initialEmptyRecipe= {
   id: 0,
   categories: ['категория блюда', 'категория блюда'],
   image: '',
+    description: '',
   name: 'Название блюда',
   energy_value: { protein: 0, fat: 0, carb: 0 },
   ingredients: { portion: 1, list_ingredients: [] },
@@ -21,6 +22,7 @@ export const initialRecipe= {
   ],
   image: 'картинка',
   name: 'Классическая шарлотка',
+  description: "Классическая шарлотка с яблоками — пирог очень простой в приготовлении, но при этом вкусный, потому невероятно популярный. Печь его лучше осенью, так как именно местные сезонные фрукты зимних сортов идеально подходят для начинки.",
   energy_value: {
     protein: 30,
     fat: 20,
