@@ -235,7 +235,7 @@ const RecipeView: React.FC<RecipeViewProps> = ({ recipeId }) => {
                   <img
                     className={styles['header-recipe__times-time']}
                     src={Icons.iconTimer}
-                    alt=""
+                    alt="время"
                   />
                   {hours && hours > 1 ? (
                     <h2 className={styles['header-recipe__times-hours']}>
