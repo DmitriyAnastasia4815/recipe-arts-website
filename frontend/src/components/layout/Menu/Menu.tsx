@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import FavouriteIcon from '@/assets/image/icon/MobileMenu/FavouriteIcon';
 import RecipesIcon from '@/assets/image/icon/MobileMenu/RecipesIcon';
 import MainIcon from '@/assets/image/icon/MobileMenu/MainIcon';
+import ArticleIcon from '@/assets/image/icon/MobileMenu/Article'
 
 const Menu: React.FC = () => {
   return (
@@ -23,7 +24,7 @@ const Menu: React.FC = () => {
         </Link>
         {/**Здесь должна быть ссылка на страницу со всеми рецептами */}
         <Link to="" className={`${styles['menu__item']}`}>
-          <MainIcon className={styles['item__icon']} />
+          <ArticleIcon className={styles['item__icon']} />
           <p className={styles['item__name']}>Статьи</p>
         </Link>
 

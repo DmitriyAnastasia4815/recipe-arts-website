@@ -36,6 +36,9 @@ import step2 from '@icon/initialRecipe/step2.svg'
 import step3 from '@icon/initialRecipe/step3.svg'
 import step4 from '@icon/initialRecipe/step4.svg'
 import advanceImage from '@icon/initialRecipe/advance-image.svg'
+
+//иконки меню адаптив
+
 export const Icons = {
   iconWelcome: iconWelcome,
   iconEmptyUser: iconEmptyUser,
