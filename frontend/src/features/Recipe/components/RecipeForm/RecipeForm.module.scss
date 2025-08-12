@@ -4,7 +4,7 @@
   display: flex;
   flex-direction: column;
   &__return-button {
-    margin-bottom: 24px;
+    margin-bottom: 16px; // Изменено с 24px на 16px
     background: none;
     border: none;
     padding: 0;
@@ -12,12 +12,12 @@
     display: flex;
     align-items: center;
     img {
-      width: 50px;
+      width: 31px; // Изменено с 50px на 31px
     }
     @media (max-width: 450px) {
       margin-bottom: 16px;
       img {
-        width: 30px;
+        width: 24px; // Изменено с 30px на 24px
       }
     }
   }
@@ -39,8 +39,7 @@
     display: flex;
     gap: 32px;
     flex-direction: column;
-    margin-bottom: 20px;
-
+    margin-bottom: 90px; // Изменено с 20px на 90px
     @media (max-width: 450px) {
       margin-bottom: 64px;
       gap: 8px;
@@ -62,9 +61,10 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  transform: translateY(-5px);
   img {
-    width: 28px;
-    height: 28px;
+    width: 20px;
+    height: 20px;
     @media (max-width: 450px) {
       width: 15px;
       height: 15px;
@@ -77,9 +77,11 @@
   display: flex;
   justify-content: center;
   width: 100%;
+  min-width: 554px; // Добавлено из RecipeView
 
   @media (max-width: 768px) {
     flex-direction: column;
+    min-width: 0; // Добавлено из RecipeView
   }
   &__calories {
     display: flex;
@@ -90,22 +92,24 @@
     flex-direction: row;
     @media (max-width: 768px) {
       flex-direction: column;
-      align-items: center;
+      align-items: flex-start; // Изменено с center на flex-start
+      width: 100%; // Добавлено
     }
   }
 
   &__image {
-    width: 450px;
-    max-width: 100%;
+    width: 554px; // Изменено с 450px на 554px
     height: auto;
-    margin-right: 5vw;
-    border-radius: $border-radius-custom;
+    margin-right: 32px; // Изменено с 5vw на 32px
+    border-radius: 40px; // Изменено с $border-radius-custom на 40px
     @media (max-width: 768px) {
       margin-bottom: 16px;
       width: 95%;
     }
     @media (max-width: 450px) {
       margin-right: 0;
+      width: 100%; // Изменено с 95% на 100%
+      align-self: center; // Добавлено
     }
   }
 }
@@ -117,6 +121,9 @@
 }
 
 .info-box {
+  &__info {
+    width: 50%; // Добавлено из RecipeView
+  }
   &__tags {
     margin-bottom: 8px;
     display: flex;
@@ -148,84 +155,98 @@
   }
 
   &__name {
-    @include h5;
-    font-weight: 500;
-    line-height: 1.2;
+    @include h5-bold; // Изменено с h5
+    margin-bottom: 8px; // Добавлено
+    margin-right: 8px; // Добавлено
+    line-height: 1.2; // Сохранено из RecipeForm
     @media (max-width: 450px) {
-      @include h6;
-      font-weight: 500;
-      line-height: 1.2;
+      @include h6; // Сохранено из RecipeForm
+      font-weight: 500; // Сохранено из RecipeForm
+      line-height: 1.2; // Сохранено из RecipeForm
+    }
+  }
+
+  &__description {
+    // Добавлено из RecipeView
+    border-top: 1px solid $color-grey-stroke;
+    padding-top: 20px;
+    margin-bottom: 40px;
+    max-height: 115px;
+    overflow-y: auto;
+    width: 100%;
+    @media (max-width: 768px) {
+      width: 700px;
+    }
+    @media (max-width: 450px) {
+      min-width: 400px;
+      width: 100%;
+      max-height: 300px;
+      margin-bottom: 24px;
+    }
+
+    &-text {
+      @media (max-width: 450px) {
+        @include mobile-text-second;
+      }
     }
   }
 
   &__calories-table {
-    border: 1px solid $color-accent;
+    border: 1px solid $color-grey-stroke; 
     border-radius: 20px;
-    width: 413px;
-    height: 172px;
-    background-color: $color-light-green;
-    padding: 20px 13px;
+    width: 552px; 
+    height: 170px; 
+    background-color: $color-grey-background; 
+    padding: 20px 25px; 
     @media (max-width: 768px) {
-      width: 100%;
+      width: 700px; 
     }
     @media (max-width: 450px) {
-      width: 350px;
-      height: 130px;
+      max-width: 400px; 
+      max-height: 140px; 
       margin-bottom: 16px;
-      padding: 18px;
+      padding: 12px 24px; 
     }
   }
 
   &__main-info {
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 24px;
+    flex-direction: row; 
+    width: 100%; 
+    align-items: center; 
+    gap: 4px; 
+    margin-bottom: 8px; 
     @media (max-width: 450px) {
-      gap: 4px;
+      gap: 4px; 
     }
+
   }
   &__info-right {
-    @media (max-width: 768px) {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-  }
-  &__edit-button {
-    background: none;
-    border: none;
-    padding: 0;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    img {
-      width: 28px;
-      height: 28px;
-      @media (max-width: 450px) {
-        width: 15px;
-        height: 15px;
-      }
+    flex-direction: column; 
+    justify-content: space-between; 
+    @media (max-width: 768px) {
+      width: 700px; 
+      align-items: center; 
     }
-  }
-
-  &__edit-tags {
-    background: none;
+    @media (max-width: 450px) {
+      width: 400px; 
+    }
   }
 }
 
 .calories-table {
   &__name {
-    margin-bottom: 12px;
-    font-weight: 500;
+    @include paragragh; 
+    text-align: center;
+    font-weight: 600; 
+    margin-bottom: 8px; 
     @media (max-width: 768px) {
       text-align: center;
     }
     @media (max-width: 450px) {
-      @include mobile-text;
-      font-weight: 500;
+      @include mobile-text-second;
+      font-weight: 600; 
       width: 300px;
       margin-bottom: 8px;
     }
@@ -233,9 +254,9 @@
   &__hr {
     width: 100%;
     height: 1px;
-    background-color: $color-accent;
+    background-color: $color-grey-stroke; 
     border: none;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
     @media (max-width: 450px) {
       margin-bottom: 8px;
     }
@@ -243,6 +264,7 @@
   &__info {
     display: flex;
     flex-direction: row;
+    justify-content: center; 
     @media (max-width: 768px) {
       justify-content: center;
     }
@@ -252,8 +274,19 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 8px;
-    margin-right: 16px;
+    margin-right: 58px; 
+    &--count {
+      
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    &--measure {
+
+      color: $color-grey-text;
+    }
+    h2 {
+      margin-bottom: 8px; 
+    }
     @media (max-width: 768px) {
       margin-right: 32px;
     }
@@ -266,11 +299,13 @@
       }
       span {
         @include mobile-text-second;
+        font-weight: 600; 
         height: 15px;
+        margin-bottom: 4px; 
       }
     }
     &:first-child {
-      margin-right: 24px;
+      margin-right: 42px; 
     }
     &:last-child {
       margin-right: 0;
@@ -284,10 +319,10 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: center;
     margin-bottom: 24px;
     @media (max-width: 450px) {
       margin-bottom: 16px;
+      flex-direction: column; 
     }
   }
 
@@ -304,8 +339,16 @@
 
 .header {
   &__portion-box {
+    @include green-button;
     display: flex;
-    align-items: center;
+    @media (max-width: 768px) {
+      width: 200px;
+      height: 32px;
+    }
+    @media (max-width: 450px) {
+      width: 160px;
+      height: 32px;
+    }
   }
   &__name {
     @include h5;
@@ -328,22 +371,11 @@
     }
   }
 
-  &__edit-ingredients {
-    background: none;
-    border: none;
-    padding: 0;
+  &__info-box {
     display: flex;
+    flex-direction: row;
+    gap: 24px;
     align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    img {
-      width: 28px;
-      height: 28px;
-      @media (max-width: 450px) {
-        width: 15px;
-        height: 15px;
-      }
-    }
   }
 }
 
@@ -351,13 +383,29 @@
   display: flex;
   flex-direction: row;
   align-items: center; /* Выравнивание всех элементов по центру */
-
+  padding: 8px;
+  @media (max-width: 768px) {
+    @include mobile-text-second;
+    width: 200px;
+    height: 27px;
+  }
+  &__image { 
+    margin-right: 12px;
+    @media (max-width: 768px) {
+      width: 18px;
+      margin-right: 8px;
+    }
+  }
   &__name {
     @include h6;
-    margin-right: 16px;
+    margin-right: 53px; 
     @media (max-width: 450px) {
       @include mobile-text-second;
       margin-right: 8px;
+    }
+    @media (max-width: 768px) {
+      @include mobile-text-second;
+      margin-right: 24px;
     }
   }
 
@@ -366,6 +414,9 @@
     flex-direction: row;
     align-items: center;
     gap: 8px;
+    @media (max-width: 768px) {
+      gap: 4px; 
+    }
   }
 
   &__counter-box {
@@ -373,15 +424,18 @@
     align-items: center;
     justify-content: center;
     border: 1px solid $color-light-grey;
-    width: 30px;
-    height: 30px;
-    border-radius: 10px;
     font-size: 1rem;
+    min-width: 20px; 
+    height: 30px; 
+    border-radius: 10px; 
     @media (max-width: 450px) {
       @include mobile-text-second;
       width: 20px;
       height: 20px;
       border-radius: 7px;
+    }
+    @media (max-width: 768px) {
+      @include mobile-text-second; 
     }
   }
 
@@ -402,6 +456,10 @@
         width: 15px;
         height: 15px;
       }
+      @media (max-width: 768px) {
+        width: 15px; 
+        height: 15px;
+      }
     }
   }
 }
@@ -420,6 +478,7 @@
     }
   }
   &__item-amount {
+    font-weight: 400; 
     @media (max-width: 450px) {
       @include mobile-text-second;
     }
@@ -428,11 +487,12 @@
   &__item-hr {
     width: 100%;
     height: 1px;
-    background-color: $color-black;
+    background-color: $color-grey-stroke; 
     border: none;
     margin-bottom: 16px;
   }
 
+  // Стили для пустых состояний формы, сохранены
   &__empty-advance {
     display: flex;
     flex-direction: column;
@@ -451,6 +511,11 @@
     line-height: 1.5;
     overflow: auto;
     background-color: transparent;
+    border: none; 
+    padding: 0; // Убираем стандартный padding textarea
+    &:focus {
+      outline: none; // Убираем outline при фокусе
+    }
     @media (max-width: 450px) {
       @include mobile-text-second;
       padding: 12px 20px;
@@ -479,8 +544,8 @@
     gap: 16px;
 
     h2 {
-      @include h5;
-      font-weight: 500;
+      @include h5; 
+      font-weight: 500; 
       @media (max-width: 450px) {
         @include paragragh;
         font-weight: 500;
@@ -519,6 +584,13 @@
   &__step {
     display: flex;
     margin-bottom: 40px;
+    background: $color-grey-background;
+    border-radius: $border-radius-custom;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      margin-bottom: 16px;
+    }
     @media (max-width: 450px) {
       flex-direction: column;
       margin-bottom: 16px;
@@ -528,10 +600,8 @@
   &__image {
     margin-right: 32px;
     @media (max-width: 450px) {
-      width: 322px;
-      height: 212px;
       margin-right: 0;
-      margin-bottom: 8px;
+      margin-bottom: 16px;
     }
   }
   &__content {
@@ -539,18 +609,27 @@
     margin-bottom: 16px;
     @media (max-width: 450px) {
       @include mobile-text-second;
+      padding: 0 12px;
     }
   }
   &__number {
     @include h5;
-    font-weight: 500;
+    margin-bottom: 8px;
+    font-weight: 600;
+    padding-top: 16px;
+    @media (max-width: 768px) {
+      @include h6;
+      font-weight: 600;
+    }
     @media (max-width: 450px) {
       @include paragragh;
-      font-weight: 500;
-      margin-bottom: 4px;
+      font-weight: 600;
+      padding-top: 0;
     }
   }
   &__description {
+    max-height: 150px;
+    overflow-y: auto;
     @media (max-width: 450px) {
       @include mobile-text-second;
     }
@@ -560,10 +639,14 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    margin-bottom: 8px;
+    margin-bottom: 4px;
+    button{
+      transform: translateY(2px);
+    }
     @media (max-width: 450px) {
       margin-bottom: 4px;
     }
+
   }
 }
 
@@ -575,20 +658,26 @@
 
 .header-recipe {
   &__times-button {
+    @include inputField;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
-    border: 1px solid $color-black;
-    width: 272px;
-    height: 40px;
-    border-radius: 40px;
-    margin-right: 16px;
-    cursor: pointer;
+    width: 290px;
+    @media (max-width: 768px) {
+      @include mobile-text-second;
+      width: 200px;
+      height: 32px;
+      gap: 4px;
+      img {
+        width: 20px;
+      }
+    }
+
     @media (max-width: 450px) {
       @include mobile-text-second;
-      width: 136px;
-      height: 24px;
+      width: 160px;
+      height: 32px;
       gap: 4px;
     }
   }
@@ -610,13 +699,45 @@
 .fourth-section {
   &__advance {
     display: flex;
-    border: 1px solid $color-black;
+    gap: 24px; // Добавлено
+    border: 1px solid $color-grey-stroke; 
     border-radius: $border-radius-custom;
     min-height: 50px;
     padding: 15px 32px;
+
     @media (max-width: 450px) {
       @include mobile-text-second;
       padding: 12px 20px;
+    }
+  }
+  &__advance-hero {
+    
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 8px;
+    h2 {
+      font-size: 18px;
+      font-weight: 600;
+      @media (max-width: 450px) {
+        @include mobile-text-second;
+        font-weight: 600;
+      }
+    }
+  }
+  &__advance-box {
+    
+    @include paragragh;
+    @media (max-width: 450px) {
+      @include mobile-text-second;
+    }
+  }
+
+  &__advance-image {
+   
+    width: 164px;
+    @media (max-width: 450px) {
+      display: none;
     }
   }
 
@@ -630,21 +751,21 @@
 //Все поп апы
 .pop-up {
   &__overlay {
-    position: fixed; /* Фиксированное позиционирование относительно viewport */
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5); /* Полупрозрачный фон */
+    background-color: rgba(0, 0, 0, 0.5);
     display: flex;
-    justify-content: center; /* Центрирование по горизонтали */
-    align-items: center; /* Центрирование по вертикали */
-    z-index: 1000; /* Высокий z-index, чтобы быть поверх других элементов */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
   }
   &__edit-name {
     width: 100%;
-    max-width: 650px; /* Ограничьте максимальную ширину, как в EditingRecipeName */
-    background-color: $color-white; /* Убедитесь, что фон есть */
+    max-width: 650px;
+    background-color: $color-white;
     border-radius: $border-radius-custom;
     box-sizing: border-box;
     padding: 16px 24px;
@@ -660,8 +781,8 @@
 
   &__edit-ingredients {
     width: 100%;
-    max-width: 720px; /* Ограничьте максимальную ширину, как в EditingRecipeName */
-    background-color: $color-white; /* Убедитесь, что фон есть */
+    max-width: 720px;
+    background-color: $color-white;
     border-radius: $border-radius-custom;
     box-sizing: border-box;
     padding: 24px 16px;

@@ -1,17 +1,16 @@
 import React, { useEffect } from 'react';
-import styles from './RecipeForm.module.scss';
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+
+import styles from './RecipeForm.module.scss';
+import { Icons } from '@/styles/import-image';
+import { noServer } from '@/styles/import-image';
 
 //все поп апы
 import EditingRecipeName from '@/features/Recipe/components/EditingRecipesName/EditingRecipeName';
 import SearchByCategory from '@/components/ui/SearchByCategory/SearchByCategory';
 import AddedIngredient from '../AddedIngredient/AddedIngredient';
 
-//иконки
-import arrayIcon from '@icon/icon-array.svg';
-import increaseIcon from '@icon/PortionButton/icon-increase.svg';
-import decreseIcon from '@icon/PortionButton/icon-decrease.svg';
 import editIcon from '@icon/icon-editing-small.svg';
 import deleteIcon from '@icon/icon-delete.svg';
 import addedStepIcon from '@icon/added-button.svg';
@@ -127,7 +126,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ mode }) => {
           className={styles['content-container__return-button']}
           onClick={() => navigate(-1)}
         >
-          <img src={arrayIcon} alt="назад" />
+          <img src={Icons.iconArray} alt="назад" />
         </button>
 
         <div className={styles['content-container__first-section']}>
@@ -164,7 +163,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ mode }) => {
                       className={styles['edit-button']}
                       onClick={handleEditTags}
                     >
-                      <img src={editIcon} alt="редактирование" />
+                      <img src={Icons.iconEdit} alt="редактирование" />
                     </button>
                   </div>
                   <div className={styles['info-box__main-info']}>
@@ -175,9 +174,14 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ mode }) => {
                       className={styles['edit-button']}
                       onClick={handleEditName}
                     >
-                      <img src={editIcon} alt="редактирование" />
+                      <img src={Icons.iconEdit} alt="редактирование" />
                     </button>
                   </div>
+                </div>
+                <div className={styles['info-box__description']}>
+                  <p className={styles['info-box__description-text']}>
+                    {recipeInfo.description}
+                  </p>
                 </div>
 
                 <div className={styles['info-box__calories-table']}>
@@ -188,23 +192,39 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ mode }) => {
                   <div className={styles['calories-table__info']}>
                     <div className={styles['calories-table__item']}>
                       <h2>Калорийность</h2>
-                      <span>{energyValue}</span>
-                      <span>ккал</span>
+                      <span className={styles['calories-table__item--count']}>
+                        {energyValue}
+                      </span>
+                      <span className={styles['calories-table__item--measure']}>
+                        ккал
+                      </span>
                     </div>
                     <div className={styles['calories-table__item']}>
                       <h2>Белки</h2>
-                      <span>{recipeInfo?.energy_value.protein}</span>
-                      <span>грамм</span>
+                      <span className={styles['calories-table__item--count']}>
+                        {recipeInfo?.energy_value.protein}
+                      </span>
+                      <span className={styles['calories-table__item--measure']}>
+                        грамм
+                      </span>
                     </div>
                     <div className={styles['calories-table__item']}>
                       <h2>Жиры</h2>
-                      <span>{recipeInfo?.energy_value.fat}</span>
-                      <span>грамм</span>
+                      <span className={styles['calories-table__item--count']}>
+                        {recipeInfo?.energy_value.fat}
+                      </span>
+                      <span className={styles['calories-table__item--measure']}>
+                        грамм
+                      </span>
                     </div>
                     <div className={styles['calories-table__item']}>
                       <h2>Углеводы</h2>
-                      <span>{recipeInfo?.energy_value.carb}</span>
-                      <span>грамм</span>
+                      <span className={styles['calories-table__item--count']}>
+                        {recipeInfo?.energy_value.carb}
+                      </span>
+                      <span className={styles['calories-table__item--measure']}>
+                        грамм
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -215,35 +235,55 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ mode }) => {
 
         <div className={styles['content-container__second-section']}>
           <div className={styles['ingredients-section__header']}>
-            <div className={styles['ingredients-section__header-box']}>
-              <h2 className={styles['header__name']}>Ингредиенты</h2>
-              <button
-                className={styles['edit-button']}
-                onClick={handleEditIngredients}
-              >
-                <img src={editIcon} alt="редактирование" />
-              </button>
-            </div>
+            <h2 className={styles['header__name']}>Ингредиенты</h2>
 
-            <div className={styles['header__portion-box']}>
-              <div className={styles['portion-box']}>
-                <h2 className={styles['portion-box__name']}>порции</h2>
-                <div className={styles['portion-box__counter']}>
-                  <button
-                    onClick={handleDecreasePortion}
-                    className={styles['portion-box__decrease-button']}
-                  >
-                    <img src={decreseIcon} alt="уменьшить" />
-                  </button>
-                  <div className={styles['portion-box__counter-box']}>
-                    {counterPortion}
+            <div className={styles['header__info-box']}>
+              <div className={styles['header-recipe__buttons']}>
+                <div className={styles['header-recipe__times-button']}>
+                  <img
+                    className={styles['header-recipe__times-time']}
+                    src={Icons.iconTimer}
+                    alt="время"
+                  />
+                  {hours && hours > 1 ? (
+                    <h2 className={styles['header-recipe__times-hours']}>
+                      {hours} часа
+                    </h2>
+                  ) : hours === 1 ? (
+                    <h2 className={styles['header-recipe__times-hours']}>
+                      {hours} час
+                    </h2>
+                  ) : (
+                    ''
+                  )}
+                  {recipeInfo.recipe_steps.time.minutes} минут
+                </div>
+              </div>
+              <div className={styles['header__portion-box']}>
+                <div className={styles['portion-box']}>
+                  <img
+                    className={styles['portion-box__image']}
+                    src={Icons.iconKitchenThings}
+                    alt="предметы"
+                  />
+                  <h2 className={styles['portion-box__name']}>Порции</h2>
+                  <div className={styles['portion-box__counter']}>
+                    <button
+                      onClick={handleDecreasePortion}
+                      className={styles['portion-box__decrease-button']}
+                    >
+                      <img src={Icons.iconDecrease} alt="уменьшить" />
+                    </button>
+                    <div className={styles['portion-box__counter-box']}>
+                      {counterPortion}
+                    </div>
+                    <button
+                      onClick={handleIncreasePortion}
+                      className={styles['portion-box__increase-button']}
+                    >
+                      <img src={Icons.iconIncrease} alt="добавить" />
+                    </button>
                   </div>
-                  <button
-                    onClick={handleIncreasePortion}
-                    className={styles['portion-box__increase-button']}
-                  >
-                    <img src={increaseIcon} alt="добавить" />
-                  </button>
                 </div>
               </div>
             </div>
@@ -282,20 +322,6 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ mode }) => {
           <div className={styles['recipe-section__header']}>
             <h2 className={styles['header__name']}>Пошаговый рецепт </h2>
             <div className={styles['header-recipe__buttons']}>
-              <div className={styles['header-recipe__times-button']}>
-                {hours && hours > 1 ? (
-                  <h2 className={styles['header-recipe__times-hours']}>
-                    {hours} часа
-                  </h2>
-                ) : hours === 1 ? (
-                  <h2 className={styles['header-recipe__times-hours']}>
-                    {hours} час
-                  </h2>
-                ) : (
-                  ''
-                )}
-                {recipeInfo.recipe_steps.time.minutes} минут
-              </div>
               <button
                 className={styles['header-recipe__added-step']}
                 onClick={handleAddedSteps}
@@ -325,7 +351,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ mode }) => {
                           className={styles['edit-button']}
                           onClick={handleEditSteps}
                         >
-                          <img src={editIcon} alt="редактирование" />
+                          <img src={Icons.iconEdit} alt="редактирование" />
                         </button>
                         <button
                           className={styles['edit-button']}
@@ -384,7 +410,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ mode }) => {
                           className={styles['edit-button']}
                           onClick={() => handleEditSteps(index)}
                         >
-                          <img src={editIcon} alt="редактирование" />
+                          <img src={Icons.iconEdit} alt="редактирование" />
                         </button>
                       </div>
                     </div>
@@ -402,15 +428,29 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ mode }) => {
               className={styles['edit-button']}
               onClick={handleEditAdvance}
             >
-              <img src={editIcon} alt="редактирование" />
+              <img src={Icons.iconEdit} alt="редактирование" />
             </button>
           </div>
 
           <div className={styles['fourth-section__advance']}>
             {recipeInfo?.advance.length > 0 ? (
-              recipeInfo?.advance
+              <div>
+                <img
+                  className={styles['fourth-section__advance-image']}
+                  src={noServer.advanceImage}
+                  alt="картинка"
+                />
+                <div className={styles['fourth-section__advance-box']}>
+                  <div className={styles['fourth-section__advance-hero']}>
+                    <img src={Icons.iconIdea} alt="картинка" />
+                    <h2>{advance}</h2>
+                  </div>
+                  <h2>{recipeInfo?.advance.main}</h2>
+                </div>
+              </div>
             ) : (
               <div className={styles['ingredients-list__empty-advance']}>
+                <img src={noServer.advanceImage} alt="картинка" />
                 <textarea
                   value={advance}
                   onChange={onChangeAdvance}
@@ -445,7 +485,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ mode }) => {
       {openAddedIngredient && (
         <div className={styles['pop-up__overlay']}>
           <div className={styles['pop-up__edit-ingredients']}>
-            <AddedIngredient onClose={handleEditIngredients}/>
+            <AddedIngredient onClose={handleEditIngredients} />
           </div>
         </div>
       )}
