@@ -236,28 +236,44 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ mode }) => {
 
         <div className={styles['content-container__second-section']}>
           <div className={styles['ingredients-section__header']}>
-            <h2 className={styles['header__name']}>Ингредиенты</h2>
+            <div className={styles['ingredients-section__header-main']}>
+              <h2 className={styles['header__name']}>Ингредиенты</h2>
+              <button
+                className={styles['edit-button']}
+                onClick={handleEditIngredients}
+              >
+                <img src={Icons.iconEdit} alt="редактирование" />
+              </button>
+            </div>
 
             <div className={styles['header__info-box']}>
               <div className={styles['header-recipe__buttons']}>
                 <div className={styles['header-recipe__times-button']}>
-                  <img
-                    className={styles['header-recipe__times-time']}
-                    src={Icons.iconTimer}
-                    alt="время"
-                  />
-                  {hours && hours > 1 ? (
-                    <h2 className={styles['header-recipe__times-hours']}>
-                      {hours} часа
-                    </h2>
-                  ) : hours === 1 ? (
-                    <h2 className={styles['header-recipe__times-hours']}>
-                      {hours} час
-                    </h2>
-                  ) : (
-                    ''
-                  )}
-                  {recipeInfo.recipe_steps.time.minutes} минут
+                  <div className={styles['header-recipe__times-button-left']}>
+                    <img
+                      className={styles['header-recipe__times-time']}
+                      src={Icons.iconTimer}
+                      alt="время"
+                    />
+                    {hours && hours > 1 ? (
+                      <h2 className={styles['header-recipe__times-hours']}>
+                        {hours} часа
+                      </h2>
+                    ) : hours === 1 ? (
+                      <h2 className={styles['header-recipe__times-hours']}>
+                        {hours} час
+                      </h2>
+                    ) : (
+                      ''
+                    )}
+                    {recipeInfo.recipe_steps.time.minutes} минут
+                  </div>
+                  <button
+                    className={styles['edit-button']}
+                    onClick={handleEditIngredients}
+                  >
+                    <img src={Icons.iconEdit} alt="редактирование" />
+                  </button>
                 </div>
               </div>
               <div className={styles['header__portion-box']}>
@@ -396,10 +412,12 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ mode }) => {
                           alt={`Фото шага ${index + 1}`}
                         />
                       </div>
-                      
-                      <div className={
-                            styles['ingredients-list__empty-description-box']
-                          }>
+
+                      <div
+                        className={
+                          styles['ingredients-list__empty-description-box']
+                        }
+                      >
                         <div
                           className={
                             styles['ingredients-list__empty-description']
@@ -421,7 +439,10 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ mode }) => {
                         </div>
 
                         <div>
-                          <p>Подробно расскажите что нужно сделать на данном этапе</p>
+                          <p>
+                            Подробно расскажите что нужно сделать на данном
+                            этапе
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -461,7 +482,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ mode }) => {
           ) : (
             <div className={styles['fourth-section__advance']}>
               <div className={styles['ingredients-list__empty-advance']}>
-                <img src={Image.emptyAdvance} alt="картинка" />
+                <img className={styles['ingredients-list__empty-advance-image']} src={Image.emptyAdvance} alt="картинка" />
                 <div className={styles['fourth-section__advance-box']}>
                   <div className={styles['fourth-section__advance-hero']}>
                     <img src={Icons.iconIdea} alt="картинка" />
