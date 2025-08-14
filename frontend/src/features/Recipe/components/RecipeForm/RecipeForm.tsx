@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import styles from './RecipeForm.module.scss';
 import { Icons } from '@/styles/import-image';
+import { Image } from '@/styles/import-image';
 import { noServer } from '@/styles/import-image';
 
 //все поп апы
@@ -309,7 +310,11 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ mode }) => {
                 ))
               ) : (
                 <div className={styles['ingredients-list__empty-list']}>
-                  <p>
+                  <p
+                    className={
+                      styles['ingredients-list__empty-step-description']
+                    }
+                  >
                     Добавьте количество порций и ингредиентов для приготовления
                   </p>
                 </div>
@@ -370,7 +375,9 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ mode }) => {
               )
             ) : (
               <div className={styles['ingredients-list__empty-list']}>
-                <p>
+                <p
+                  className={styles['ingredients-list__empty-step-description']}
+                >
                   Расскажите, как вы приготовили блюдо, инструкция должна
                   содержать минимум 3 шага. Также укажите, сколько времени
                   требуется на приготовление
@@ -378,40 +385,44 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ mode }) => {
 
                 <div className={styles['ingredients-list__empty-steps']}>
                   {Array.from({ length: 3 }, (_, index) => (
-                    <div
-                      key={index}
-                      className={styles['ingredients-list__empty-item']}
-                    >
+                    <div key={index} className={styles['recipe-section__step']}>
                       <div>
                         <button
                           className={styles['ingredients-list__drag-button']}
                         ></button>
                         <img
-                          className={
-                            styles['ingredients-list__empty-step-image']
-                          }
+                          className={styles['recipe-section__image']}
                           src={emptyRecipeStep}
                           alt={`Фото шага ${index + 1}`}
                         />
                       </div>
-                      <div
-                        className={
-                          styles['ingredients-list__empty-description']
-                        }
-                      >
-                        <h2
+                      
+                      <div className={
+                            styles['ingredients-list__empty-description-box']
+                          }>
+                        <div
                           className={
-                            styles['ingredients-list__empty-step-number']
+                            styles['ingredients-list__empty-description']
                           }
                         >
-                          Шаг {index + 1}
-                        </h2>
-                        <button
-                          className={styles['edit-button']}
-                          onClick={() => handleEditSteps(index)}
-                        >
-                          <img src={Icons.iconEdit} alt="редактирование" />
-                        </button>
+                          <h2
+                            className={
+                              styles['ingredients-list__empty-step-number']
+                            }
+                          >
+                            Шаг {index + 1}
+                          </h2>
+                          <button
+                            className={styles['edit-button']}
+                            onClick={() => handleEditSteps(index)}
+                          >
+                            <img src={Icons.iconEdit} alt="редактирование" />
+                          </button>
+                        </div>
+
+                        <div>
+                          <p>Подробно расскажите что нужно сделать на данном этапе</p>
+                        </div>
                       </div>
                     </div>
                   ))}
@@ -432,34 +443,38 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ mode }) => {
             </button>
           </div>
 
-          <div className={styles['fourth-section__advance']}>
-            {recipeInfo?.advance.length > 0 ? (
-              <div>
-                <img
-                  className={styles['fourth-section__advance-image']}
-                  src={noServer.advanceImage}
-                  alt="картинка"
-                />
+          {mode === 'edit' ? (
+            <div className={styles['fourth-section__advance']}>
+              <img
+                className={styles['fourth-section__advance-image']}
+                src={recipeInfo?.advance.image}
+                alt="картинка"
+              />
+              <div className={styles['fourth-section__advance-box']}>
+                <div className={styles['fourth-section__advance-hero']}>
+                  <img src={Icons.iconIdea} alt="картинка" />
+                  <h2>{recipeInfo.advance.hero_advance}</h2>
+                </div>
+                <h2>{recipeInfo?.advance.main}</h2>
+              </div>
+            </div>
+          ) : (
+            <div className={styles['fourth-section__advance']}>
+              <div className={styles['ingredients-list__empty-advance']}>
+                <img src={Image.emptyAdvance} alt="картинка" />
                 <div className={styles['fourth-section__advance-box']}>
                   <div className={styles['fourth-section__advance-hero']}>
                     <img src={Icons.iconIdea} alt="картинка" />
-                    <h2>{advance}</h2>
+                    <h2>Расскажите о самом главном</h2>
                   </div>
-                  <h2>{recipeInfo?.advance.main}</h2>
+                  <h2>
+                    Расскажите, на что обратить внимание при приготовлении блюда
+                    или как можно его усовершенствовать
+                  </h2>
                 </div>
               </div>
-            ) : (
-              <div className={styles['ingredients-list__empty-advance']}>
-                <img src={noServer.advanceImage} alt="картинка" />
-                <textarea
-                  value={advance}
-                  onChange={onChangeAdvance}
-                  className={styles['ingredients-list__empty-advance-area']}
-                  placeholder=" Расскажите, на что обратить внимание при приготовлении блюда или как можно его усовершенствовать"
-                />
-              </div>
-            )}
-          </div>
+            </div>
+          )}
         </div>
       </div>
       <button className={styles['content-container__confirm-recipe']}>

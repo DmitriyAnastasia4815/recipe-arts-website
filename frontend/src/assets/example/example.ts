@@ -9,7 +9,11 @@ export const initialEmptyRecipe= {
   energy_value: { protein: 0, fat: 0, carb: 0 },
   ingredients: { portion: 1, list_ingredients: [] },
   recipe_steps: { time: { hours: 0, minutes: 0 }, steps: {} },
-  advance: '',
+    advance: {
+    image: noServer.advanceImage,
+    hero_advance: 'Расскажите о самом главном',
+    main: '',
+  },
 };
 
 export const initialRecipe= {
@@ -22,7 +26,8 @@ export const initialRecipe= {
   ],
   image: 'картинка',
   name: 'Классическая шарлотка',
-  description: "Классическая шарлотка с яблоками — пирог очень простой в приготовлении, но при этом вкусный, потому невероятно популярный. Печь его лучше осенью, так как именно местные сезонные фрукты зимних сортов идеально подходят для начинки.",
+  description:
+    'Классическая шарлотка с яблоками — пирог очень простой в приготовлении, но при этом вкусный, потому невероятно популярный. Печь его лучше осенью, так как именно местные сезонные фрукты зимних сортов идеально подходят для начинки.',
   energy_value: {
     protein: 30,
     fat: 20,
@@ -66,8 +71,11 @@ export const initialRecipe= {
       },
     },
   },
-  advance:
-    'Lörem ipsum vöräse terahylig rengar pörar. Rågen mahifask. Dekanuhins redat har spenura årar. Poss prosk i ossade om dulig, liksom desm. Tenosam tusm, hyperaktiv, nuvis hutessa. Polyv pede vaktiga pöpusm yr. Mikronokanade prell. Fas foden och fasat portad. Dupp intrasm prenusa. Enynde por: far när fatelig i radiometer. ',
+  advance: {
+    image: noServer.advanceImage,
+    hero_advance: 'Используйте только яблоки Голден',
+    main: 'При приготовлении шарлотки обязательно используйте перчатки при доставании из духовки. Дайте шарлотке остыть после приготовления около часа. Подавайте с шариком мороженого и хорошим настроением:)',
+  },
 };
 
 

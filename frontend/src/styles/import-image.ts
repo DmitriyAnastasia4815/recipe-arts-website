@@ -19,26 +19,27 @@ import iconCalories from '@icon/icon-calories.svg';
 import iconTime from '@icon/icon-time.svg';
 import deleteIcon from '@icon/icon-delete.svg';
 
-import favouriteBackground from '@icon/favourite-background.svg'
+import favouriteBackground from '@icon/favourite-background.svg';
 
-import iconIdea from '@icon/icon-idea.svg'
+import iconIdea from '@icon/icon-idea.svg';
 
 //Для порционной кнопки
-import iconIncrease from '@icon/PortionButton/icon-increase.svg'
-import iconDecrease from '@icon/PortionButton/icon-decrease.svg'
-import iconKitchenThings from '@icon/PortionButton/icon-kitchen-thing.svg'
-import iconTimer from '@icon/PortionButton/icon-timer.svg'
-
+import iconIncrease from '@icon/PortionButton/icon-increase.svg';
+import iconDecrease from '@icon/PortionButton/icon-decrease.svg';
+import iconKitchenThings from '@icon/PortionButton/icon-kitchen-thing.svg';
+import iconTimer from '@icon/PortionButton/icon-timer.svg';
 
 //пока нет сервера
-import step1 from '@icon/initialRecipe/step1.svg'
-import step2 from '@icon/initialRecipe/step2.svg'
-import step3 from '@icon/initialRecipe/step3.svg'
-import step4 from '@icon/initialRecipe/step4.svg'
-import advanceImage from '@icon/initialRecipe/advance-image.svg'
+import step1 from '@icon/initialRecipe/step1.svg';
+import step2 from '@icon/initialRecipe/step2.svg';
+import step3 from '@icon/initialRecipe/step3.svg';
+import step4 from '@icon/initialRecipe/step4.svg';
+import advanceImage from '@icon/initialRecipe/advance-image.svg';
+
+//пустой рецепт
+import emptyAdvance from '@image/EmptyRecipe/empty-advance.svg';
 
 //иконки меню адаптив
-
 export const Icons = {
   iconWelcome: iconWelcome,
   iconEmptyUser: iconEmptyUser,
@@ -60,7 +61,7 @@ export const Icons = {
   iconDecrease: iconDecrease,
   iconKitchenThings: iconKitchenThings,
   iconTimer: iconTimer,
-  iconIdea:iconIdea,
+  iconIdea: iconIdea,
 };
 
 //Импорт картинок
@@ -70,8 +71,8 @@ import emptyProfileImg from '@image/empty-profile-images/empty-user-icon.svg';
 export const Image = {
   emptyRecipeImg: emptyRecipeImg,
   emptyProfileImg: emptyProfileImg,
+  emptyAdvance: emptyAdvance,
 };
-
 
 export const noServer = {
   step1: step1,
@@ -79,4 +80,4 @@ export const noServer = {
   step3: step3,
   step4: step4,
   advanceImage: advanceImage,
-}
+};
