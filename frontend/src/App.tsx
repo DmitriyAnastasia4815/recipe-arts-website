@@ -7,6 +7,7 @@ import ProtectedRoute from './router/ProtectedRoute';
 import RecipePage from './pages/RecipePage/RecipePage';
 
 import MainLayout from '@router/MainLayout';
+import NotCreatedPage from './pages/NotCreatedPage/NotCreatedPage';
 
 import {
   BrowserRouter,
@@ -43,16 +44,18 @@ function App() {
           <Route path="favourites" element={<Favourites />} />
 
           {/* Маршрут для страницы Статей но пока ее нет */}
-          <Route path="articles" element={<Home />} />
+          <Route path="articles" element={<NotCreatedPage />} />
 
           {/* Маршрут для страницы c рецептами но пока ее нет */}
-          <Route path="recipes" element={<Home />} />
+          <Route path="recipes" element={<NotCreatedPage />} />
 
 
           {/* Маршрут для страницы поддержки но пока ее нет */}
-          <Route path="support" element={<Home />} />
+          <Route path="support" element={<NotCreatedPage />} />
 
-          {/* Маршрут для страницы Профиля это не нужно удалять это нужно раскомментировать*/}
+          
+
+          {/* Маршрут для страницы Профиля*/}
 
           <Route
             path="profilepage"

@@ -23,6 +23,8 @@ import favouriteBackground from '@icon/favourite-background.svg';
 
 import iconIdea from '@icon/icon-idea.svg';
 
+import iconPot from '@image/icon-pot.svg'
+
 //Для порционной кнопки
 import iconIncrease from '@icon/PortionButton/icon-increase.svg';
 import iconDecrease from '@icon/PortionButton/icon-decrease.svg';
@@ -62,6 +64,7 @@ export const Icons = {
   iconKitchenThings: iconKitchenThings,
   iconTimer: iconTimer,
   iconIdea: iconIdea,
+  iconPot: iconPot,
 };
 
 //Импорт картинок
@@ -72,6 +75,7 @@ export const Image = {
   emptyRecipeImg: emptyRecipeImg,
   emptyProfileImg: emptyProfileImg,
   emptyAdvance: emptyAdvance,
+
 };
 
 export const noServer = {
