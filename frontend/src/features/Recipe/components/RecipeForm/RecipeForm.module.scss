@@ -720,10 +720,14 @@
   &__times-button {
     @include inputField;
     display: flex;
+
     align-items: center;
     justify-content: space-between;
     gap: 8px;
     width: 290px;
+    button{
+      transform: translateY(0.1px);
+    }
     @media (max-width: 768px) {
       @include mobile-text-second;
       width: 200px;
@@ -740,6 +744,12 @@
       height: 32px;
       gap: 4px;
     }
+  }
+
+  &__times-button-left{
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
   }
   &__buttons {
     display: flex;
@@ -822,6 +832,9 @@
     display: flex;
     align-items: center;
     gap: 8px;
+    button{
+      transform: translateY(0.2px);
+    }
   }
 }
 
