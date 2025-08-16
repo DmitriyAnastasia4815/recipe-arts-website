@@ -1,15 +1,24 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 
 import styles from './RecipeForm.module.scss';
 import { Icons } from '@/styles/import-image';
 import { Image } from '@/styles/import-image';
 import { noServer } from '@/styles/import-image';
 
+//store
+import {
+  setCategory,
+  setRecipeForm,
+  updateRecipeField,
+  initialState,
+} from '@features/Recipe/store/recipeSlice';
+
 //все поп апы
 import EditingRecipeName from '@/features/Recipe/components/EditingRecipesName/EditingRecipeName';
-import SearchByCategory from '@/components/ui/SearchByCategory/SearchByCategory';
+import AddedCategory from '../AddedCategory/AddedCategory';
 import AddedIngredient from '../AddedIngredient/AddedIngredient';
 
 import editIcon from '@icon/icon-editing-small.svg';
@@ -31,6 +40,7 @@ import { initialIngredient } from '@/assets/example/example';
 
 //типизация
 import type { Recipe } from '../../types/types';
+import { RootState } from '@/store/store';
 
 interface RecipeFormProps {
   mode: string;
@@ -38,43 +48,37 @@ interface RecipeFormProps {
 
 const RecipeForm: React.FC<RecipeFormProps> = ({ mode }) => {
   const { id } = useParams<{ id: string }>();
+  console.log(mode, id)
   const navigate = useNavigate();
-  const [recipeInfo, setRecipeInfo] = useState<Recipe | null>(null);
+  const recipeInfo = useSelector((state: RootState) => state.createRecipe);
+  const dispatch = useDispatch();
 
   const [counterPortion, setCounterPortion] = useState<number>(1);
-  const hours = recipeInfo?.recipe_steps.time.hours || null;
+  const hours = recipeInfo?.recipe_steps?.time?.hours || 0;
 
   //управление открытием поп апов
   const [openEditCategories, setOpenEditCategories] = useState(false);
   const [openEditName, setOpenEditName] = useState(false);
   const [openAddedIngredient, setOpenAddedIngredient] = useState(false);
 
-  const [advance, setAdvance] = useState('');
-
   useEffect(() => {
     if (mode === 'edit' && id) {
-      //запрос на сервер для получения данных о рецепте
-      //без сервера пока использую initialRecipe
-      setRecipeInfo(initialRecipe);
+      // В реальном приложении здесь был бы запрос на сервер
+      // dispatch(fetchRecipeById(id)); // Пример асинхронного действия
+
+      dispatch(setRecipeForm(initialRecipe as Recipe)); // Инициализируем форму данными из примера
     } else if (mode === 'create') {
-      //инициализация пустой формы рецепта для его создания
-      setRecipeInfo(initialEmptyRecipe);
+      dispatch(setRecipeForm(initialState)); // Инициализируем пустую форму
     }
-  }, [mode, id]);
+  }, [mode, id, dispatch]); // Добавляем dispatch в зависимости useEffect
 
-  if (!recipeInfo) {
-    return <div>Загрузка...</div>;
-  }
-  const handleUpdateRecipe = (updatedRecipe: Partial<Recipe>) => {
-    setRecipeInfo((prev) => ({
-      ...prev!,
-      ...updatedRecipe,
-    }));
-  };
-
-  const onChangeAdvance = (event: HTMLTextAreaElement) => {
-    const advance = event.value;
-    setAdvance(advance);
+  const onChangeAdvance = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    dispatch(
+      updateRecipeField({
+        field: 'advance',
+        value: { ...recipeInfo.advance, main: event.target.value },
+      }),
+    );
   };
   const handleIncreasePortion = () => {
     setCounterPortion(counterPortion + 1);
@@ -114,11 +118,10 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ mode }) => {
     //кнопка редактирования совета
   };
 
-  const energyValue = recipeInfo.energy_value
-    ? recipeInfo.energy_value.carb * 4 +
-      recipeInfo.energy_value.fat * 9 +
-      recipeInfo.energy_value.protein * 4
-    : 0;
+  const energyValue =
+    (recipeInfo?.energy_value?.carb || 0) * 4 +
+    (recipeInfo?.energy_value?.fat || 0) * 9 +
+    (recipeInfo?.energy_value?.protein || 0) * 4;
 
   return (
     <div className="container">
@@ -133,25 +136,16 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ mode }) => {
         <div className={styles['content-container__first-section']}>
           <div className={styles['main-content']}>
             <div className={styles['main-content__info-box']}>
-              {recipeInfo.image ? (
-                <img
-                  className={styles['main-content__image']}
-                  // src={recipeInfo.image}
-                  src={recipeImage}
-                  alt={recipeInfo.name}
-                />
-              ) : (
-                <img
-                  className={styles['main-content__image']}
-                  src={emptyRecipeImage}
-                  alt={recipeInfo.name}
-                />
-              )}
+              <img
+                className={styles['main-content__image']}
+                src={recipeInfo?.image || emptyRecipeImage}
+                alt={recipeInfo?.name}
+              />
 
               <div className={styles['info-box__info']}>
                 <div className={styles['info-box__info-right']}>
                   <div className={styles['info-box__tags']}>
-                    {recipeInfo.categories?.length > 0 &&
+                    {recipeInfo?.categories?.length > 0 &&
                       recipeInfo.categories.map((tag, index) => (
                         <span
                           key={index}
@@ -181,7 +175,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ mode }) => {
                 </div>
                 <div className={styles['info-box__description']}>
                   <p className={styles['info-box__description-text']}>
-                    {recipeInfo.description}
+                    {recipeInfo?.description}
                   </p>
                 </div>
 
@@ -266,7 +260,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ mode }) => {
                     ) : (
                       ''
                     )}
-                    {recipeInfo.recipe_steps.time.minutes} минут
+                    {recipeInfo?.recipe_steps.time.minutes} минут
                   </div>
                   <button
                     className={styles['edit-button']}
@@ -354,8 +348,8 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ mode }) => {
           </div>
 
           <div className={styles['recipe-section__steps']}>
-            {Object.keys(recipeInfo?.recipe_steps.steps).length > 0 ? (
-              Object.entries(recipeInfo.recipe_steps.steps).map(
+            {Object.keys(recipeInfo?.recipe_steps?.steps || {}).length > 0 ? (
+              Object.entries(recipeInfo?.recipe_steps?.steps).map(
                 ([key, step], index) => (
                   <div key={key} className={styles['recipe-section__step']}>
                     <img
@@ -474,15 +468,19 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ mode }) => {
               <div className={styles['fourth-section__advance-box']}>
                 <div className={styles['fourth-section__advance-hero']}>
                   <img src={Icons.iconIdea} alt="картинка" />
-                  <h2>{recipeInfo.advance.hero_advance}</h2>
+                  <h2>{recipeInfo?.advance?.hero_advance}</h2>
                 </div>
-                <h2>{recipeInfo?.advance.main}</h2>
+                <h2>{recipeInfo?.advance?.main}</h2>
               </div>
             </div>
           ) : (
             <div className={styles['fourth-section__advance']}>
               <div className={styles['ingredients-list__empty-advance']}>
-                <img className={styles['ingredients-list__empty-advance-image']} src={Image.emptyAdvance} alt="картинка" />
+                <img
+                  className={styles['ingredients-list__empty-advance-image']}
+                  src={Image.emptyAdvance}
+                  alt="картинка"
+                />
                 <div className={styles['fourth-section__advance-box']}>
                   <div className={styles['fourth-section__advance-hero']}>
                     <img src={Icons.iconIdea} alt="картинка" />
@@ -514,7 +512,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ mode }) => {
       )}
       {openEditCategories && (
         <div className={styles['pop-up__edit-name']}>
-          <SearchByCategory onClose={handleEditTags} />
+          <AddedCategory onClose={handleEditTags} />
         </div>
       )}
 

@@ -1,4 +1,6 @@
 import { noServer } from "@/styles/import-image";
+import recipeImage from '@image/ReipeImage.svg'
+
 
 export const initialEmptyRecipe= {
   id: 0,
@@ -24,7 +26,7 @@ export const initialRecipe= {
     'Русская кухня',
     'Русская кухня',
   ],
-  image: 'картинка',
+  image: recipeImage,
   name: 'Классическая шарлотка',
   description:
     'Классическая шарлотка с яблоками — пирог очень простой в приготовлении, но при этом вкусный, потому невероятно популярный. Печь его лучше осенью, так как именно местные сезонные фрукты зимних сортов идеально подходят для начинки.',

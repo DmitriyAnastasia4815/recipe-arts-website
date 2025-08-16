@@ -51,7 +51,7 @@ interface Advance {
 }
 
 export interface Recipe {
-  id: number;
+  id?: number;
   categories: string[];
   image: string;
   description: string;
