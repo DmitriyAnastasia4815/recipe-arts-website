@@ -10,7 +10,6 @@ import { noServer } from '@/styles/import-image';
 
 //store
 import {
-  setCategory,
   setRecipeForm,
   updateRecipeField,
   initialState,
@@ -48,7 +47,6 @@ interface RecipeFormProps {
 
 const RecipeForm: React.FC<RecipeFormProps> = ({ mode }) => {
   const { id } = useParams<{ id: string }>();
-  console.log(mode, id)
   const navigate = useNavigate();
   const recipeInfo = useSelector((state: RootState) => state.createRecipe);
   const dispatch = useDispatch();

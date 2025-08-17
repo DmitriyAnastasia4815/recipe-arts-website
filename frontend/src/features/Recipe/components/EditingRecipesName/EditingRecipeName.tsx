@@ -20,6 +20,11 @@ import { initialIngredient } from '@/assets/example/example';
 
 //типизация
 import type { Recipe } from '@/assets/example/example';
+import { RootState } from '@/store/store';
+
+
+import { useDispatch, useSelector } from 'react-redux';
+import { updateRecipeField } from '../../store/recipeSlice';
 
 
 interface EditingRecipeNameProps {
@@ -33,29 +38,22 @@ export const EditingRecipeName: React.FC<EditingRecipeNameProps> = ({
   mode,
   id,
 }) => {
-  const [recipeInfo, setRecipeInfo] = useState<Recipe | null>(null);
-  // const [imageSrc, setImageSrc] = useState<string>(recipeInfo?.image );
+  const recipeInfo = useSelector((state: RootState) => state.createRecipe);
   const [imageSrc, setImageSrc] = useState<string>(
     mode === 'edit' ? recipeImage : emptyRecipeImage,
   );
   const fileInputRef = useRef<HTMLInputElement>(null);
   const nameRef = useRef(null);
 
-  useEffect(() => {
-    if (mode === 'edit') {
-      //взаимодействие с сервером получение информации о существующем рецепте по айди
-      setRecipeInfo(initialRecipe);
-    } else if (mode === 'create') {
-      setRecipeInfo(initialEmptyRecipe);
-    }
-  }, [id]);
+  const dispatch = useDispatch()
 
   useEffect(() => {
     nameRef.current?.focus();
   }, []);
 
   const handleConfirm = () => {
-    // Взаимодействие с редаксом скорее всего или с сервером я хз
+    dispatch(updateRecipeField({field: 'name', value: nameRef.current?.value || ''}));
+    dispatch(updateRecipeField({field: 'image', value: imageSrc}));
      onClose()
   };
 
@@ -79,7 +77,6 @@ export const EditingRecipeName: React.FC<EditingRecipeNameProps> = ({
         name,
       }));
      
-      console.log(recipeInfo);
     }
 
 
@@ -113,7 +110,7 @@ export const EditingRecipeName: React.FC<EditingRecipeNameProps> = ({
               <div className={styles['edit-image__image-box']}>
                 <img
                   className={styles['edit-image__image']}
-                  src={imageSrc}
+                  src={recipeInfo?.image}
                   alt="Рецепт"
                 />
                 <div className={styles['edit-image__overlay']}>
