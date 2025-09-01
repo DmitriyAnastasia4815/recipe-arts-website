@@ -15,6 +15,7 @@
   "dependencies": {
     "@reduxjs/toolkit": "^2.8.2",
     "axios": "^1.10.0",
+    "clx": "^1.0.0",
     "cropperjs": "^2.0.1",
     "lodash": "^4.17.21",
     "react": "^19.1.0",
