@@ -4,34 +4,48 @@ FROM node:20-alpine AS builder
 # Устанавливаем рабочую директорию
 WORKDIR /app
 
-# Копируем package.json и lock-файл, чтобы Docker мог кэшировать установку зависимостей
-# Это важно: если изменится только код, а не зависимости, этот слой будет взят из кэша
+# Копируем package.json и lock-файл
 COPY package.json package-lock.json ./
 
-# Устанавливаем зависимости.
-# Используем npm ci для детерминированной установки в продакшн-среде
+# --- НАЧАЛО ОТЛАДОЧНЫХ КОМАНД ---
+# Выводим содержимое package.json, чтобы убедиться, что Docker его видит
+RUN echo "--- Содержимое package.json в контейнере ---"
+RUN cat package.json
+
+# Выводим содержимое package-lock.json
+RUN echo "--- Содержимое package-lock.json в контейнере ---"
+RUN cat package-lock.json
+
+# Проверяем, есть ли папка node_modules до установки
+RUN echo "--- Проверяем node_modules до npm ci ---"
+RUN ls -la /app/node_modules || echo "node_modules не существует или пуста"
+# --- КОНЕЦ ОТЛАДОЧНЫХ КОМАНД ---
+
+# Устанавливаем зависимости. Используем npm ci для детерминированной установки
 RUN npm ci
+
+# --- НАЧАЛО ОТЛАДОЧНЫХ КОМАНД ПОСЛЕ npm ci ---
+# Проверяем, что npm ci завершился успешно
+RUN echo "--- npm ci завершен. Проверяем статус ---"
+RUN test $? -eq 0 && echo "npm ci успешно завершен." || echo "npm ci завершился с ошибкой."
+
+# Проверяем наличие папки node_modules после установки
+RUN echo "--- Проверяем node_modules после npm ci ---"
+RUN ls -la /app/node_modules || echo "node_modules все еще не существует или пуста"
+
+# Проверяем конкретно наличие @reduxjs/toolkit
+RUN echo "--- Проверяем наличие @reduxjs/toolkit в node_modules ---"
+RUN ls -la /app/node_modules/@reduxjs/toolkit || echo "@reduxjs/toolkit не найден в node_modules!"
+
+# Проверяем, что папка @reduxjs/toolkit не пуста
+RUN echo "--- Проверяем содержимое @reduxjs/toolkit ---"
+RUN ls -la /app/node_modules/@reduxjs/toolkit/package.json || echo "package.json в @reduxjs/toolkit не найден"
+# --- КОНЕЦ ОТЛАДОЧНЫХ КОМАНД ---
 
 # Копируем остальной код приложения
 COPY . .
 
 # Запускаем сборку Vite-приложения.
-# Результат (статические файлы) будет в папке 'dist'
 RUN npm run build
 
-# --- СТАДИЯ 2: ОТДАЧА СТАТИЧЕСКИХ ФАЙЛОВ NGINX ---
-FROM nginx:alpine
-
-# Копируем кастомный конфиг Nginx для SPA-роутинга
-# Создай файл nginx.conf рядом с Dockerfile
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-
-# Копируем статические файлы, собранные на первой стадии (из папки dist),
-# в директорию Nginx для статических файлов
-COPY --from=builder /app/dist /usr/share/nginx/html
-
-# Открываем порт 80, который слушает Nginx
-EXPOSE 80
-
-# Запускаем Nginx на переднем плане
-CMD ["nginx", "-g", "daemon off;"]
+# ... остальная часть Dockerfile ...
