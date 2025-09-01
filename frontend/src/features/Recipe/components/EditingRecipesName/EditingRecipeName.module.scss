@@ -1,4 +1,3 @@
-
 @import '@styles/all.scss';
 
 .main-container {
@@ -33,6 +32,11 @@
     display: flex;
     margin-bottom: 16px;
   }
+  &__edit-description {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 16px;
+  }
   &__confirm-button {
     @include green-button;
     width: 100%;
@@ -46,8 +50,28 @@
   }
   &__input {
     @include inputField;
+        resize: vertical;
+    text-align: left; 
     width: 100%;
     height: 30px;
+  }
+}
+
+.edit-description{
+  &__name {
+    @include h6;
+    margin-right: 16px;
+    flex-shrink: 0;
+    
+  }
+  &__input {
+    @include inputField;
+    border-radius: $border-radius-custom;
+    flex-grow: 1;
+    min-height: 100px;
+    max-width: 100%;
+    resize: vertical;
+    text-align: left; 
   }
 }
 
@@ -99,4 +123,3 @@
     object-fit: contain;
   }
 }
-

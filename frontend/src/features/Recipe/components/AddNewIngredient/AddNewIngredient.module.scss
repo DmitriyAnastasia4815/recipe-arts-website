@@ -74,12 +74,9 @@
     }
 
     input{
-        border: 1px solid $color-accent;
-        border-radius: 40px;
-        width: 100px;
-        height: 24px;
-        text-align: center;
-        background: $color-light-green;
+        @include inputField;
+        height: 32px;
+        max-width: 100px;
     }
   }
 }

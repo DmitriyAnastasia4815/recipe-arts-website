@@ -23,8 +23,7 @@ export const initialRecipe= {
   categories: [
     'Выпечка и десерты',
     'Русская кухня',
-    'Русская кухня',
-    'Русская кухня',
+
   ],
   image: recipeImage,
   name: 'Классическая шарлотка',

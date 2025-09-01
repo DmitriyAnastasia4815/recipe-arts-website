@@ -725,7 +725,7 @@
     justify-content: space-between;
     gap: 8px;
     width: 290px;
-    button{
+    button {
       transform: translateY(0.1px);
     }
     @media (max-width: 768px) {
@@ -746,7 +746,7 @@
     }
   }
 
-  &__times-button-left{
+  &__times-button-left {
     display: flex;
     flex-direction: row;
     gap: 4px;
@@ -804,7 +804,7 @@
     img {
       max-width: 164px;
       height: auto;
-      @media (max-width: 450px){
+      @media (max-width: 450px) {
         width: 18px;
         transform: translateY(-3px);
       }
@@ -832,7 +832,7 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    button{
+    button {
       transform: translateY(0.2px);
     }
   }
@@ -856,7 +856,7 @@
     width: 100%;
     max-width: 650px;
     background-color: $color-white;
-    border-radius: $border-radius-custom;
+    border-radius: $border-radius-main;
     box-sizing: border-box;
     padding: 16px 24px;
     @media (max-width: 768px) {
@@ -873,7 +873,7 @@
     width: 100%;
     max-width: 720px;
     background-color: $color-white;
-    border-radius: $border-radius-custom;
+    border-radius: $border-radius-main;
     box-sizing: border-box;
     padding: 24px 16px;
     @media (max-width: 768px) {
@@ -883,6 +883,21 @@
     @media (max-width: 450px) {
       max-width: 95%;
       padding: 12px;
+    }
+  }
+
+  &__edit-small {
+    width: 100%;
+    max-width: 380px;
+    background-color: $color-white;
+    border-radius: $border-radius-main;
+    box-sizing: border-box;
+    padding: 16px 20px;
+    @media (max-width: 768px) {
+
+    }
+    @media (max-width: 450px) {
+
     }
   }
 }

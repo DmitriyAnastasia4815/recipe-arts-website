@@ -5,6 +5,8 @@ import styles from './AddNewIngredient.module.scss';
 import returnIcon from '@icon/icon-array.svg';
 
 import type { initialIngredient } from '../../types/types';
+import { useDispatch } from 'react-redux';
+import {addIngredientToCollection} from '.././../store/recipeSlice'
 
 interface AddNewIngredientProps {
   onReturn: () => void;
@@ -21,6 +23,8 @@ export const AddNewIngredient: React.FC<AddNewIngredientProps> = ({
     carbs: 0,
     calories: 0,
   });
+
+  const dispatch = useDispatch();
 
   // Обработчик изменения имени
   const handleChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -56,6 +60,18 @@ export const AddNewIngredient: React.FC<AddNewIngredientProps> = ({
       carbs: value === '' ? 0 : parseFloat(value) || 0,
     }));
   };
+
+  const handleConfirm = () => {
+    dispatch(addIngredientToCollection({
+      id: newIngredient.id,
+      name: newIngredient.name,
+      protein: newIngredient.protein,
+      fat: newIngredient.fat,
+      carbs: newIngredient.carbs,
+      calories: newIngredient.protein * 4 + newIngredient.fat * 9 + newIngredient.carbs * 4,
+    }))
+    onReturn()
+  }
 
 
   return (
@@ -113,7 +129,7 @@ export const AddNewIngredient: React.FC<AddNewIngredientProps> = ({
             </div>
           </div>
         </div>
-        <button className={styles['content__confirm-button']}> 
+        <button className={styles['content__confirm-button']} onClick={handleConfirm}> 
             Добавить ингредиент в коллекцию
         </button>
       </div>

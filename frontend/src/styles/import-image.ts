@@ -25,6 +25,8 @@ import iconIdea from '@icon/icon-idea.svg';
 
 import iconPot from '@image/icon-pot.svg'
 
+import iconAddedNewIngredient from '@icon/icon-added-new-ingredient.svg'
+
 //Для порционной кнопки
 import iconIncrease from '@icon/PortionButton/icon-increase.svg';
 import iconDecrease from '@icon/PortionButton/icon-decrease.svg';
@@ -65,6 +67,7 @@ export const Icons = {
   iconTimer: iconTimer,
   iconIdea: iconIdea,
   iconPot: iconPot,
+  iconAddedNewIngredient: iconAddedNewIngredient,
 };
 
 //Импорт картинок

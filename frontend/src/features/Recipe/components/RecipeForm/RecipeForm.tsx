@@ -19,6 +19,7 @@ import {
 import EditingRecipeName from '@/features/Recipe/components/EditingRecipesName/EditingRecipeName';
 import AddedCategory from '../AddedCategory/AddedCategory';
 import AddedIngredient from '../AddedIngredient/AddedIngredient';
+import EditTimes from '../EditTimes/EditTimes';
 
 import editIcon from '@icon/icon-editing-small.svg';
 import deleteIcon from '@icon/icon-delete.svg';
@@ -41,6 +42,9 @@ import { initialIngredient } from '@/assets/example/example';
 import type { Recipe } from '../../types/types';
 import { RootState } from '@/store/store';
 
+//вспомогательные функции
+import {declinationOfUnits} from '.././../support/supportFunc';
+
 interface RecipeFormProps {
   mode: string;
 }
@@ -52,11 +56,11 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ mode }) => {
   const dispatch = useDispatch();
 
   const [counterPortion, setCounterPortion] = useState<number>(1);
-  const hours = recipeInfo?.recipe_steps?.time?.hours || 0;
 
   //управление открытием поп апов
   const [openEditCategories, setOpenEditCategories] = useState(false);
   const [openEditName, setOpenEditName] = useState(false);
+  const [openEditTimes, setOpenEditTimes] = useState(false);
   const [openAddedIngredient, setOpenAddedIngredient] = useState(false);
 
   useEffect(() => {
@@ -100,6 +104,10 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ mode }) => {
   const handleEditIngredients = () => {
     //кнопка редактирования списка ингредиентов
     setOpenAddedIngredient((prev) => !prev);
+  };
+  const handleEditTimes = () => {
+    //кнопка редактирования времени
+    setOpenEditTimes((prev) => !prev);
   };
 
   const handleAddedSteps = () => {
@@ -247,22 +255,28 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ mode }) => {
                       src={Icons.iconTimer}
                       alt="время"
                     />
-                    {hours && hours > 1 ? (
+                    {recipeInfo?.recipe_steps?.time?.hours &&
+                    recipeInfo?.recipe_steps?.time?.hours > 1 ? (
                       <h2 className={styles['header-recipe__times-hours']}>
-                        {hours} часа
+                        {recipeInfo?.recipe_steps?.time?.hours} часа
                       </h2>
-                    ) : hours === 1 ? (
+                    ) : recipeInfo?.recipe_steps?.time?.hours === 1 ? (
                       <h2 className={styles['header-recipe__times-hours']}>
-                        {hours} час
+                        {recipeInfo?.recipe_steps?.time?.hours} час
                       </h2>
                     ) : (
                       ''
                     )}
-                    {recipeInfo?.recipe_steps.time.minutes} минут
+
+                      {recipeInfo?.recipe_steps.time.minutes}{' '}
+                      {declinationOfUnits(
+                        recipeInfo?.recipe_steps.time.minutes,
+                      )}
+
                   </div>
                   <button
                     className={styles['edit-button']}
-                    onClick={handleEditIngredients}
+                    onClick={handleEditTimes}
                   >
                     <img src={Icons.iconEdit} alt="редактирование" />
                   </button>
@@ -518,6 +532,14 @@ const RecipeForm: React.FC<RecipeFormProps> = ({ mode }) => {
         <div className={styles['pop-up__overlay']}>
           <div className={styles['pop-up__edit-ingredients']}>
             <AddedIngredient onClose={handleEditIngredients} />
+          </div>
+        </div>
+      )}
+
+      {openEditTimes && (
+        <div className={styles['pop-up__overlay']}>
+          <div className={styles['pop-up__edit-small']}>
+            <EditTimes onClose={handleEditTimes} />
           </div>
         </div>
       )}

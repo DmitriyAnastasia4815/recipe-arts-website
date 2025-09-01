@@ -1,14 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
-import styles from './AmountOfIngredient.module.scss';
 
-import incIcon from '@icon/increase-icon-ingredients.svg';
-import decIcon from '@icon/decrese-icon-ingredients.svg';
+
+import styles from './AmountOfIngredient.module.scss';
+import { Icons } from '@/styles/import-image';
+
 
 import type { initialIngredient } from '../../types/types';
 
 interface AmountOfIngredientProps {
   ingredient: initialIngredient;
-  onConfirm: (id: number, quantity: number) => void;
+  onConfirm: (id: number, name: string, quantity: number) => void;
   onCancel: () => void;
   className: string;
 }
@@ -57,7 +58,7 @@ export const AmountOfIngredient: React.FC<AmountOfIngredientProps> = ({
             className={styles['box-amount__dec']}
             onClick={handleDecrement}
           >
-            <img src={decIcon} alt="уменьшить" />
+            <img src={Icons.iconDecrease} alt="уменьшить" />
           </button>
           <input
             className={styles['box-amount__input']}
@@ -71,11 +72,11 @@ export const AmountOfIngredient: React.FC<AmountOfIngredientProps> = ({
             className={styles['box-amount__inc']}
             onClick={handleIncrement}
           >
-            <img src={incIcon} alt="увеличить" />
+            <img src={Icons.iconIncrease} alt="увеличить" />
           </button>
         </div>
 
-        <button className={styles['content__confirm']} onClick={() => onConfirm(ingredient.id, amount)}>
+        <button className={styles['content__confirm']} onClick={() => onConfirm(ingredient.id, ingredient.name, amount)}>
           Подтвердить
         </button>
       </div>

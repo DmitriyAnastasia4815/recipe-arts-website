@@ -1,17 +1,24 @@
 import React from 'react';
 import { useState } from 'react';
 
-
 import styles from './AddedCategory.module.scss';
 import { Icons } from '@/styles/import-image';
+import { useDispatch, useSelector } from 'react-redux';
+import { setCategory } from '../../store/recipeSlice';
+import { RootState } from '@/store/store';
 
 interface AddedCategoryProps {
   onClose: () => void;
 }
 
 const AddedCategory: React.FC<AddedCategoryProps> = ({ onClose }) => {
+  const dispatch = useDispatch();
+  const currentSelectedCategories = useSelector(
+    (state: RootState) => state.createRecipe.categories,
+  );
+
   const [selectedSubcategories, setSelectedSubcategories] = useState<string[]>(
-    [],
+    currentSelectedCategories,
   );
 
   const toggleSubcategory = (subcategory: string) => {
@@ -23,7 +30,7 @@ const AddedCategory: React.FC<AddedCategoryProps> = ({ onClose }) => {
   };
 
   const handleSearchCategory = () => {
-    //отправка на сервер
+    dispatch(setCategory(selectedSubcategories));
     onClose();
   };
 
@@ -35,6 +42,7 @@ const AddedCategory: React.FC<AddedCategoryProps> = ({ onClose }) => {
         'Азиатская кухня',
         'Арабская кухня',
         'Американская кухня',
+        'Русская кухня',
       ],
     },
     {
@@ -43,7 +51,7 @@ const AddedCategory: React.FC<AddedCategoryProps> = ({ onClose }) => {
     },
     {
       name: 'Тип блюда',
-      subcategories: ['Первое блюдо', 'Второе блюдо', 'Десерт'],
+      subcategories: ['Первое блюдо', 'Второе блюдо', 'Десерт', 'Выпечка и десерты'],
     },
     {
       name: 'Диета',
@@ -60,8 +68,6 @@ const AddedCategory: React.FC<AddedCategoryProps> = ({ onClose }) => {
       subcategories: ['Тесто', 'Пироги', 'Булочки'],
     },
   ];
-
-  console.log(selectedSubcategories)
 
   return (
     <div className={styles['search-container']}>

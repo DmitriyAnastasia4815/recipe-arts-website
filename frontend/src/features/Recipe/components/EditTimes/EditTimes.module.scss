@@ -1,0 +1,58 @@
+@import '@styles/all.scss';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  &__return-button {
+    align-self: flex-start;
+    background: none;
+  }
+  &__name {
+    @include h6;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  &__box-change{
+    margin-bottom: 24px;
+  }
+  &__confirm {
+    @include green-button;
+    width: 100%; 
+  }
+}
+
+.box-change {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  gap: 45px;
+  &__time {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+  }
+  &__box {
+    display: flex;
+    flex-direction: row;
+    background: $color-accent;
+    width: 100px;
+    height: 42px;
+    padding: 10px;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: $border-radius-main;
+
+    h2 {
+      color: $color-white;
+    }
+  }
+  &__time-name {
+    margin-bottom: 8px;
+  }
+  &__button {
+    background: none;
+  }
+}

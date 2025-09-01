@@ -22,10 +22,8 @@ import { initialIngredient } from '@/assets/example/example';
 import type { Recipe } from '@/assets/example/example';
 import { RootState } from '@/store/store';
 
-
 import { useDispatch, useSelector } from 'react-redux';
 import { updateRecipeField } from '../../store/recipeSlice';
-
 
 interface EditingRecipeNameProps {
   onClose: () => void;
@@ -44,17 +42,20 @@ export const EditingRecipeName: React.FC<EditingRecipeNameProps> = ({
   );
   const fileInputRef = useRef<HTMLInputElement>(null);
   const nameRef = useRef(null);
+  const descRef = useRef(null);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   useEffect(() => {
     nameRef.current?.focus();
   }, []);
 
   const handleConfirm = () => {
-    dispatch(updateRecipeField({field: 'name', value: nameRef.current?.value || ''}));
-    dispatch(updateRecipeField({field: 'image', value: imageSrc}));
-     onClose()
+    dispatch(
+      updateRecipeField({ field: 'name', value: nameRef.current?.value || '' }),
+    );
+    dispatch(updateRecipeField({ field: 'image', value: imageSrc }));
+    onClose();
   };
 
   const handleImageClick = () => {
@@ -69,16 +70,15 @@ export const EditingRecipeName: React.FC<EditingRecipeNameProps> = ({
     }
   };
 
-  const handleChangeName = 
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      const name = event.target.value;
-      setRecipeInfo((prev) => ({
-        ...prev!,
-        name,
-      }));
-     
-    }
+  const handleChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const name = event.target.value;
+    dispatch(updateRecipeField({field: 'name', value: name}))
+  };
 
+  const handleChangeDescription = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const description = event.target.value;
+    dispatch(updateRecipeField({field: 'description', value: description}))
+  }
 
   return (
     <div className={styles['main-container']}>
@@ -90,17 +90,6 @@ export const EditingRecipeName: React.FC<EditingRecipeNameProps> = ({
           <img src={returnIcon} alt="вернуться" />
         </button>
         <div className={styles['main-container__editing']}>
-          <div className={styles['main-container__edit-name']}>
-            <h2 className={styles['edit-name__name']}>Название</h2>
-            <input
-              className={styles['edit-name__input']}
-              type="text"
-              placeholder={recipeInfo?.name}
-              ref={nameRef}
-              onChange={handleChangeName}
-            />
-          </div>
-
           <div className={styles['main-container__edit-image']}>
             <h2 className={styles['edit-image__name']}>Фото</h2>
             <div
@@ -110,7 +99,7 @@ export const EditingRecipeName: React.FC<EditingRecipeNameProps> = ({
               <div className={styles['edit-image__image-box']}>
                 <img
                   className={styles['edit-image__image']}
-                  src={recipeInfo?.image}
+                  src={recipeInfo.image}
                   alt="Рецепт"
                 />
                 <div className={styles['edit-image__overlay']}>
@@ -129,6 +118,26 @@ export const EditingRecipeName: React.FC<EditingRecipeNameProps> = ({
                 />
               </div>
             </div>
+          </div>
+          <div className={styles['main-container__edit-name']}>
+            <h2 className={styles['edit-name__name']}>Название</h2>
+            <input
+              className={styles['edit-name__input']}
+              type="text"
+              placeholder={recipeInfo?.name}
+              ref={nameRef}
+              onChange={handleChangeName}
+            />
+          </div>
+          <div className={styles['main-container__edit-description']}>
+            <h2 className={styles['edit-description__name']}>Описание</h2>
+            <textarea
+              className={styles['edit-description__input']}
+              type="text"
+              placeholder={recipeInfo?.description || 'Краткое описание'}
+              ref={descRef}
+              onChange={handleChangeDescription}
+            />
           </div>
         </div>
         <button

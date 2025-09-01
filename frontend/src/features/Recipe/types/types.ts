@@ -10,7 +10,7 @@ export interface initialIngredient {
 
 //типизация для рецепта
 
-interface Ingredient {
+export interface Ingredient {
   id: number;
   name: string;
   amount: number;
@@ -60,4 +60,17 @@ export interface Recipe {
   ingredients: Ingredients;
   recipe_steps: RecipeSteps;
   advance: Advance;
+}
+
+
+
+//типизация для информации о энерегетической ценности ингредиента
+export interface ingredientEnergyInfo {
+  id: number;
+  name: string;
+  protein: number;
+  fat: number;
+  carbs: number;
+  calories: number;
+
 }
