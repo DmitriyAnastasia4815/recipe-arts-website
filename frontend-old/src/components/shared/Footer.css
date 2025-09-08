@@ -1,0 +1,23 @@
+.footer__hr{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer__hr-item{
+    height: 1px; /* Толщина линии */
+    background-color: #333; /* Цвет линии */
+    margin: 10px 0; /* Отступы сверху и снизу */
+    width: 100vw; /* Полная ширина */
+}
+
+.footer__content{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.footer-logo {
+    margin: 0 32px;
+}

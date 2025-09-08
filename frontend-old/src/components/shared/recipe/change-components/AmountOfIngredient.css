@@ -1,0 +1,42 @@
+.amount-container {
+  display: flex;
+  align-items: center;
+  margin-top: 8px;
+  margin-left: 30px; /* Отступ для выравнивания под чекбоксом */
+}
+
+.amount-title {
+  margin-right: 10px;
+  font-size: 14px;
+}
+
+.quantity-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.quantity-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+  cursor: pointer;
+}
+
+.quantity-btn img {
+  width: 16px;
+  height: 16px;
+}
+
+.quantity-value {
+  width: 60px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  text-align: center;
+}
